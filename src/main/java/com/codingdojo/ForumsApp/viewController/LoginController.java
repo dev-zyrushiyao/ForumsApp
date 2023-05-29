@@ -41,9 +41,6 @@ public class LoginController {
     public String registration(@Valid @ModelAttribute("user") UserModel userModel,
     		BindingResult result, Model modelView, HttpSession session , RedirectAttributes redirectAttributes) {
     	
-    	//@TO ADD- Add a validation IF the user enters exisitng email
-    	
-    	
     	//Register as USER	
     	userValidator.validate(userModel, result);
         if (result.hasErrors()) {
@@ -86,10 +83,22 @@ public class LoginController {
     		
     		return "registrationPageAdmin.jsp";
         }else {
+        	UserModel userNameChecker = userService.findByUsername(userModel.getUserName());
+        	System.out.println("Username checker: " + userNameChecker);
+        	
+        	//if a username exist(not null) : display object of users data - Not saving the object of user instead just redirect page
+        	//if a username does not exist yet == null - Register a User
+        	if(userNameChecker !=null ) {
+        		redirectAttributes.addFlashAttribute("registrationMessageError", "Error: Username already taken");
+        		
+        		return "redirect:/registration";
+        	}else {
         	redirectAttributes.addFlashAttribute("registrationMessage", "Registration success!");
 	        userService.saveUserWithAdminRole(userModel);
 	        return "redirect:/registration_admin";
+        	}
         }
+        
     }
     
     
