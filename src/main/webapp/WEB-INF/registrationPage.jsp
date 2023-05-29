@@ -17,7 +17,8 @@
 	 <h1>Register! USER</h1>
     
     <p style="color:red"><form:errors path="user.*"/></p> 
-    <p style="color:green"><c:out value="${registrationMessage}"/></p> 
+    <p style="color:green"><c:out value="${registrationMessageSuccess}"/></p>
+    <p style="color:red"><c:out value="${registrationMessageError}"/></p> 
     <form:form method="POST" action="/registration" modelAttribute="user">
         <p>
             <form:label path="userName">Username:</form:label>

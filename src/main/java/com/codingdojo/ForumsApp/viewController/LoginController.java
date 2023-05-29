@@ -50,11 +50,21 @@ public class LoginController {
         	
             return "registrationPage.jsp";
         }else {
-        		redirectAttributes.addFlashAttribute("registrationMessage", "Registration success!");
+        	UserModel userNameChecker = userService.findByUsername(userModel.getUserName());
+        	System.out.println("Username checker: " + userNameChecker);
+        	
+        	//if a username exist(not null) : display object of users data - Not saving the object of user instead just redirect page
+        	//if a username does not exist yet == null - Register a User
+        	if(userNameChecker !=null ) {
+        		redirectAttributes.addFlashAttribute("registrationMessageError", "Error: Username already taken");
+        		
+        		return "redirect:/registration";
+        	}else {
+        		redirectAttributes.addFlashAttribute("registrationMessageSuccess", "Registration success!");
            	 	userService.saveWithUserRole(userModel);
    		     
            	 	return "redirect:/registration";
-        	
+        	}
         }
         
         
