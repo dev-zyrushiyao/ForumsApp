@@ -91,11 +91,11 @@ public class LoginController {
         	if(userNameChecker !=null ) {
         		redirectAttributes.addFlashAttribute("registrationMessageError", "Error: Username already taken");
         		
-        		return "redirect:/registration";
+        		return "redirect:/registration_admin";
         	}else {
-        	redirectAttributes.addFlashAttribute("registrationMessage", "Registration success!");
-	        userService.saveUserWithAdminRole(userModel);
-	        return "redirect:/registration_admin";
+	        	redirectAttributes.addFlashAttribute("registrationMessage", "Registration success!");
+		        userService.saveUserWithAdminRole(userModel);
+		        return "redirect:/registration_admin";
         	}
         }
         
