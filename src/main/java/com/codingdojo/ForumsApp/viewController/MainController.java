@@ -55,90 +55,78 @@ public class MainController {
 		return "admin_dashboard.jsp";
 	}
 
+	//Username as path
+	@GetMapping("/user/profile/{userName}")
+	public String profilePage(@PathVariable String userName, Model modelView , HttpSession session) {
+		//to load primary info of account (Username and Created at via JSP)
+		UserModel userModel = userService.findByUsername(userName);
+		modelView.addAttribute("currentUser" , userModel);
+		
+
+		//to load the userData form (data bind) by user
+		//if the UserModel has not yet userData then load the DataBind form 
+		//Data checker is also used as conditional in JSP
+		UserModel userModelDataChecker = userModel;
+		modelView.addAttribute("userModelDataChecker", userModelDataChecker);
+		if((userModelDataChecker.getUserData()) == null) {
+			modelView.addAttribute("userDataForm" , new UserDataModel());
+		}
+		
+		return "user_profile.jsp";
+	}
+
+	@PostMapping("/post/userdata/{userName}")
+	public String createUserData(@PathVariable String userName, Model modelView, RedirectAttributes redirectAttributes,
+		@Valid @ModelAttribute("userDataForm") UserDataModel userData , BindingResult result) {
+		
+		UserModel currentUser = this.userService.findByUsername(userName);
+		
+		if(result.hasErrors()) {
+
+			modelView.addAttribute("currentUser" , currentUser);
+			System.out.println("Info saving fail!");
+			return "user_profile.jsp";
+		}else {
+			modelView.addAttribute("currentUser" , currentUser);
+			redirectAttributes.addFlashAttribute("userDataMessage", "Profile Information Successfully saved");
+			this.userDataService.createUserData(userData);
+			
+			return "redirect:/user/profile/" + currentUser.getUserName();
+		}
+	}
 	
-//	@GetMapping("/dashboard")
-//	public String dashboardPage(Model modelView, HttpSession session) {
-//		UserModel userModel = userService.crud_idValidation((Long)session.getAttribute("userIdSession"));
-//		session.setAttribute("userLoggedSession", userModel);
-//		modelView.addAttribute("userModel" , userModel);
-//		
-//		
-//		return "dashboard.jsp";
-//	}
-//	//FIXED:TEXTBOX/INFO VIEW BUG NOT UPDATING WITH NEW INFO BECAUSE OF SESSION saved as OBJECT
-//	@GetMapping("/user/profile/{userName}")
-//	public String profilePage(@PathVariable String userName, Model modelView , HttpSession session) {
-//		//to load primary info of account (Username and Created at)
-//		UserModel userModel = userService.findUserName(userName);
-//		modelView.addAttribute("userLogged" , userModel);
-//		
-//
-//		//to load the userData by user
-//		//if the UserModel has not yet userData then load the DataBind form
-//		UserModel userModelDataChecker = (UserModel) session.getAttribute("userLoggedSession");
-//		modelView.addAttribute("userModelDataChecker", userModelDataChecker);
-//		if((userModelDataChecker.getUserData()) == null) {
-//			modelView.addAttribute("userDataForm" , new UserDataModel());
-//		}
-//		
-//		return "profile.jsp";
-//		
-//		
-//	}
-//	
-//	@PostMapping("/post/userdata")
-//	public String createUserData(Model modelView, HttpSession session , RedirectAttributes redirectAttributes,
-//		@Valid @ModelAttribute("userDataForm") UserDataModel userData , BindingResult result) {
-//		
-//		if(result.hasErrors()) {
-//			UserModel userModel = (UserModel)session.getAttribute("userLoggedSession");
-//			modelView.addAttribute("userLogged" , userModel);
-//			System.out.println("Info saving fail!");
-//			return "profile.jsp";
-//		}else {
-//			this.userDataService.createUserData(userData);
-//			System.out.println("data saved!");
-//			
-//			return "redirect:/dashboard";
-//			
-//		}
-//		
-//	}
-//	
-//	//FIXED:TEXTBOX BUG NOT UPDATING WITH NEW INFO BECAUSE OF SESSION saved as OBJECT
-//	@GetMapping("/update/user/id/{id}")
-//	public String updatePage(@PathVariable Long id, Model modelView , HttpSession session) {
-//		UserModel userModel = this.userService.findUserId(id);
-//		modelView.addAttribute("userDataUpdateForm" , userModel.getUserData());
-//		
-//		//to use as URL(FORM) of UpdatePage
-//		modelView.addAttribute("userLogged" , session.getAttribute("userLoggedSession"));
-//		return "updateInfo.jsp";
-//	}
-//	
-//	@PutMapping("update/user/info/{id}")
-//	public String updateInfo(
-//			@PathVariable Long id ,Model modelView, HttpSession session, RedirectAttributes redirectAttributes,
-//			@Valid @ModelAttribute("userDataUpdateForm") UserDataModel userData , BindingResult result) {
-//		
-//		
-//		//UserModel to use on if else and URL return for ELSE
-//		if(result.hasErrors()) {
-//			UserModel userModel = userService.findUserId(id);
-//			modelView.addAttribute("userLogged" , userModel);
-//			System.out.println("Update saving fail!");
-//			return "updateInfo.jsp";
-//		}else {
-//			this.userDataService.updateUserData(userData);
-//			
-//			//return ROUTE URL
-//			UserModel userModel = userService.findUserId(id);
-//			
-//			return "redirect:/user/profile/" + userModel.getUserName();	
-//		
-//		}
-//		
-//	}
+	//always use ID pathvariable else it will save instead of update [ID of User]
+	@GetMapping("/update/user/id/{id}")
+	public String updatePage(@PathVariable Long id, Model modelView , HttpSession session) {
+		
+		UserModel userModel = this.userService.findUserById(id);
+		modelView.addAttribute("userDataUpdateForm" , userModel.getUserData());
+		
+		//to use as URL(FORM) of UpdatePage
+		modelView.addAttribute("currentUser" , userModel);
+		return "user_updateInfo.jsp";
+	}
+	
+	//always use ID pathvariable else it will save instead of update [ID Data of User]
+	//${currentUser.getUserData().getId() <-FORM Action URL
+	@PutMapping("update/user/info/{id}") 
+	public String updateInfo(@PathVariable Long id, Model modelView, HttpSession session, RedirectAttributes redirectAttributes,
+			@Valid @ModelAttribute("userDataUpdateForm") UserDataModel userData , BindingResult result) {
+		
+		if(result.hasErrors()) {
+			modelView.addAttribute("currentUser" , userService.findUserById(id));
+			System.out.println("Update saving fail!");
+			return "user_updateInfo.jsp";
+		}else {
+			//updates the data
+			redirectAttributes.addFlashAttribute("updateUserDataMessage", "Data Successfully updated");
+
+			this.userDataService.updateUserData(userData);
+			return "redirect:/update/user/id/" + userData.getUserAccount().getId();	
+		
+		}
+		
+	}
 	
 	
 }

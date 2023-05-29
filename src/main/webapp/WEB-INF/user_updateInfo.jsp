@@ -10,13 +10,13 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>UPDATE INFO</title>
+<title><c:out value="${currentUser.getUserName()}"/> | Update Info</title>
 </head>
 <body>
-	<a href="/dashboard">GO BACK</a>
-		<form:form action="/update/user/info/${userLogged.getUserData().getId()}" method="POST" modelAttribute="userDataUpdateForm">
+	<a href="/user/profile/${currentUser.getUserName()}">GO BACK</a>
+		<form:form action="/update/user/info/${currentUser.getUserData().getId()}" method="POST" modelAttribute="userDataUpdateForm">
 			<input type="hidden" name="_method" value="put">
-			<label style="color:green"><c:out value="${dataSuccess}"></c:out></label>
+			<label style="color:green"><c:out value="${updateUserDataMessage}"></c:out></label>
 			<br>
 			<label>Update your profile</label>
 			<ul>
@@ -41,12 +41,12 @@
 					<form:input path="programmingLanguage" type="text"/>
 					<form:errors path="programmingLanguage" class="text-danger" style="color:red"/>
 				</li>
-				<li>
+				<li style="display:none">
 					<label>User ID</label> <!-- to be hidden -->
-					<form:input path="userAccount" type="text" value="${userLogged.getId()}" readonly="true"/> 
-				</li>
+					<form:input path="userAccount" type="text" readonly="true"/> 
+				</li> 
 				<li>
-					<input type="submit" value="Submit">
+					<input type="submit" value="UPDATE INFORMATION">
 					<input type="reset" value="Clear">
 				</li>
 			</ul>

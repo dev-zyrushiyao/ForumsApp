@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title> <c:out value="${userLogged.getUserName()} | Profile"></c:out></title>
+<title> <c:out value="${currentUser.getUserName()} | Profile"></c:out></title>
 </head>
 <body>
 	
@@ -19,28 +19,33 @@
 	<c:choose>
 		<c:when test="${userModelDataChecker.getUserData() == null}">
 			<ul>
-				<li>Username: <c:out value="${userLogged.getUserName()}"/></li>
-				<li>Joined at: <c:out value="${userLogged.getCreatedAt()}"/></li>
+				<li>Username: <c:out value="${currentUser.getUserName()}"/></li>
+				<li>Joined at: <c:out value="${currentUser.getCreatedAt()}"/></li>
 			</ul>
 		</c:when>
 		
 		<c:otherwise>
 			<ul>
 				<!-- <li>USER IMAGE PLACE HOLDER</li> -->
-				<li>Username: <c:out value="${userLogged.getUserName()}"/></li>
-				<li>Name: <c:out value="${userLogged.getUserData().getFirstName()} ${userLogged.getUserData().getLastName()}"/></li>
-				<li>Location: <c:out value="${userLogged.getUserData().getLocation()}"/></li>
-				<li>Fav. Programming Language <c:out value="${userLogged.getUserData().getProgrammingLanguage()}"/></li>
-				<li>Joined at: <c:out value="${userLogged.getCreatedAt()}"/></li>
+				<li>Username: <c:out value="${currentUser.getUserName()}"/></li>
+				<li>Name: <c:out value="${currentUser.getUserData().getFirstName()} ${userLogged.getUserData().getLastName()}"/></li>
+				<li>Location: <c:out value="${currentUser.getUserData().getLocation()}"/></li>
+				<li>Fav. Programming Language <c:out value="${currentUser.getUserData().getProgrammingLanguage()}"/></li>
+				<li>Joined at: <c:out value="${currentUser.getCreatedAt()}"/></li>
 				
 			</ul>
 		</c:otherwise> 
 	</c:choose>
 	
+	<label style="color:green"><c:out value="${userDataMessage}"></c:out></label>
+	
 	<c:choose>
+		
 		<c:when test="${userModelDataChecker.getUserData() == null}">
-			<form:form action="/post/userdata" method="POST" modelAttribute="userDataForm">
-			<label style="color:green"><c:out value="${dataSuccess}"></c:out></label>
+			<p style="color:green"><c:out value="${userDataMessage}"/></p>
+			
+			<form:form action="/post/userdata/${currentUser.getUserName()}" method="POST" modelAttribute="userDataForm">
+			
 			<br>
 			<label>Complete your profile</label>
 			<ul>
@@ -67,7 +72,7 @@
 				</li>
 				<li>
 					<label>User ID</label> <!-- to be hidden -->
-					<form:input path="userAccount" type="text" value="${userLogged.getId()}" readonly="true"/> 
+					<form:input path="userAccount" type="text" value="${currentUser.getId()}" readonly="true"/> 
 				</li>
 				<li>
 					<input type="submit" value="Submit">
@@ -78,7 +83,7 @@
 		</c:when>
 		
 		<c:otherwise>
-			<form action="/update/user/id/${userLogged.getId()}" method="GET">
+			<form action="/update/user/id/${currentUser.getId()}" method="GET">
 				<input type="submit" value="Update profile">
 			</form>
 		</c:otherwise>
