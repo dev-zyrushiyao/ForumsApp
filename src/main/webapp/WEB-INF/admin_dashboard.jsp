@@ -25,9 +25,10 @@
 <div id="sticky-header">
 	<div id="header-flexbox">
 		<h1 id="user-greeting">Welcome, Admin <span id="user"><c:out value="${currentUser.getUserName()}"/></span></h1>
-		<a id="new-game-link" href="admin/new/game"> Add game </a> <!-- FOR UPDATE CODE -->
-		<a id="new-game-link" href="admin/new/genre"> Add genre </a>
-		<a id="new-game-link" href="admin/new/platform"> Add Platform </a>
+		
+		<a id="new-game-link" href="/admin/create/main/topic"> Add Main Topic </a>
+		<br>
+		<a id="new-game-link" href="/admin/view/main/topic"> View Main Topic List </a>
 			
 		<form id="logoutForm" method="POST" action="/logout">
 	        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

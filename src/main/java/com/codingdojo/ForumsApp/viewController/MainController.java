@@ -6,8 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.aspectj.weaver.NewConstructorTypeMunger;
-import org.hibernate.validator.constraints.ISBN;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,15 +16,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.codingdojo.ForumsApp.auth.UserModel;
+import com.codingdojo.ForumsApp.models.ForumMainTopic;
 import com.codingdojo.ForumsApp.models.UserDataModel;
-
+import com.codingdojo.ForumsApp.services.MainTopicService;
 import com.codingdojo.ForumsApp.services.UserDataService;
 import com.codingdojo.ForumsApp.services.UserService;
 
 import net.bytebuddy.asm.Advice.This;
+
 
 @Controller
 public class MainController {
@@ -35,6 +37,9 @@ public class MainController {
 	
 	@Autowired
 	private UserDataService userDataService;
+	
+	@Autowired
+	private MainTopicService mainTopicService;
 	
 	//default for user
 	@GetMapping(value = {"/", "/dashboard"})
@@ -123,10 +128,36 @@ public class MainController {
 
 			this.userDataService.updateUserData(userData);
 			return "redirect:/update/user/id/" + userData.getUserAccount().getId();	
-		
 		}
-		
 	}
 	
+	@GetMapping("/admin/create/main/topic")
+	public String MainTopicPage(Model modelView , ForumMainTopic mainTopic) {
+		modelView.addAttribute("mainTopicForm", mainTopic );
+		
+		return "admin_mainTopic.jsp";
+	}
+	
+	//add a topic using GET
+	@GetMapping("/admin/create/new/main/topic")
+	public String createMainTopic(RedirectAttributes redirectAttributes,
+			@Valid @ModelAttribute("mainTopicForm")ForumMainTopic forumMainTopic , BindingResult result) {
+		
+		if(result.hasErrors()) {
+			return "admin_mainTopic.jsp";
+		}else {
+			redirectAttributes.addFlashAttribute("mainTopicMessage", "New Main Topic Added!");
+			this.mainTopicService.createTopic(forumMainTopic);
+			return "redirect:/admin/create/main/topic";
+		}
+	}
+	
+	@GetMapping("/admin/view/main/topic")
+	public String viewMainTopic(Model modelView) {
+		modelView.addAttribute("forumMainTopic", this.mainTopicService.findAllTopic());
+		return "admin_viewMainTopic.jsp";
+	}
+	
+	//TO ADD EDIT and DELETE Main TOPICS
 	
 }
