@@ -11,12 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.servlet.ModelAndView;
+
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.codingdojo.ForumsApp.auth.UserModel;
@@ -26,7 +27,7 @@ import com.codingdojo.ForumsApp.services.MainTopicService;
 import com.codingdojo.ForumsApp.services.UserDataService;
 import com.codingdojo.ForumsApp.services.UserService;
 
-import net.bytebuddy.asm.Advice.This;
+
 
 
 @Controller
@@ -159,5 +160,38 @@ public class MainController {
 	}
 	
 	//TO ADD EDIT and DELETE Main TOPICS
+	@GetMapping("/admin/update/main/topic/id/{id}")
+	public String editMainTopicPage(@PathVariable Long id, Model modelView , ForumMainTopic forumMainTopic) {
+		
+	 forumMainTopic = this.mainTopicService.findTopicById(id);
+		modelView.addAttribute("updateMainTopicForm", forumMainTopic);
+		return "admin_mainTopicUpdate.jsp";
+	}
+	
+	@PutMapping("/admin/update/info/main/topic/id/{id}")
+	public String updateMainTopic(@PathVariable Long id , 
+			@Valid @ModelAttribute("updateMainTopicForm")ForumMainTopic forumMainTopic , 
+			BindingResult result , RedirectAttributes redirectAttributes) {
+			
+		if(result.hasErrors()) {
+			return "admin_mainTopicUpdate.jsp";
+		}else {
+			redirectAttributes.addFlashAttribute("updateTopic" , "Topic has been successfully updated!");
+			this.mainTopicService.updateTopic(forumMainTopic);
+			return "redirect:/admin/update/main/topic/id/" + forumMainTopic.getId();
+		}
+	}
+	
+	//delete mapping for debugging
+	//@DeleteMapping not working but working on anchor tag as GET mapping
+	@GetMapping("/admin/delete/main/topic/id/{id}")
+	public String deleteMainTopic(@PathVariable Long id) {
+			
+		this.mainTopicService.deleteTopic(id);
+		return "redirect:/admin/view/main/topic";
+	}
+	
+	
+	
 	
 }

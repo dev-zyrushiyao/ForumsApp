@@ -3,6 +3,7 @@ package com.codingdojo.ForumsApp.models;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,11 +31,11 @@ public class ForumMainTopic {
 	
 	
 	@NotBlank(message = "This field should not be blank")
-	@Size(min = 4 , max = 15 , message = "This parameter accept 4 ~ 15 characters")
+	@Size(min = 4 , max = 30 , message = "This parameter accept 4 ~ 15 characters")
 	private String title;
 	
 	@NotBlank(message = "This field should not be blank")
-	@Size(min = 4 , max = 20 , message = "This parameter accept 4 ~ 20 characters")
+	@Size(min = 4 , max = 40 , message = "This parameter accept 4 ~ 20 characters")
 	private String description;
 	
 	@Column(updatable = false)
@@ -43,7 +44,7 @@ public class ForumMainTopic {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date updatedAt;
 	
-	@OneToMany(mappedBy = "forumMainTopics" , fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "forumMainTopics" , cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<ForumSubTopic> forumSubTopics;
 	
 	@PrePersist

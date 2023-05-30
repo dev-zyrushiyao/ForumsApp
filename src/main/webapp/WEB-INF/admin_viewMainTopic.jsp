@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css"/>
 </head>
 <body>
-
+<a href="/admin"> GO BACK</a>
 <h1>All main topics</h1>
 	
 	
@@ -37,13 +37,16 @@
 	      <td> <c:out value="${topicList.getDescription()}"/> </td>
 		      <td> 
 		      	<div>
-			      	<form action="/admin/update/main/topic" method="GET">
-			      		<input type="button" class="btn btn-primary" value="EDIT">
+			      	<form action="/admin/update/main/topic/id/${topicList.getId()}" method="GET">
+			      		<input type="submit" class="btn btn-primary" value="EDIT">
+			      	</form>
+			      				
+			      	<form action="/admin/delete/main/topic/id/${topicList.getId()}" method="GET">
+			      		<!-- <input type="hidden" name="_method" value="delete"> -->
+			      		<input type="submit" class="btn btn-danger" value="delete" onClick="return confirm('Are you sure you want to delete [ID:' + ${topicList.getId()} + ']')">
 			      	</form>
 			      	
-			      	<form action="/admin/delete/main/topic" method="GET">
-			      		<input type="button" class="btn btn-danger" value="DELETE" onClick="return confirm('Are you sure you want to delete ID:' + ${topicList.getId()})">
-			      	</form>
+			      	<a href="/admin/delete/main/topic/id/${topicList.getId()}"> delete </a>
 		      	</div>
 		      </td>
 	</tr>
