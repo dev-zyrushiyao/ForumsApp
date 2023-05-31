@@ -40,4 +40,8 @@ public class MainTopicService {
 	public List<ForumMainTopic> findAllTopic() {
 		return this.mainTopicRepo.findAll();
 	}
+	
+	public ForumMainTopic findMainForumByTitle(String title) {
+		return this.mainTopicRepo.findByTitle(title);
+	}
 }

@@ -11,32 +11,38 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Create Main Topic</title>
+<title>Create Sub Topic</title>
 </head>
 <body>
 
-<a href="/admin/view/main/topic"> GO BACK</a>
+<a href="/admin/view/${MainTopicName.getTitle()}/subtopic/"> GO BACK</a>
 <br>
-		<label>Create Main Topic</label>
+		<label>Create Sub Topic for <c:out value="${MainTopicName.getTitle()}"/></label>
 		<br>
-		<form:form action="/admin/create/new/main/topic" method="GET" modelAttribute="mainTopicForm">
+
+		<form:form action="/admin/create/${MainTopicName.getTitle()}/new/sub/topic" method="GET" modelAttribute="subTopicForm">
 			
-			<label style="color:green"><c:out value="${mainTopicMessage}"></c:out></label>
+			<label style="color:green"><c:out value="${subTopicMessage}"></c:out></label>
 
 		<ul>
 				<li>
-					<label>Topic Title: </label>
+					<form:label path="title">Topic Title: </form:label>
 					<form:input path="title" type="text"/>
 					<br>
 					<form:errors path="title" class="text-danger" style="color:red"/>
 					
 				</li>
 				<li>
-					<label>Description: </label>
+					<form:label path="description">Description: </form:label>
 					<form:input path="description" type="text"/>
 					<br>
 					<form:errors path="description" class="text-danger" style="color:red"/> 
 				</li>
+				<li>
+					<!-- To be Hidden -->
+					<form:label path="forumMainTopics">Main Topic ID: </form:label>
+					<form:input path="forumMainTopics" type="text" value="${MainTopicName.getId()}" readonly="true"/>
+					
 				<li>
 					<input type="submit" value="CREATE TOPIC">
 					<input type="reset" value="Clear">

@@ -26,8 +26,6 @@
 	<div id="header-flexbox">
 		<h1 id="user-greeting">Welcome, Admin <span id="user"><c:out value="${currentUser.getUserName()}"/></span></h1>
 		
-		<a id="new-game-link" href="/admin/create/main/topic"> Add Main Topic </a>
-		<br>
 		<a id="new-game-link" href="/admin/view/main/topic"> View Main Topic List </a>
 			
 		<form id="logoutForm" method="POST" action="/logout">

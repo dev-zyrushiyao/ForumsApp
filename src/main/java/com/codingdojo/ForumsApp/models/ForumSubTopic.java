@@ -1,9 +1,7 @@
 package com.codingdojo.ForumsApp.models;
 
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,12 +28,12 @@ public class ForumSubTopic {
 	private Long id;
 	
 	
-	@NotBlank(message = "This field should not be blank")
-	@Size(min = 4 , max = 15 , message = "This parameter accept 4 ~ 15 characters")
+	@NotBlank
+	@Size(min = 4 , max = 30 )
 	private String title;
 	
-	@NotBlank(message = "This field should not be blank")
-	@Size(min = 4 , max = 20 , message = "This parameter accept 4 ~ 20 characters")
+	@NotBlank
+	@Size(min = 4 , max = 40 )
 	private String description;
 	
 	@Column(updatable = false)
@@ -58,6 +56,12 @@ public class ForumSubTopic {
 	@PreUpdate
 	protected void onUpdate() {
 		this.updatedAt = new Date();
+	}
+	
+
+	public ForumSubTopic() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public ForumSubTopic(

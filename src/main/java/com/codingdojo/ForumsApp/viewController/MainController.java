@@ -1,6 +1,7 @@
 package com.codingdojo.ForumsApp.viewController;
 
 import java.security.Principal;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,8 +23,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.codingdojo.ForumsApp.auth.UserModel;
 import com.codingdojo.ForumsApp.models.ForumMainTopic;
+import com.codingdojo.ForumsApp.models.ForumSubTopic;
 import com.codingdojo.ForumsApp.models.UserDataModel;
 import com.codingdojo.ForumsApp.services.MainTopicService;
+import com.codingdojo.ForumsApp.services.SubTopicService;
 import com.codingdojo.ForumsApp.services.UserDataService;
 import com.codingdojo.ForumsApp.services.UserService;
 
@@ -41,6 +44,9 @@ public class MainController {
 	
 	@Autowired
 	private MainTopicService mainTopicService;
+	
+	@Autowired
+	private SubTopicService subTopicService;
 	
 	//default for user
 	@GetMapping(value = {"/", "/dashboard"})
@@ -139,7 +145,7 @@ public class MainController {
 		return "admin_mainTopic.jsp";
 	}
 	
-	//add a topic using GET
+	//add a topic using GET 
 	@GetMapping("/admin/create/new/main/topic")
 	public String createMainTopic(RedirectAttributes redirectAttributes,
 			@Valid @ModelAttribute("mainTopicForm")ForumMainTopic forumMainTopic , BindingResult result) {
@@ -159,7 +165,6 @@ public class MainController {
 		return "admin_viewMainTopic.jsp";
 	}
 	
-	//TO ADD EDIT and DELETE Main TOPICS
 	@GetMapping("/admin/update/main/topic/id/{id}")
 	public String editMainTopicPage(@PathVariable Long id, Model modelView , ForumMainTopic forumMainTopic) {
 		
@@ -182,15 +187,54 @@ public class MainController {
 		}
 	}
 	
-	//delete mapping for debugging
-	//@DeleteMapping not working but working on anchor tag as GET mapping
-	@GetMapping("/admin/delete/main/topic/id/{id}")
+	//need to use form:form otherwise the route and its return won't be recognize
+	@DeleteMapping("/admin/delete/main/topic/id/{id}")
 	public String deleteMainTopic(@PathVariable Long id) {
 			
-		this.mainTopicService.deleteTopic(id);
+		this.mainTopicService.deleteTopic(id);	
 		return "redirect:/admin/view/main/topic";
 	}
 	
+	@GetMapping("/admin/view/{mainTopic}/subtopic/")
+	public String subtopicPage(@PathVariable String mainTopic , Model modelView) {
+		
+		//to used as Path variable for [Add sub Topic] route
+		ForumMainTopic forumMainTopic = this.mainTopicService.findMainForumByTitle(mainTopic);
+		modelView.addAttribute("forumMainTopic", forumMainTopic);
+		
+		List<ForumSubTopic> listOfSubTopics = this.subTopicService.findAll();
+		modelView.addAttribute("listOfSubTopics", listOfSubTopics);
+		
+		return "admin_viewSubTopic.jsp";
+	}
+	
+	@GetMapping("/admin/create/{mainTopic}/sub/topic")
+	public String SubTopicPage(@PathVariable String mainTopic ,Model modelView) {
+		
+		modelView.addAttribute("subTopicForm", new ForumSubTopic());
+		
+		ForumMainTopic forumMainTopic = this.mainTopicService.findMainForumByTitle(mainTopic);
+		modelView.addAttribute("MainTopicName", forumMainTopic);
+		return "admin_subTopic.jsp";
+	}
+	
+	@GetMapping("/admin/create/{mainTopic}/new/sub/topic")
+	public String createSubTopic(@PathVariable String mainTopic ,Model modelView , RedirectAttributes redirectAttributes ,
+			@Valid @ModelAttribute("subTopicForm")ForumSubTopic forumSubTopic , BindingResult result) {
+		
+		if(result.hasErrors()) {
+			ForumMainTopic forumMainTopic = this.mainTopicService.findMainForumByTitle(mainTopic);
+			modelView.addAttribute("MainTopicName", forumMainTopic);
+			return "admin_subTopic.jsp";
+		}else {
+			ForumMainTopic forumMainTopic = this.mainTopicService.findMainForumByTitle(mainTopic);
+			redirectAttributes.addFlashAttribute("subTopicMessage", "Subtopic Added!");
+			this.subTopicService.createTopic(forumSubTopic);
+			return "redirect:/admin/create/" + forumMainTopic.getTitle() + "/sub/topic";
+		}
+		
+		
+	}
 	
 	
 	
