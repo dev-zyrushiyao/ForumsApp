@@ -30,6 +30,8 @@ public class SubTopicService {
 		return this.subTopicRepo.findById(id).orElse(null);
 	}
 	
+
+	
 	public void deleteId(Long id) {
 		this.subTopicRepo.deleteById(id);
 	}

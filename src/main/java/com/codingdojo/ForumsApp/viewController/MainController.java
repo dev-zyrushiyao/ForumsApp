@@ -138,6 +138,13 @@ public class MainController {
 		}
 	}
 	
+	//-----------MAIN TOPIC-------------//
+	@GetMapping("/admin/view/main/topic")
+	public String viewMainTopic(Model modelView) {
+		modelView.addAttribute("forumMainTopic", this.mainTopicService.findAllTopic());
+		return "admin_viewMainTopic.jsp";
+	}
+	
 	@GetMapping("/admin/create/main/topic")
 	public String MainTopicPage(Model modelView , ForumMainTopic mainTopic) {
 		modelView.addAttribute("mainTopicForm", mainTopic );
@@ -145,7 +152,7 @@ public class MainController {
 		return "admin_mainTopic.jsp";
 	}
 	
-	//add a topic using GET 
+		//add a main/sub topic using GET 
 	@GetMapping("/admin/create/new/main/topic")
 	public String createMainTopic(RedirectAttributes redirectAttributes,
 			@Valid @ModelAttribute("mainTopicForm")ForumMainTopic forumMainTopic , BindingResult result) {
@@ -157,12 +164,6 @@ public class MainController {
 			this.mainTopicService.createTopic(forumMainTopic);
 			return "redirect:/admin/create/main/topic";
 		}
-	}
-	
-	@GetMapping("/admin/view/main/topic")
-	public String viewMainTopic(Model modelView) {
-		modelView.addAttribute("forumMainTopic", this.mainTopicService.findAllTopic());
-		return "admin_viewMainTopic.jsp";
 	}
 	
 	@GetMapping("/admin/update/main/topic/id/{id}")
@@ -195,15 +196,17 @@ public class MainController {
 		return "redirect:/admin/view/main/topic";
 	}
 	
-	@GetMapping("/admin/view/{mainTopic}/subtopic/")
+	//-----------SUB TOPIC-------------//
+	@GetMapping("/admin/view/{mainTopic}/subtopic")
 	public String subtopicPage(@PathVariable String mainTopic , Model modelView) {
 		
 		//to used as Path variable for [Add sub Topic] route
 		ForumMainTopic forumMainTopic = this.mainTopicService.findMainForumByTitle(mainTopic);
 		modelView.addAttribute("forumMainTopic", forumMainTopic);
 		
-		List<ForumSubTopic> listOfSubTopics = this.subTopicService.findAll();
-		modelView.addAttribute("listOfSubTopics", listOfSubTopics);
+		// returns as list of all Subtopics of Maintopic(title)
+		List<ForumSubTopic> mainSubTopics = forumMainTopic.getForumSubTopics();
+		modelView.addAttribute("listOfSubTopics", mainSubTopics);
 		
 		return "admin_viewSubTopic.jsp";
 	}
@@ -232,10 +235,34 @@ public class MainController {
 			this.subTopicService.createTopic(forumSubTopic);
 			return "redirect:/admin/create/" + forumMainTopic.getTitle() + "/sub/topic";
 		}
-		
-		
 	}
 	
+	@GetMapping("/admin/update/sub/topic/id/{id}")
+	public String updateSubTopicPage(@PathVariable Long id , Model modelView) {
+		
+		ForumSubTopic forumSubTopic = this.subTopicService.findId(id);
+		modelView.addAttribute("updateSubTopicForm", forumSubTopic);
+		return "admin_subTopicUpdate.jsp";
+	}
 	
+	@PutMapping("/admin/update/info/sub/topic/id/{id}")
+	public String updateSubTopic(@PathVariable Long id , Model modelView ,RedirectAttributes redirectAttributes,
+			@Valid @ModelAttribute("updateSubTopicForm") ForumSubTopic forumSubTopic, BindingResult result) {
+		
+		if(result.hasErrors()) {
+			return "admin_subTopicUpdate.jsp";
+		}else {
+			redirectAttributes.addFlashAttribute("updateTopicMessage", "SubTopic has been successfully updated!");
+			this.subTopicService.updateTopic(forumSubTopic);
+			return "redirect:/admin/update/sub/topic/id/" + forumSubTopic.getId();
+		}
+	}
 	
+	@DeleteMapping("/admin/delete/sub/topic/id/{id}")
+	public String deleteSubTopic(@PathVariable Long id, ForumSubTopic forumSubTopic) {
+		forumSubTopic = this.subTopicService.findId(id);
+		this.subTopicService.deleteId(id);
+	
+		return "redirect:/admin/view/" + forumSubTopic.getForumMainTopics().getTitle() + "/subtopic";
+	}
 }

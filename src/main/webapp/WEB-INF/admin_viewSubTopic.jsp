@@ -39,11 +39,11 @@
 	      <td> <c:out value="${topicList.getDescription()}"/> </td>
 		      <td> 
 		      	<div>
-			      	<form action="/admin/update/main/topic/id/${topicList.getId()}" method="GET">
+			      	<form action="/admin/update/sub/topic/id/${topicList.getId()}" method="GET">
 			      		<input type="submit" class="btn btn-primary" value="EDIT">
 			      	</form>
 			      				
-					<form:form action="/admin/delete/main/topic/id/${topicList.getId()}" method="POST">
+					<form:form action="/admin/delete/sub/topic/id/${topicList.getId()}" method="POST">
 						 <input type="hidden" name="_method" value="DELETE"> 
 						 <input type="submit" class="btn btn-danger" value="DELETE" onClick="return confirm('Are you sure you want to delete [ID:' + ${topicList.getId()} + ']')">
 					</form:form>

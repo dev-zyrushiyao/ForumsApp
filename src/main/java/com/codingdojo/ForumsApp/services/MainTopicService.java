@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.codingdojo.ForumsApp.models.ForumMainTopic;
+import com.codingdojo.ForumsApp.models.ForumSubTopic;
 import com.codingdojo.ForumsApp.repository.MainTopicRepo;
 
 
@@ -44,4 +45,8 @@ public class MainTopicService {
 	public ForumMainTopic findMainForumByTitle(String title) {
 		return this.mainTopicRepo.findByTitle(title);
 	}
+	
+//	public List<ForumMainTopic> findSubTopicOf(List<ForumSubTopic> subTopic) {
+//		return this.mainTopicRepo.findByForumSubTopics(subTopic);
+//	}
 }
