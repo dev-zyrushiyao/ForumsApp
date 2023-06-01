@@ -31,12 +31,21 @@ public class ForumSubTopic {
 	private Long id;
 	
 	
+<<<<<<< HEAD
 	@NotBlank
 	@Size(min = 4 , max = 30 )
 	private String title;
 	
 	@NotBlank
 	@Size(min = 4 , max = 40 )
+=======
+	@NotBlank(message = "This field should not be blank")
+	@Size(min = 4 , max = 30 , message = "This parameter accept 4 ~ 30 characters")
+	private String title;
+	
+	@NotBlank(message = "This field should not be blank")
+	@Size(min = 4 , max = 40 , message = "This parameter accept 4 ~ 40 characters")
+>>>>>>> 2cd5afc3474b4b6be6dc14ac15bb97d4d952776c
 	private String description;
 	
 	@Column(updatable = false)
