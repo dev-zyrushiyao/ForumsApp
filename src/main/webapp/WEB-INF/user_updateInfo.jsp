@@ -14,43 +14,89 @@
 </head>
 <body>
 	<a href="/user/profile/${currentUser.getUserName()}">GO BACK</a>
-		<form:form action="/update/user/info/${currentUser.getUserData().getId()}" method="POST" modelAttribute="userDataUpdateForm">
-			<input type="hidden" name="_method" value="put">
-			<label style="color:green"><c:out value="${updateUserDataMessage}"></c:out></label>
-			<br>
-			<label>Update your profile</label>
-			<ul>
-				<li>
-					<label>First Name: </label>
-					<form:input path="firstName" type="text"/>
-					<form:errors path="firstName" class="text-danger" style="color:red"/>
-					
-				</li>
-				<li>
-					<label>Last Name: </label>
-					<form:input path="lastName" type="text"/>
-					<form:errors path="lastName" class="text-danger" style="color:red"/> 
-				</li>
-				<li>
-					<label>Location: </label>
-					<form:input path="location" type="text"/>
-					<form:errors path="location" class="text-danger" style="color:red"/>
-				</li>
-				<li>
-					<label>Favorite Prog. Language</label>
-					<form:input path="programmingLanguage" type="text"/>
-					<form:errors path="programmingLanguage" class="text-danger" style="color:red"/>
-				</li>
-				<li style="display:none">
-					<label>User ID</label> <!-- to be hidden -->
-					<form:input path="userAccount" type="text" readonly="true"/> 
-				</li> 
-				<li>
-					<input type="submit" value="UPDATE INFORMATION">
-					<input type="reset" value="Clear">
-				</li>
-			</ul>
-			</form:form>
+
+		<c:if test="${currentUser.getUserData() != null}">
+			<form:form action="/update/user/info/${currentUser.getUserData().getId()}" method="POST" modelAttribute="userDataUpdateForm">
+				<input type="hidden" name="_method" value="put">
+				<label style="color:green"><c:out value="${updateUserDataMessage}"></c:out></label>
+				<br>
+				<label>Update your profile</label>
+				<ul>
+					<li>
+						<label>First Name: </label>
+						<form:input path="firstName" type="text"/>
+						<form:errors path="firstName" class="text-danger" style="color:red"/>
+						
+					</li>
+					<li>
+						<label>Last Name: </label>
+						<form:input path="lastName" type="text"/>
+						<form:errors path="lastName" class="text-danger" style="color:red"/> 
+					</li>
+					<li>
+						<label>Location: </label>
+						<form:input path="location" type="text"/>
+						<form:errors path="location" class="text-danger" style="color:red"/>
+					</li>
+					<li>
+						<label>Favorite Prog. Language</label>
+						<form:input path="programmingLanguage" type="text"/>
+						<form:errors path="programmingLanguage" class="text-danger" style="color:red"/>
+					</li>
+					<li style="display:visible">
+						<label>User ID</label> <!-- to be hidden -->
+						<form:input path="userAccount" type="text" readonly="true"/> 
+					</li> 
+					<li>
+						<input type="submit" value="UPDATE INFORMATION">
+						<input type="reset" value="Clear">
+					</li>
+				</ul>
+				</form:form>
+			</c:if>
+			
+			<c:if test="${currentUser.getUserData() == null}">
+		 		<form:form action="/update/user/add/info/${currentUser.getId()}" method="POST" modelAttribute="userDataForm">
+				<input type="hidden" name="_method" value="put">
+				<label style="color:green"><c:out value="${updateUserDataMessage}"></c:out></label>
+				<br>
+				<label>Update your profile</label>
+				<ul>
+					<li>
+						<label>First Name: ADD NEW</label>
+						<form:input path="firstName" type="text"/>
+						<form:errors path="firstName" class="text-danger" style="color:red"/>
+						
+					</li>
+					<li>
+						<label>Last Name: </label>
+						<form:input path="lastName" type="text"/>
+						<form:errors path="lastName" class="text-danger" style="color:red"/> 
+					</li>
+					<li>
+						<label>Location: </label>
+						<form:input path="location" type="text"/>
+						<form:errors path="location" class="text-danger" style="color:red"/>
+					</li>
+					<li>
+						<label>Favorite Prog. Language</label>
+						<form:input path="programmingLanguage" type="text"/>
+						<form:errors path="programmingLanguage" class="text-danger" style="color:red"/>
+					</li>
+					<li style="display:visible">
+						<label>User ID</label> <!-- to be hidden -->
+						<form:input path="userAccount" type="text" value="${currentUser.getId()}" readonly="true"/> 
+					</li> 
+					<li>
+						<input type="submit" value="UPDATE INFORMATION">
+						<input type="reset" value="Clear">
+					</li>
+				</ul>
+				</form:form> 
+			</c:if>
+			
 	
+	
+
 </body>
 </html>

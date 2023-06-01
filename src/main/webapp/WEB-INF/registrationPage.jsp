@@ -32,7 +32,7 @@
             <form:label path="passwordConfirmation">Password Confirmation:</form:label>
             <form:input type="password" path="passwordConfirmation"/>
         </p>
-        <input type="submit" value="Register!"/>
+        <input type="submit" value="Next Step &#8811;"/>
     </form:form> 
 	
 </body>

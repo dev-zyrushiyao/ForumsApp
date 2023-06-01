@@ -1,9 +1,7 @@
 package com.codingdojo.ForumsApp.models;
 
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -21,38 +18,31 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-
 @Entity
-@Table(name="topic_sub")
-public class ForumSubTopic {
+@Table(name= "topic_thread")
+public class ThreadModel {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	
-	@NotBlank
-	@Size(min = 4 , max = 30 )
+	@NotBlank(message = "This field should not be blank")
+	@Size(min = 5 , max = 100 , message = "This parameter accept 4 ~ 15 characters")
 	private String title;
 	
-	@NotBlank
-	@Size(min = 4 , max = 40 )
-	private String description;
+	@NotBlank(message = "This field should not be blank")
+	@Size(min = 1 , max = 200 , message = "This parameter accept 4 ~ 15 characters")
+	private String content;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="topic_sub_id")
+	private ForumSubTopic forumSubTopic;
 	
 	@Column(updatable = false)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date createdAt;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date updatedAt;
-	
-	//Main Topic -> Sub Topic
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="topic_main_id")
-	private ForumMainTopic forumMainTopics;
-	
-	//Sub Topic -> Thread
-	@OneToMany(mappedBy = "forumSubTopic" , cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<ThreadModel> threadTopics;
 	
 	@PrePersist
 	protected void onCreate() {
@@ -63,21 +53,20 @@ public class ForumSubTopic {
 	protected void onUpdate() {
 		this.updatedAt = new Date();
 	}
-	
 
-	public ForumSubTopic() {
+	public ThreadModel() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ForumSubTopic(
-			@NotBlank(message = "This field should not be blank") @Size(min = 4, max = 15, message = "This parameter accept 4 ~ 15 characters") String title,
-			@NotBlank(message = "This field should not be blank") @Size(min = 4, max = 20, message = "This parameter accept 4 ~ 20 characters") String description,
-			ForumMainTopic forumMainTopics) {
+	public ThreadModel(
+			@NotBlank(message = "This field should not be blank") @Size(min = 5, max = 100, message = "This parameter accept 4 ~ 15 characters") String title,
+			@NotBlank(message = "This field should not be blank") @Size(min = 1, max = 200, message = "This parameter accept 4 ~ 15 characters") String content,
+			ForumSubTopic forumSubTopic) {
 		super();
 		this.title = title;
-		this.description = description;
-		this.forumMainTopics = forumMainTopics;
+		this.content = content;
+		this.forumSubTopic = forumSubTopic;
 	}
 
 	public Long getId() {
@@ -96,12 +85,20 @@ public class ForumSubTopic {
 		this.title = title;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getContent() {
+		return content;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public ForumSubTopic getForumSubTopic() {
+		return forumSubTopic;
+	}
+
+	public void setForumSubTopic(ForumSubTopic forumSubTopic) {
+		this.forumSubTopic = forumSubTopic;
 	}
 
 	public Date getCreatedAt() {
@@ -119,16 +116,6 @@ public class ForumSubTopic {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-
-	public ForumMainTopic getForumMainTopics() {
-		return forumMainTopics;
-	}
-
-	public void setForumMainTopics(ForumMainTopic forumMainTopics) {
-		this.forumMainTopics = forumMainTopics;
-	}
-	
-	
 	
 	
 }

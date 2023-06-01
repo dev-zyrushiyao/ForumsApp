@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-
+import org.aspectj.weaver.NewConstructorTypeMunger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -67,53 +67,30 @@ public class MainController {
 		return "admin_dashboard.jsp";
 	}
 
-	//Username as path
 	@GetMapping("/user/profile/{userName}")
-	public String profilePage(@PathVariable String userName, Model modelView , HttpSession session) {
-		//to load primary info of account (Username and Created at via JSP)
-		UserModel userModel = userService.findByUsername(userName);
-		modelView.addAttribute("currentUser" , userModel);
-		
-
-		//to load the userData form (data bind) by user
-		//if the UserModel has not yet userData then load the DataBind form 
-		//Data checker is also used as conditional in JSP
-		UserModel userModelDataChecker = userModel;
-		modelView.addAttribute("userModelDataChecker", userModelDataChecker);
-		if((userModelDataChecker.getUserData()) == null) {
-			modelView.addAttribute("userDataForm" , new UserDataModel());
-		}
-		
+	public String profilePage(Model modelView , @PathVariable String userName , UserModel userModel) {
+		userModel = this.userService.findByUsername(userName);
+		modelView.addAttribute("currentUser", userModel);
 		return "user_profile.jsp";
-	}
-
-	@PostMapping("/post/userdata/{userName}")
-	public String createUserData(@PathVariable String userName, Model modelView, RedirectAttributes redirectAttributes,
-		@Valid @ModelAttribute("userDataForm") UserDataModel userData , BindingResult result) {
-		
-		UserModel currentUser = this.userService.findByUsername(userName);
-		
-		if(result.hasErrors()) {
-
-			modelView.addAttribute("currentUser" , currentUser);
-			System.out.println("Info saving fail!");
-			return "user_profile.jsp";
-		}else {
-			modelView.addAttribute("currentUser" , currentUser);
-			redirectAttributes.addFlashAttribute("userDataMessage", "Profile Information Successfully saved");
-			this.userDataService.createUserData(userData);
-			
-			return "redirect:/user/profile/" + currentUser.getUserName();
-		}
-	}
+	}	
 	
 	//always use ID pathvariable else it will save instead of update [ID of User]
-	@GetMapping("/update/user/id/{id}")
+	@GetMapping("/update/user/profile/id/{id}")
 	public String updatePage(@PathVariable Long id, Model modelView , HttpSession session) {
 		
 		UserModel userModel = this.userService.findUserById(id);
-		modelView.addAttribute("userDataUpdateForm" , userModel.getUserData());
+
 		
+		//if user already has userData ; else add a new user Data (disguse as userDataUpdateForm)
+		if((userModel.getUserData()) != null) {
+			System.out.println("user is NOT null");
+			modelView.addAttribute("userDataUpdateForm" , userModel.getUserData());	
+		}else {
+			System.out.println("user is null");
+			//Create new User Data disguise as update 
+			modelView.addAttribute("userDataForm" , new UserDataModel());
+		}
+				
 		//to use as URL(FORM) of UpdatePage
 		modelView.addAttribute("currentUser" , userModel);
 		return "user_updateInfo.jsp";
@@ -121,7 +98,7 @@ public class MainController {
 	
 	//always use ID pathvariable else it will save instead of update [ID Data of User]
 	//${currentUser.getUserData().getId() <-FORM Action URL
-	@PutMapping("update/user/info/{id}") 
+	@PutMapping("/update/user/info/{id}") 
 	public String updateInfo(@PathVariable Long id, Model modelView, HttpSession session, RedirectAttributes redirectAttributes,
 			@Valid @ModelAttribute("userDataUpdateForm") UserDataModel userData , BindingResult result) {
 		
@@ -132,11 +109,31 @@ public class MainController {
 		}else {
 			//updates the data
 			redirectAttributes.addFlashAttribute("updateUserDataMessage", "Data Successfully updated");
-
+			
 			this.userDataService.updateUserData(userData);
-			return "redirect:/update/user/id/" + userData.getUserAccount().getId();	
+			return "redirect:/update/user/profile/id/" + userData.getUserAccount().getId();	
 		}
 	}
+	
+	@PutMapping("/update/user/add/info/{id}") 
+	public String updateInfoDisguise(@PathVariable Long id, Model modelView, HttpSession session, RedirectAttributes redirectAttributes,
+			@Valid @ModelAttribute("userDataForm") UserDataModel userData , BindingResult result) {
+		
+		if(result.hasErrors()) {
+			modelView.addAttribute("currentUser" , userService.findUserById(id));
+			System.out.println("Update saving fail!");
+			return "user_updateInfo.jsp";
+		}else {
+			//updates the data
+			redirectAttributes.addFlashAttribute("updateUserDataMessage", "Data Successfully updated");
+			
+			this.userDataService.updateUserData(userData);
+			return "redirect:/update/user/profile/id/" + userData.getUserAccount().getId();	
+		}
+	}
+
+	
+	
 	
 	//-----------MAIN TOPIC-------------//
 	@GetMapping("/admin/view/main/topic")

@@ -11,12 +11,15 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.codingdojo.ForumsApp.auth.UserModel;
 import com.codingdojo.ForumsApp.auth.UserValidator;
+import com.codingdojo.ForumsApp.models.UserDataModel;
+import com.codingdojo.ForumsApp.services.UserDataService;
 import com.codingdojo.ForumsApp.services.UserService;
 
 
@@ -29,6 +32,9 @@ public class LoginController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private UserDataService userDataService;
 
 	  //SPRING SECURITY VIA FORM
     @GetMapping("/registration")
@@ -48,7 +54,6 @@ public class LoginController {
             return "registrationPage.jsp";
         }else {
         	UserModel userNameChecker = userService.findByUsername(userModel.getUserName());
-        	System.out.println("Username checker: " + userNameChecker);
         	
         	//if a username exist(not null) : display object of users data - Not saving the object of user instead just redirect page
         	//if a username does not exist yet == null - Register a User
@@ -57,15 +62,63 @@ public class LoginController {
         		
         		return "redirect:/registration";
         	}else {
-        		redirectAttributes.addFlashAttribute("registrationMessageSuccess", "Registration success!");
-           	 	userService.saveWithUserRole(userModel);
-   		     
-           	 	return "redirect:/registration";
-        	}
+        		userService.saveWithUserRole(userModel);
+        		
+      	 	return "redirect:/registration/complete/profile/" + userModel.getUserName();
+       
         }
-        
+       }
         
     }
+    
+	//Complete Registration Page (GET)
+	@GetMapping("/registration/complete/profile/{userName}")
+	public String profilePage(RedirectAttributes redirectAttributes , @PathVariable String userName, Model modelView , HttpSession session) {
+		//to load user account ID on JSP
+		UserModel userModel = userService.findByUsername(userName);
+
+			if(userModel == null) {
+				//Security measure: if someone tries to access the url and the ${userName} is not found(null) then redirect to /registration 
+				//to prevent unwanted saving of UserData from a nonexistent user
+				redirectAttributes.addFlashAttribute("registrationMessageError", "Access Denied!");
+				return "redirect:/registration";
+			}else {
+			//if the UserModel has not yet userData(null) then load the DataBind form / else User already completed profile -> redirect to /registration
+				UserModel userModelDataChecker = userModel;
+				modelView.addAttribute("userModelDataChecker", userModelDataChecker);
+			//Data checker is also used as conditional in JSP
+				if((userModelDataChecker.getUserData()) == null) {
+					modelView.addAttribute("userDataForm" , new UserDataModel());
+					modelView.addAttribute("currentUser", userModel);
+					return "user_complete_profile.jsp";
+				}else {
+					redirectAttributes.addFlashAttribute("registrationMessageError", "Access Denied!");
+					return "redirect:/registration";
+				}
+		}
+			
+	}
+	
+
+	//Complete Registration (POST)
+	@PostMapping("/registration/post/userdata/{userName}")
+	public String createUserData(@PathVariable String userName, Model modelView, RedirectAttributes redirectAttributes,
+		@Valid @ModelAttribute("userDataForm") UserDataModel userData , BindingResult result) {
+		
+		UserModel currentUser = this.userService.findByUsername(userName);
+		if(result.hasErrors()) {
+
+			modelView.addAttribute("currentUser" , currentUser);
+			System.out.println("Info saving fail!");
+			return "user_complete_profile.jsp";
+		}else {
+			modelView.addAttribute("currentUser" , currentUser);
+			redirectAttributes.addFlashAttribute("registrationMessageSuccess", "Profile Information Successfully saved");
+			this.userDataService.createUserData(userData);
+			
+			return "redirect:/registration";
+		}
+	}
     
     //Admin registration route
     @GetMapping("/registration_admin")
@@ -93,7 +146,7 @@ public class LoginController {
         		
         		return "redirect:/registration_admin";
         	}else {
-	        	redirectAttributes.addFlashAttribute("registrationMessage", "Registration success!");
+	        	redirectAttributes.addFlashAttribute("registrationMessage", "Registration success! <br> <a href='/login'>GO Back</a>");
 		        userService.saveUserWithAdminRole(userModel);
 		        return "redirect:/registration_admin";
         	}
