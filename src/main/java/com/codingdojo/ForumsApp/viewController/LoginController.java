@@ -3,8 +3,7 @@ package com.codingdojo.ForumsApp.viewController;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.eclipse.jdt.internal.compiler.env.IModule.IService;
-import org.mindrot.jbcrypt.BCrypt;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

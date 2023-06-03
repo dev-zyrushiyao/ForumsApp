@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -22,6 +23,7 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.codingdojo.ForumsApp.models.ThreadModel;
 import com.codingdojo.ForumsApp.models.UserDataModel;
 
 @Entity
@@ -37,14 +39,21 @@ public class UserModel {
 	    @GeneratedValue(strategy=GenerationType.IDENTITY)
 	    private Long id;
 	  	
-	  	@Size(min=3, message="Username must be greater than 3 characters")
+	  	@Size(min=4, max = 40, message = "Username parameter accept 4 ~ 40 characters" )
 	    private String userName;
 	    
-	  	@Size(min=5, message="Password must be greater than 5 characters")
+	  	@Size(min=4 , max = 40, message="Password parameter accept 4 ~ 40 characters")
 	    private String password;
 	    
 	    @Transient
 	    private String passwordConfirmation;
+	    
+	    @OneToMany(mappedBy = "userThread" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+	    private List<ThreadModel> thread;
+	    
+	    @OneToOne(mappedBy = "userAccount" , cascade = CascadeType.ALL,
+	    		fetch = FetchType.LAZY)
+	    private UserDataModel userData;
 	    
 	    @Column(updatable=false)
 	    @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -61,9 +70,7 @@ public class UserModel {
 	        this.updatedAt = new Date();
 	    }
 	    
-	    @OneToOne(mappedBy = "userAccount" , cascade = CascadeType.ALL,
-	    		fetch = FetchType.LAZY)
-	    private UserDataModel userData;
+	  
 	    
 	    @ManyToMany(fetch = FetchType.EAGER)
 	    @JoinTable(
@@ -134,13 +141,5 @@ public class UserModel {
 			this.userData = userData;
 		}
 	    
-	    
-	    
-	
-	
-	
-	
-		
-	
 	
 }

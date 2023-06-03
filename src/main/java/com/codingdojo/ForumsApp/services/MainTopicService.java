@@ -42,11 +42,8 @@ public class MainTopicService {
 		return this.mainTopicRepo.findAll();
 	}
 	
-	public ForumMainTopic findMainForumByTitle(String title) {
+	public ForumMainTopic findTitle(String title) {
 		return this.mainTopicRepo.findByTitle(title);
 	}
 	
-//	public List<ForumMainTopic> findSubTopicOf(List<ForumSubTopic> subTopic) {
-//		return this.mainTopicRepo.findByForumSubTopics(subTopic);
-//	}
 }

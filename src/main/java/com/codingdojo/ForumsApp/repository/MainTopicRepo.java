@@ -15,4 +15,6 @@ public interface MainTopicRepo extends CrudRepository<ForumMainTopic, Long> {
 	List<ForumMainTopic> findAll();
 	ForumMainTopic findByTitle(String title);
 	
+	
+	
 }

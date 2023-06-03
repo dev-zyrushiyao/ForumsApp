@@ -18,6 +18,8 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.codingdojo.ForumsApp.auth.UserModel;
+
 @Entity
 @Table(name= "topic_thread")
 public class ThreadModel {
@@ -27,16 +29,20 @@ public class ThreadModel {
 	private Long id;
 	
 	@NotBlank(message = "This field should not be blank")
-	@Size(min = 5 , max = 100 , message = "This parameter accept 4 ~ 15 characters")
+	@Size(min = 5 , max = 100 , message = "This parameter accept 5 ~ 100 characters")
 	private String title;
 	
 	@NotBlank(message = "This field should not be blank")
-	@Size(min = 1 , max = 200 , message = "This parameter accept 4 ~ 15 characters")
+	@Size(min = 1 , max = 200 , message = "This parameter only accept 200 characters")
 	private String content;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="topic_sub_id")
 	private ForumSubTopic forumSubTopic;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="thread_id")
+	private UserModel userThread;
 	
 	@Column(updatable = false)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -62,11 +68,12 @@ public class ThreadModel {
 	public ThreadModel(
 			@NotBlank(message = "This field should not be blank") @Size(min = 5, max = 100, message = "This parameter accept 4 ~ 15 characters") String title,
 			@NotBlank(message = "This field should not be blank") @Size(min = 1, max = 200, message = "This parameter accept 4 ~ 15 characters") String content,
-			ForumSubTopic forumSubTopic) {
+			ForumSubTopic forumSubTopic, UserModel userThread) {
 		super();
 		this.title = title;
 		this.content = content;
 		this.forumSubTopic = forumSubTopic;
+		this.userThread = userThread;
 	}
 
 	public Long getId() {
@@ -115,6 +122,15 @@ public class ThreadModel {
 
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+	
+	//One To Many
+	public UserModel getUserThread() {
+		return userThread;
+	}
+
+	public void setUserThread(UserModel userThread) {
+		this.userThread = userThread;
 	}
 	
 	

@@ -47,7 +47,7 @@ public class WebSecurityConfig  {
 			http.authorizeHttpRequests()
 	               .antMatchers("/css/**", "/js/**", "/registration/**" , "/registration_admin").permitAll() //URL w/o Authentication
 	               .antMatchers("/admin/**").hasRole("ADMIN") // PLATFORM: .antMatchers("/admin/**").access("hasRole('ADMIN')") has ERROR [The method access(AuthorizationManager<RequestAuthorizationContext>) in the type AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizedUrl is not applicable for the arguments (String)]
-//	               .antMatchers("/regprocess/**").hasAnyRole("ADMIN" , "USER") //URL That both ROLES has access 
+	               .antMatchers("/forum/**").hasAnyRole("ADMIN" , "USER") //URL That both ROLES has access 
 	               .anyRequest().authenticated()
 	                .and()
 	            .formLogin()

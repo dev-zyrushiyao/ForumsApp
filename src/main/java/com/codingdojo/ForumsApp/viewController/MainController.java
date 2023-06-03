@@ -1,13 +1,15 @@
 package com.codingdojo.ForumsApp.viewController;
 
 import java.security.Principal;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.aspectj.weaver.NewConstructorTypeMunger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,9 +26,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.codingdojo.ForumsApp.auth.UserModel;
 import com.codingdojo.ForumsApp.models.ForumMainTopic;
 import com.codingdojo.ForumsApp.models.ForumSubTopic;
+import com.codingdojo.ForumsApp.models.ThreadModel;
 import com.codingdojo.ForumsApp.models.UserDataModel;
+import com.codingdojo.ForumsApp.repository.ThreadRepo;
 import com.codingdojo.ForumsApp.services.MainTopicService;
 import com.codingdojo.ForumsApp.services.SubTopicService;
+import com.codingdojo.ForumsApp.services.ThreadService;
 import com.codingdojo.ForumsApp.services.UserDataService;
 import com.codingdojo.ForumsApp.services.UserService;
 
@@ -48,14 +53,92 @@ public class MainController {
 	@Autowired
 	private SubTopicService subTopicService;
 	
+	@Autowired
+	private ThreadService threadService;
+	
 	//default for user
 	@GetMapping(value = {"/", "/dashboard"})
-	public String dashboardPage(Principal principal,  HttpServletRequest request, HttpSession session, Model modelView) {
+	public String dashboardPage(Model modelView , Principal principal) {
 		// 1 - TO load Username on the /dashboard page
         String username = principal.getName();
         modelView.addAttribute("currentUser", userService.findByUsername(username));
 			
-			return "user_dashboard.jsp";	
+        List<ForumMainTopic> forumMainTopic = this.mainTopicService.findAllTopic();
+        modelView.addAttribute("forumMainTopic", forumMainTopic);
+        
+			return "user_dashboard_maintopic.jsp";	
+	}
+	
+	//view subtopics of maintopic
+	@GetMapping("/forums/{mainTopic}")
+	public String MainTopicSub(@PathVariable String mainTopic ,Model modelView , Principal principal) {
+		// 1 - TO load Username on the /dashboard page
+        String username = principal.getName();
+        modelView.addAttribute("currentUser", userService.findByUsername(username));
+		
+        ForumMainTopic forumMainTopic = this.mainTopicService.findTitle(mainTopic);
+        List<ForumSubTopic> subTopicsOfMain = this.subTopicService.findSubTopicByMainTopic(forumMainTopic);
+        modelView.addAttribute("forumMainTopic", forumMainTopic);
+        modelView.addAttribute("forumSubTopic", subTopicsOfMain);
+        
+        //Threads URL: /forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()
+			return "user_dashboard_subtopic.jsp";	
+	}
+	
+	//view threads of subtopic
+	@GetMapping("/forums/{mainTopic}/{subTopic}")
+	public String SubTopicThread(Model modelView , @PathVariable String mainTopic , @PathVariable String subTopic , 
+			Principal principal) {
+		String username = principal.getName();
+        modelView.addAttribute("currentUser", userService.findByUsername(username));
+        
+        //Form: Button-New Thread link 
+        ForumMainTopic mTopic = this.mainTopicService.findTitle(mainTopic);
+        ForumSubTopic sTopic = this.subTopicService.findTitle(subTopic);
+        modelView.addAttribute("mainTopic", mTopic);
+        modelView.addAttribute("subTopic", sTopic);
+        
+        //Thread List
+        List<ThreadModel> threadModel = this.threadService.findAllThread();
+        Collections.reverse(threadModel);
+        modelView.addAttribute("threadModel", threadModel);
+		
+		return "user_dashboard_thread.jsp";
+	}
+	
+	@GetMapping("/forums/{mainTopic}/{subTopic}/new/thread")
+	public String createThreadPage(Model modelView , ThreadModel threadModel , Principal principal ,
+		  @PathVariable String mainTopic , @PathVariable String subTopic) {
+		String username = principal.getName();
+		modelView.addAttribute("currentUser", userService.findByUsername(username));
+		
+		//thread form
+		modelView.addAttribute("threadForm", threadModel);
+		
+		ForumMainTopic forumMainTopic = this.mainTopicService.findTitle(mainTopic);
+		ForumSubTopic forumSubTopic = this.subTopicService.findTitle(subTopic);
+		modelView.addAttribute("forumMainTopic", forumMainTopic);
+		modelView.addAttribute("forumSubTopic", forumSubTopic);
+		
+		
+		return "user_dashboard_thread_create.jsp";
+	}
+	
+	//CHANGE: to change URL when posting. -> Direct to the thread content instead
+	@PostMapping("/forums/{mainTopic}/{subTopic}/create/topic")
+	public String postThread(RedirectAttributes redirectAttributes,
+			@Valid @ModelAttribute("threadForm")ThreadModel threadModel, BindingResult result,
+			@PathVariable String mainTopic , @PathVariable String subTopic){
+		
+		if(result.hasErrors()) {
+			return "user_dashboard_thread_create.jsp";
+		}else {
+			
+			this.threadService.createThread(threadModel);
+			
+			String returnURL = String.format("redirect:/forums/%s/%s", mainTopic, subTopic);
+			return returnURL;
+		}	
 	}
 		
 	//admin access website after logging in (default user route dashboard , user role restricted)
@@ -135,7 +218,7 @@ public class MainController {
 	
 	
 	
-	//-----------MAIN TOPIC-------------//
+	//-----------ADMIN - MAIN TOPIC-------------//
 	@GetMapping("/admin/view/main/topic")
 	public String viewMainTopic(Model modelView) {
 		modelView.addAttribute("forumMainTopic", this.mainTopicService.findAllTopic());
@@ -193,12 +276,12 @@ public class MainController {
 		return "redirect:/admin/view/main/topic";
 	}
 	
-	//-----------SUB TOPIC-------------//
+	//-----------ADMIN - SUB TOPIC-------------//
 	@GetMapping("/admin/view/{mainTopic}/subtopic")
 	public String subtopicPage(@PathVariable String mainTopic , Model modelView) {
 		
 		//to used as Path variable for [Add sub Topic] route
-		ForumMainTopic forumMainTopic = this.mainTopicService.findMainForumByTitle(mainTopic);
+		ForumMainTopic forumMainTopic = this.mainTopicService.findTitle(mainTopic);
 		modelView.addAttribute("forumMainTopic", forumMainTopic);
 		
 		// returns as list of all Subtopics of Maintopic(title)
@@ -213,7 +296,7 @@ public class MainController {
 		
 		modelView.addAttribute("subTopicForm", new ForumSubTopic());
 		
-		ForumMainTopic forumMainTopic = this.mainTopicService.findMainForumByTitle(mainTopic);
+		ForumMainTopic forumMainTopic = this.mainTopicService.findTitle(mainTopic);
 		modelView.addAttribute("MainTopicName", forumMainTopic);
 		return "admin_subTopic.jsp";
 	}
@@ -223,11 +306,11 @@ public class MainController {
 			@Valid @ModelAttribute("subTopicForm")ForumSubTopic forumSubTopic , BindingResult result) {
 		
 		if(result.hasErrors()) {
-			ForumMainTopic forumMainTopic = this.mainTopicService.findMainForumByTitle(mainTopic);
+			ForumMainTopic forumMainTopic = this.mainTopicService.findTitle(mainTopic);
 			modelView.addAttribute("MainTopicName", forumMainTopic);
 			return "admin_subTopic.jsp";
 		}else {
-			ForumMainTopic forumMainTopic = this.mainTopicService.findMainForumByTitle(mainTopic);
+			ForumMainTopic forumMainTopic = this.mainTopicService.findTitle(mainTopic);
 			redirectAttributes.addFlashAttribute("subTopicMessage", "Subtopic Added!");
 			this.subTopicService.createTopic(forumSubTopic);
 			return "redirect:/admin/create/" + forumMainTopic.getTitle() + "/sub/topic";

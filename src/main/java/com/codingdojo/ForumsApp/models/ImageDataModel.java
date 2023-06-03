@@ -22,6 +22,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "user_image")
 public class ImageDataModel {
 	
+	//TO BE IMPLEMENTED IN THE FUTURUE
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
