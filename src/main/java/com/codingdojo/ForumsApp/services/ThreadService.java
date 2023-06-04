@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.codingdojo.ForumsApp.models.ForumSubTopic;
 import com.codingdojo.ForumsApp.models.ThreadModel;
 import com.codingdojo.ForumsApp.repository.ThreadRepo;
 
@@ -37,4 +38,10 @@ public class ThreadService {
 	public void deleteAllThread() {
 		this.threadRepo.deleteAll();
 	}
+	
+	//Search Threads of particular SubTopic
+	public List<ThreadModel> findByForumSubTopic(ForumSubTopic forumSubTopic){
+		return this.threadRepo.findByForumSubTopic(forumSubTopic);
+	}
+	
 }

@@ -11,9 +11,10 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Dojo Dev Forums</title>
+<title> <c:out value="${subTopic.getTitle()}"/> | Dojo Dev Forums</title>
 </head>
 <body>
+	
 	<nav>
 		<h1> Hello, <a href="/user/profile/${currentUser.getUserName()}/"><c:out value="${currentUser.getUserName()}"/></a></h1>
 		<form id="logoutForm" method="POST" action="/logout">
@@ -31,10 +32,10 @@
 		<div class="main-topic-div">
 			<div class="main-header">
 				<div class="main-title">
-					<c:forEach var="threadModel" items="${threadModel}">
+					<c:forEach var="threadFinder" items="${threadFinder}">
 					<ul>	
-						<li><a href="/forums/${mainTopic.getTitle()}/${subTopic.getTitle()}/thread/${threadModel.getId()}"><c:out value="${threadModel.getTitle()}"/></a></li>
-						<li>- <a href="/user/profile/${threadModel.getUserThread().getUserName()}"><c:out value="${threadModel.getUserThread().getUserName()}"/></a></li>
+						<li><a href="/forums/${mainTopic.getTitle()}/${subTopic.getTitle()}/thread/${threadFinder.getId()}"><c:out value="${threadFinder.getTitle()}"/></a></li>
+						<li>- <a href="/user/profile/${threadFinder.getUserThread().getUserName()}"><c:out value="${threadFinder.getUserThread().getUserName()}"/></a></li>
 					</ul>
 					</c:forEach>
 				</div>

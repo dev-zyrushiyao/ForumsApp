@@ -18,30 +18,31 @@
 	
 	<!-- Profile Info -->
 	<c:choose>
-		<c:when test="${currentUser.getUserData() == null}">
+		<c:when test="${userModel.getUserData() == null}">
 			<ul>
-				<li>Username: <c:out value="${currentUser.getUserName()}"/></li>
-				<li>Joined at: <c:out value="${currentUser.getCreatedAt()}"/></li>
+				<li>Username: <c:out value="${userModel.getUserName()}"/></li>
+				<li>Joined at: <c:out value="${userModel.getCreatedAt()}"/></li>
 			</ul>
 		</c:when>
 		
 		<c:otherwise>
 			<ul>
 				<!-- <li>USER IMAGE PLACE HOLDER</li> -->
-				<li>Username: <c:out value="${currentUser.getUserName()}"/></li>
-				<li>Name: <c:out value="${currentUser.getUserData().getFirstName()} ${currentUser.getUserData().getLastName()}"/></li>
-				<li>Location: <c:out value="${currentUser.getUserData().getLocation()}"/></li>
-				<li>Fav. Programming Language <c:out value="${currentUser.getUserData().getProgrammingLanguage()}"/></li>
-				<li>Joined at: <c:out value="${currentUser.getCreatedAt()}"/></li>
+				<li>Username: <c:out value="${userModel.getUserName()}"/></li>
+				<li>Name: <c:out value="${userModel.getUserData().getFirstName()} ${userModel.getUserData().getLastName()}"/></li>
+				<li>Location: <c:out value="${userModel.getUserData().getLocation()}"/></li>
+				<li>Fav. Programming Language <c:out value="${userModel.getUserData().getProgrammingLanguage()}"/></li>
+				<li>Joined at: <c:out value="${userModel.getCreatedAt()}"/></li>
 				
 			</ul>
 		</c:otherwise> 
 	</c:choose>
 	
-		
+		<c:if test="${currentUser.getUserName().equals(userModel.getUserName())}">
 			<form action="/update/user/profile/id/${currentUser.getId()}" method="GET">
 				<input type="submit" value="Update profile">
 			</form>
+		</c:if>
 		
 	
 		 

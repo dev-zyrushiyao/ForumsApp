@@ -70,8 +70,6 @@ public class UserModel {
 	        this.updatedAt = new Date();
 	    }
 	    
-	  
-	    
 	    @ManyToMany(fetch = FetchType.EAGER)
 	    @JoinTable(
 	        name = "users_roles", 

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.codingdojo.ForumsApp.models.ForumMainTopic;
 import com.codingdojo.ForumsApp.models.ForumSubTopic;
+import com.codingdojo.ForumsApp.models.ThreadModel;
 import com.codingdojo.ForumsApp.repository.SubTopicRepo;
 
 import net.bytebuddy.asm.Advice.Return;

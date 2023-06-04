@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Dojo Dev Forums</title>
+<title> <c:out value="${forumMainTopic.getTitle()}"/> | Dojo Dev Forums</title>
 </head>
 <body>
 	<nav>

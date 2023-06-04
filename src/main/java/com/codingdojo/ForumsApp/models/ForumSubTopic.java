@@ -127,6 +127,14 @@ public class ForumSubTopic {
 	public void setForumMainTopics(ForumMainTopic forumMainTopics) {
 		this.forumMainTopics = forumMainTopics;
 	}
+
+	public List<ThreadModel> getThreadTopics() {
+		return threadTopics;
+	}
+
+	public void setThreadTopics(List<ThreadModel> threadTopics) {
+		this.threadTopics = threadTopics;
+	}
 	
 	
 	

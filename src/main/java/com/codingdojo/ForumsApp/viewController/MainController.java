@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.codingdojo.ForumsApp.auth.UserModel;
+import com.codingdojo.ForumsApp.auth.UserRoleModel;
 import com.codingdojo.ForumsApp.models.ForumMainTopic;
 import com.codingdojo.ForumsApp.models.ForumSubTopic;
 import com.codingdojo.ForumsApp.models.ThreadModel;
@@ -99,9 +100,10 @@ public class MainController {
         modelView.addAttribute("subTopic", sTopic);
         
         //Thread List
-        List<ThreadModel> threadModel = this.threadService.findAllThread();
-        Collections.reverse(threadModel);
-        modelView.addAttribute("threadModel", threadModel);
+        List<ThreadModel> threadFinder = this.threadService.findByForumSubTopic(sTopic);
+        Collections.reverse(threadFinder);
+        modelView.addAttribute("threadFinder", threadFinder);
+       
 		
 		return "user_dashboard_thread.jsp";
 	}
@@ -124,7 +126,7 @@ public class MainController {
 		return "user_dashboard_thread_create.jsp";
 	}
 	
-	//CHANGE: to change URL when posting. -> Direct to the thread content instead
+	//Post thread
 	@PostMapping("/forums/{mainTopic}/{subTopic}/create/topic")
 	public String postThread(RedirectAttributes redirectAttributes,
 			@Valid @ModelAttribute("threadForm")ThreadModel threadModel, BindingResult result,
@@ -133,14 +135,36 @@ public class MainController {
 		if(result.hasErrors()) {
 			return "user_dashboard_thread_create.jsp";
 		}else {
-			
 			this.threadService.createThread(threadModel);
-			
-			String returnURL = String.format("redirect:/forums/%s/%s", mainTopic, subTopic);
+			String returnURL = String.format("redirect:/forums/%s/%s/thread/%d", mainTopic, subTopic , threadModel.getId());
 			return returnURL;
+		
 		}	
 	}
+	
+	//Thread content
+	@GetMapping("/forums/{mainTopic}/{subTopic}/thread/{id}")
+	public String threadPage(@PathVariable String mainTopic, @PathVariable String subTopic, @PathVariable Long id ,
+			Model modelView, Principal principal ) {
+		String username = principal.getName();
+		modelView.addAttribute("currentUser", userService.findByUsername(username));
 		
+		ThreadModel threadModel = this.threadService.findThreadById(id);
+		modelView.addAttribute("threadModel", threadModel);
+		
+		//if a user tries to access unexisted ID thread-> redirects back to SubTopics Thread 
+		//EXAMPLE: (/forums/Python/AI Development/thread/{unexistedRandomNumberId} -> redirect back to /forums/Python/AI Development
+		if(threadModel == null) {
+			String returnURL = String.format("forums/%s/%s", mainTopic , subTopic);
+			return "redirect:/" + returnURL;
+		}
+		
+		List<UserRoleModel> userRole = userService.findByUsername(threadModel.getUserThread().getUserName()).getRoles();
+		modelView.addAttribute("userRole", userRole);
+		
+		return "thread_content.jsp";
+	}
+	
 	//admin access website after logging in (default user route dashboard , user role restricted)
 	@GetMapping("/admin")
 	public String adminPage(Principal principal, Model modelView , HttpSession session) {
@@ -150,41 +174,53 @@ public class MainController {
 		return "admin_dashboard.jsp";
 	}
 
-	@GetMapping("/user/profile/{userName}")
-	public String profilePage(Model modelView , @PathVariable String userName , UserModel userModel) {
-		userModel = this.userService.findByUsername(userName);
-		modelView.addAttribute("currentUser", userModel);
+	@GetMapping("/user/profile/{userNameProfile}")
+	public String profilePage(Model modelView , Principal principal , 
+			@PathVariable String userNameProfile , UserModel userModel) {
+		
+		//If you are the currentUser show Update profile button else display nothing (JSP)
+		String username = principal.getName();
+		modelView.addAttribute("currentUser", userService.findByUsername(username));
+		
+		userModel = this.userService.findByUsername(userNameProfile);
+		modelView.addAttribute("userModel", userModel);
 		return "user_profile.jsp";
 	}	
 	
 	//always use ID pathvariable else it will save instead of update [ID of User]
 	@GetMapping("/update/user/profile/id/{id}")
-	public String updatePage(@PathVariable Long id, Model modelView , HttpSession session) {
+	public String updatePage(Principal principal , @PathVariable Long id, Model modelView , HttpSession session) {
 		
+		String username = principal.getName();
+		modelView.addAttribute("currentUser", userService.findByUsername(username));
 		UserModel userModel = this.userService.findUserById(id);
-
-		
+	
+	//if userLogged in is NOT equal to UserModel(to Edit a data) redirect back to userLogged profile
+	if(!username.equals(userModel.getUserName())) {
+			return "redirect:/user/profile/" + userService.findByUsername(username).getUserName();
+	}else {
 		//if user already has userData ; else add a new user Data (disguse as userDataUpdateForm)
-		if((userModel.getUserData()) != null) {
-			System.out.println("user is NOT null");
-			modelView.addAttribute("userDataUpdateForm" , userModel.getUserData());	
-		}else {
-			System.out.println("user is null");
-			//Create new User Data disguise as update 
-			modelView.addAttribute("userDataForm" , new UserDataModel());
-		}
+			if((userModel.getUserData()) != null) {
+				modelView.addAttribute("userDataUpdateForm" , userModel.getUserData());	
+			}else {
+				//Create new User Data disguise as update 
+				modelView.addAttribute("userDataForm" , new UserDataModel());
+			}
 				
-		//to use as URL(FORM) of UpdatePage
-		modelView.addAttribute("currentUser" , userModel);
-		return "user_updateInfo.jsp";
+			//to use as URL(FORM) of UpdatePage (for else-IF and else-ELSE)
+			modelView.addAttribute("currentUser" , userModel);
+			return "user_updateInfo.jsp";
+		}
 	}
 	
 	//always use ID pathvariable else it will save instead of update [ID Data of User]
 	//${currentUser.getUserData().getId() <-FORM Action URL
 	@PutMapping("/update/user/info/{id}") 
-	public String updateInfo(@PathVariable Long id, Model modelView, HttpSession session, RedirectAttributes redirectAttributes,
+	public String updateInfo(Principal principal, @PathVariable Long id, Model modelView, HttpSession session, RedirectAttributes redirectAttributes,
 			@Valid @ModelAttribute("userDataUpdateForm") UserDataModel userData , BindingResult result) {
-		
+		String username = principal.getName();
+		modelView.addAttribute("currentUser", userService.findByUsername(username));
+
 		if(result.hasErrors()) {
 			modelView.addAttribute("currentUser" , userService.findUserById(id));
 			System.out.println("Update saving fail!");

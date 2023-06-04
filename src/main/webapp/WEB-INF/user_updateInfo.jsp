@@ -63,7 +63,7 @@
 				<label>Update your profile</label>
 				<ul>
 					<li>
-						<label>First Name: ADD NEW</label>
+						<label>First Name:</label>
 						<form:input path="firstName" type="text"/>
 						<form:errors path="firstName" class="text-danger" style="color:red"/>
 						
