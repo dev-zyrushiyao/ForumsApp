@@ -1,5 +1,6 @@
 package com.codingdojo.ForumsApp.auth;
 
+import java.nio.MappedByteBuffer;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +24,7 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.codingdojo.ForumsApp.models.CommentModel;
 import com.codingdojo.ForumsApp.models.ThreadModel;
 import com.codingdojo.ForumsApp.models.UserDataModel;
 
@@ -48,12 +50,26 @@ public class UserModel {
 	    @Transient
 	    private String passwordConfirmation;
 	    
-	    @OneToMany(mappedBy = "userThread" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)
-	    private List<ThreadModel> thread;
-	    
+	    //UserModel -> UserData
 	    @OneToOne(mappedBy = "userAccount" , cascade = CascadeType.ALL,
 	    		fetch = FetchType.LAZY)
 	    private UserDataModel userData;
+	    
+	    //UserModel -> Thread
+	    @OneToMany(mappedBy = "userThread" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+	    private List<ThreadModel> thread;
+	    
+	    //UserModel -> Thread comment
+	    @OneToMany(mappedBy = "userAccount" , fetch = FetchType.LAZY)
+	    private List<CommentModel> topicComment;
+	    
+	    //User <-> Roles
+	    @ManyToMany(fetch = FetchType.EAGER)
+	    @JoinTable(
+	        name = "users_roles", 
+	        joinColumns = @JoinColumn(name = "user_id"), 
+	        inverseJoinColumns = @JoinColumn(name = "role_id"))
+	    private List<UserRoleModel> roles;
 	    
 	    @Column(updatable=false)
 	    @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -70,12 +86,7 @@ public class UserModel {
 	        this.updatedAt = new Date();
 	    }
 	    
-	    @ManyToMany(fetch = FetchType.EAGER)
-	    @JoinTable(
-	        name = "users_roles", 
-	        joinColumns = @JoinColumn(name = "user_id"), 
-	        inverseJoinColumns = @JoinColumn(name = "role_id"))
-	    private List<UserRoleModel> roles;
+	
 	    
 	    public UserModel() {
 	    }
@@ -124,12 +135,6 @@ public class UserModel {
 		public void setUpdatedAt(Date updatedAt) {
 			this.updatedAt = updatedAt;
 		}
-		public List<UserRoleModel> getRoles() {
-			return roles;
-		}
-		public void setRoles(List<UserRoleModel> roles) {
-			this.roles = roles;
-		}
 		
 		//One to One
 		public UserDataModel getUserData() {
@@ -137,6 +142,31 @@ public class UserModel {
 		}
 		public void setUserData(UserDataModel userData) {
 			this.userData = userData;
+		}
+		
+		//One to Many
+		public List<ThreadModel> getThread() {
+			return thread;
+		}
+		public void setThread(List<ThreadModel> thread) {
+			this.thread = thread;
+		}
+		
+		//One to Many
+		public List<CommentModel> getTopicComment() {
+			return topicComment;
+		}
+		public void setTopicComment(List<CommentModel> topicComment) {
+			this.topicComment = topicComment;
+		}
+		
+		//Many to Many
+		public List<UserRoleModel> getRoles() {
+			return roles;
+		}
+		
+		public void setRoles(List<UserRoleModel> roles) {
+			this.roles = roles;
 		}
 	    
 	

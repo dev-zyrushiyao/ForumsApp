@@ -20,7 +20,8 @@ public class UserRoleModel {
 		
 	    private String name;
 	    
-	  //Authentication
+	    //Authentication
+	    ////User <-> Roles
 	    @ManyToMany(mappedBy = "roles")
 	    private List<UserModel> users;
 
@@ -50,7 +51,8 @@ public class UserRoleModel {
 			this.name = name;
 			this.users = users;
 		}
-
+		
+		// Many to Many
 		public List<UserModel> getUsers() {
 			return users;
 		}

@@ -8,7 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-
+import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,11 +25,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.codingdojo.ForumsApp.auth.UserModel;
 import com.codingdojo.ForumsApp.auth.UserRoleModel;
+import com.codingdojo.ForumsApp.models.CommentModel;
 import com.codingdojo.ForumsApp.models.ForumMainTopic;
 import com.codingdojo.ForumsApp.models.ForumSubTopic;
 import com.codingdojo.ForumsApp.models.ThreadModel;
 import com.codingdojo.ForumsApp.models.UserDataModel;
 import com.codingdojo.ForumsApp.repository.ThreadRepo;
+import com.codingdojo.ForumsApp.services.CommentService;
 import com.codingdojo.ForumsApp.services.MainTopicService;
 import com.codingdojo.ForumsApp.services.SubTopicService;
 import com.codingdojo.ForumsApp.services.ThreadService;
@@ -56,6 +58,9 @@ public class MainController {
 	
 	@Autowired
 	private ThreadService threadService;
+	
+	@Autowired
+	private CommentService commentService;
 	
 	//default for user
 	@GetMapping(value = {"/", "/dashboard"})
@@ -135,22 +140,27 @@ public class MainController {
 		if(result.hasErrors()) {
 			return "user_dashboard_thread_create.jsp";
 		}else {
+			//redirect to thread content after posting
 			this.threadService.createThread(threadModel);
-			String returnURL = String.format("redirect:/forums/%s/%s/thread/%d", mainTopic, subTopic , threadModel.getId());
-			return returnURL;
+			String returnURL = String.format("forums/%s/%s/thread/%d", mainTopic, subTopic , threadModel.getId());
+			return "redirect:/" + returnURL;
 		
 		}	
 	}
 	
 	//Thread content
 	@GetMapping("/forums/{mainTopic}/{subTopic}/thread/{id}")
-	public String threadPage(@PathVariable String mainTopic, @PathVariable String subTopic, @PathVariable Long id ,
+	public String threadPage(HttpSession session , @PathVariable String mainTopic, @PathVariable String subTopic, @PathVariable Long id ,
 			Model modelView, Principal principal ) {
 		String username = principal.getName();
 		modelView.addAttribute("currentUser", userService.findByUsername(username));
 		
 		ThreadModel threadModel = this.threadService.findThreadById(id);
 		modelView.addAttribute("threadModel", threadModel);
+		
+		//view all replies to a thread
+		List<CommentModel> threadReplies = this.commentService.findCommentsOnThread(threadModel);
+		modelView.addAttribute("threadReplies", threadReplies);
 		
 		//if a user tries to access unexisted ID thread-> redirects back to SubTopics Thread 
 		//EXAMPLE: (/forums/Python/AI Development/thread/{unexistedRandomNumberId} -> redirect back to /forums/Python/AI Development
@@ -159,21 +169,64 @@ public class MainController {
 			return "redirect:/" + returnURL;
 		}
 		
+		//display threadstarter - role 
 		List<UserRoleModel> userRole = userService.findByUsername(threadModel.getUserThread().getUserName()).getRoles();
 		modelView.addAttribute("userRole", userRole);
+		
+		//reply form
+		CommentModel commentModel = new CommentModel();
+		modelView.addAttribute("threadReplyForm" , commentModel);
+		
+		//reply form URL POST
+		ForumMainTopic forumMainTopic = this.mainTopicService.findTitle(mainTopic);
+		ForumSubTopic forumSubTopic = this.subTopicService.findTitle(subTopic);
+		modelView.addAttribute("forumMainTopic", forumMainTopic);
+		modelView.addAttribute("forumSubTopic", forumSubTopic);
+		
+		//used session for threadReply form post to avoid unintentional update a reply of any user.
+		session.setAttribute("threadIdSession", id);
 		
 		return "thread_content.jsp";
 	}
 	
-	//admin access website after logging in (default user route dashboard , user role restricted)
-	@GetMapping("/admin")
-	public String adminPage(Principal principal, Model modelView , HttpSession session) {
-		String username = principal.getName();
-		modelView.addAttribute("currentUser", userService.findByUsername(username));
+	@PostMapping("/forums/{mainTopic}/{subTopic}/thread/new/reply")
+	public String threadReply(HttpSession session , Model modelView , Principal principal , RedirectAttributes redirectAttributes , 
+			@Valid @ModelAttribute("threadReplyForm")CommentModel commentModel , BindingResult result,
+			@PathVariable String mainTopic,
+			@PathVariable String subTopic) {
 		
-		return "admin_dashboard.jsp";
+		if(result.hasErrors()) {
+			String username = principal.getName();
+			modelView.addAttribute("currentUser", userService.findByUsername(username));
+			
+			ThreadModel threadModel = this.threadService.findThreadById((Long)session.getAttribute("threadIdSession"));
+			modelView.addAttribute("threadModel", threadModel);
+			
+			//view all replies to a thread
+			List<CommentModel> threadReplies = this.commentService.findCommentsOnThread(threadModel);
+			modelView.addAttribute("threadReplies", threadReplies);
+			
+			//display threadstarter - role 
+			List<UserRoleModel> userRole = userService.findByUsername(threadModel.getUserThread().getUserName()).getRoles();
+			modelView.addAttribute("userRole", userRole);
+			
+			//reply form URL POST
+			ForumMainTopic forumMainTopic = this.mainTopicService.findTitle(mainTopic);
+			ForumSubTopic forumSubTopic = this.subTopicService.findTitle(subTopic);
+			modelView.addAttribute("forumMainTopic", forumMainTopic);
+			modelView.addAttribute("forumSubTopic", forumSubTopic);
+			return "thread_content.jsp";
+		}else {
+			this.commentService.createComment(commentModel);
+			String returnURL = String.format("forums/%s/%s/thread/%d" , mainTopic , subTopic , (Long)session.getAttribute("threadIdSession"));
+			return "redirect:/" + returnURL;
+		}
+		
 	}
-
+	
+	
+	
+	//PROFILE VIEWING
 	@GetMapping("/user/profile/{userNameProfile}")
 	public String profilePage(Model modelView , Principal principal , 
 			@PathVariable String userNameProfile , UserModel userModel) {
@@ -223,7 +276,6 @@ public class MainController {
 
 		if(result.hasErrors()) {
 			modelView.addAttribute("currentUser" , userService.findUserById(id));
-			System.out.println("Update saving fail!");
 			return "user_updateInfo.jsp";
 		}else {
 			//updates the data
@@ -251,8 +303,16 @@ public class MainController {
 		}
 	}
 
-	
-	
+	//-----------ADMIN - Dashboard-------------//
+	//admin access website after logging in (default user route dashboard , user role restricted)
+	@GetMapping("/admin")
+	public String adminPage(Principal principal, Model modelView , HttpSession session) {
+		String username = principal.getName();
+		modelView.addAttribute("currentUser", userService.findByUsername(username));
+			
+		return "admin_dashboard.jsp";
+	}
+
 	
 	//-----------ADMIN - MAIN TOPIC-------------//
 	@GetMapping("/admin/view/main/topic")

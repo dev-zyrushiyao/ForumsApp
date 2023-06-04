@@ -45,6 +45,7 @@ public class UserDataModel {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date updatedAt;
 	
+	//UserData -> UserModel
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="user_account_id")
 	private UserModel userAccount;

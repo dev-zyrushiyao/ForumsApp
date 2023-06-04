@@ -119,7 +119,8 @@ public class ForumSubTopic {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-
+	
+	//One to Many
 	public ForumMainTopic getForumMainTopics() {
 		return forumMainTopics;
 	}
@@ -127,7 +128,8 @@ public class ForumSubTopic {
 	public void setForumMainTopics(ForumMainTopic forumMainTopics) {
 		this.forumMainTopics = forumMainTopics;
 	}
-
+	
+	//One to Many
 	public List<ThreadModel> getThreadTopics() {
 		return threadTopics;
 	}

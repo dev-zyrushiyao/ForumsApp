@@ -1,6 +1,7 @@
 package com.codingdojo.ForumsApp.models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -33,16 +35,21 @@ public class ThreadModel {
 	private String title;
 	
 	@NotBlank(message = "This field should not be blank")
-	@Size(min = 1 , max = 200 , message = "This parameter only accept 200 characters")
+	@Size(min = 1 , max = 200 , message = "This parameter only accept 1 ~ 200 characters")
 	private String content;
 	
+	//Subtopic -> Maintopic
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="topic_sub_id")
 	private ForumSubTopic forumSubTopic;
 	
+	//Subtopic -> Thread
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="thread_id")
 	private UserModel userThread;
+	
+	@OneToMany(mappedBy = "threadTopic"  , fetch = FetchType.LAZY )
+	private List<CommentModel> comments;
 	
 	@Column(updatable = false)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -100,13 +107,6 @@ public class ThreadModel {
 		this.content = content;
 	}
 
-	public ForumSubTopic getForumSubTopic() {
-		return forumSubTopic;
-	}
-
-	public void setForumSubTopic(ForumSubTopic forumSubTopic) {
-		this.forumSubTopic = forumSubTopic;
-	}
 
 	public Date getCreatedAt() {
 		return createdAt;
@@ -124,6 +124,15 @@ public class ThreadModel {
 		this.updatedAt = updatedAt;
 	}
 	
+	// One To Many
+	public ForumSubTopic getForumSubTopic() {
+		return forumSubTopic;
+	}
+	
+	public void setForumSubTopic(ForumSubTopic forumSubTopic) {
+		this.forumSubTopic = forumSubTopic;
+	}
+	
 	//One To Many
 	public UserModel getUserThread() {
 		return userThread;
@@ -131,6 +140,15 @@ public class ThreadModel {
 
 	public void setUserThread(UserModel userThread) {
 		this.userThread = userThread;
+	}
+	
+	//One to Many
+	public List<CommentModel> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<CommentModel> comments) {
+		this.comments = comments;
 	}
 	
 	

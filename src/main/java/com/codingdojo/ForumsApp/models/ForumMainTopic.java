@@ -44,6 +44,7 @@ public class ForumMainTopic {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date updatedAt;
 	
+	//Maintopic -> Subtopic
 	@OneToMany(mappedBy = "forumMainTopics" , cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<ForumSubTopic> forumSubTopics;
 	
@@ -108,6 +109,7 @@ public class ForumMainTopic {
 		this.updatedAt = updatedAt;
 	}
 
+	//One to Many
 	public List<ForumSubTopic> getForumSubTopics() {
 		return forumSubTopics;
 	}

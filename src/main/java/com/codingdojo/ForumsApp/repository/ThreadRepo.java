@@ -15,4 +15,6 @@ public interface ThreadRepo extends CrudRepository<ThreadModel, Long> {
 	//Search Threads of particular SubTopic
 	List<ThreadModel> findByForumSubTopic(ForumSubTopic forumSubTopic);
 	
+	
+	
 }

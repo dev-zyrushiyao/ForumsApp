@@ -41,6 +41,40 @@
 			</c:forEach>
 		<p>
 		<p> <c:out value="${threadModel.getContent()}"/> </p> 
+		
+		<div>
+			<c:forEach var="threadReplies" items="${threadReplies}">
+				<ul>
+					<li> <c:out value="${threadReplies.getComment()}"/> </li>
+					<li> by <c:out value="${threadReplies.getUserAccount().getUserName()}"/> </li>
+				</ul>
+				<hr>
+			</c:forEach> 
+		
+		</div>
+	
+		
+		
+		
+		 <form:form action="/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/thread/new/reply" method="POST" modelAttribute="threadReplyForm">
+			<form:textarea path="comment" rows="10" cols="150" style="resize:none"></form:textarea>
+			<form:errors path="comment" class="text-danger" style="color:red"/>
+			<ul>
+				<li><!-- To be hidden -->
+					<label>Thread ID:</label>
+					<form:input type="text" path="threadTopic" value="${threadModel.getId()}"/>
+					<input type="text" title="${threadModel.getTitle()}" value="${threadModel.getTitle()}">
+				</li>
+				
+				<li>
+					<label>User ID:</label>
+					<form:input type="text" path="userAccount" value="${currentUser.getId()}"/>
+					<input type="text" value="${currentUser.getUserName()}">
+				</li>
+			</ul>
+			<input type="submit" value="POST REPLY">
+		</form:form> 
+		
 	
 </body>
 </html>
