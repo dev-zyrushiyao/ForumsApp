@@ -29,7 +29,7 @@ public class CommentModel {
 	private Long id;
 	
 	@NotBlank(message = "This field should not be blank")
-	@Size(min = 1 , max = 500 , message = "This parameter only accept 1 ~ 500 characters")
+	@Size(min = 1 , max = 1000 , message = "This parameter only accept 1 ~ 1000 characters")
 	private String comment;
 	
 	//Comment -> Thread

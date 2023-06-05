@@ -1,14 +1,16 @@
 package com.codingdojo.ForumsApp.viewController;
 
 import java.security.Principal;
-import java.util.Collection;
+
 import java.util.Collections;
+
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
+
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import javax.websocket.Session;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,15 +32,12 @@ import com.codingdojo.ForumsApp.models.ForumMainTopic;
 import com.codingdojo.ForumsApp.models.ForumSubTopic;
 import com.codingdojo.ForumsApp.models.ThreadModel;
 import com.codingdojo.ForumsApp.models.UserDataModel;
-import com.codingdojo.ForumsApp.repository.ThreadRepo;
 import com.codingdojo.ForumsApp.services.CommentService;
 import com.codingdojo.ForumsApp.services.MainTopicService;
 import com.codingdojo.ForumsApp.services.SubTopicService;
 import com.codingdojo.ForumsApp.services.ThreadService;
 import com.codingdojo.ForumsApp.services.UserDataService;
 import com.codingdojo.ForumsApp.services.UserService;
-
-
 
 
 @Controller
@@ -158,7 +157,7 @@ public class MainController {
 		ThreadModel threadModel = this.threadService.findThreadById(id);
 		modelView.addAttribute("threadModel", threadModel);
 		
-		//view all replies to a thread
+		//view all replies to a thread / add replies origin(username)
 		List<CommentModel> threadReplies = this.commentService.findCommentsOnThread(threadModel);
 		modelView.addAttribute("threadReplies", threadReplies);
 		
@@ -168,10 +167,6 @@ public class MainController {
 			String returnURL = String.format("forums/%s/%s", mainTopic , subTopic);
 			return "redirect:/" + returnURL;
 		}
-		
-		//display threadstarter - role 
-		List<UserRoleModel> userRole = userService.findByUsername(threadModel.getUserThread().getUserName()).getRoles();
-		modelView.addAttribute("userRole", userRole);
 		
 		//reply form
 		CommentModel commentModel = new CommentModel();
@@ -189,6 +184,7 @@ public class MainController {
 		return "thread_content.jsp";
 	}
 	
+	//thread reply
 	@PostMapping("/forums/{mainTopic}/{subTopic}/thread/new/reply")
 	public String threadReply(HttpSession session , Model modelView , Principal principal , RedirectAttributes redirectAttributes , 
 			@Valid @ModelAttribute("threadReplyForm")CommentModel commentModel , BindingResult result,
@@ -199,6 +195,7 @@ public class MainController {
 			String username = principal.getName();
 			modelView.addAttribute("currentUser", userService.findByUsername(username));
 			
+			//Session thread ID to reload comments from the thread once it renders the JSP again
 			ThreadModel threadModel = this.threadService.findThreadById((Long)session.getAttribute("threadIdSession"));
 			modelView.addAttribute("threadModel", threadModel);
 			
