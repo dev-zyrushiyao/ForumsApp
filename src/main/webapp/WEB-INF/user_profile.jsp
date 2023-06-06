@@ -44,9 +44,68 @@
 			</form>
 		</c:if>
 		
+	<div>
+		<c:if test="${currentUser.getUserName().equals(userModel.getUserName())}">	
+			<h3> My thread </h3>
+		</c:if>
+		
+		<c:if test="${!currentUser.getUserName().equals(userModel.getUserName())}">	
+			<h3> <c:out value="${userModel.getUserName()}"/>'s thread </h3>
+		</c:if>
+			<ul>
+				<!-- unlooped object for conditional displays .isEmpty() method available to invoke -->
+				<c:choose>
+					<c:when test="${!userThread.isEmpty()}">
+						<c:forEach var="userThread" items="${userThread}">
+							<!-- URL VARIABLE -->
+							<c:set var="mainTopic_origin" value="${userThread.getForumSubTopic().getForumMainTopics().getTitle()}"/> 
+							<c:set var="subTopic_origin" value="${userThread.getForumSubTopic().getTitle()}"/>
+							
+								 <li> <c:out value="[${mainTopic_origin} / ${subTopic_origin}]"/> </li>
+								 <li> 
+								 	<a href="/forums/${mainTopic_origin}/${subTopic_origin}/thread/${userThread.getId()}"> <c:out value="${userThread.getTitle()}"/> </a> 
+								 </li>	 
+						</c:forEach>
+					</c:when>
+					
+					<c:otherwise>
+						<li>No data found</li>
+					</c:otherwise>
+				</c:choose>
+			</ul>
+	</div>	 
 	
-		 
+	<div>	
+		<h3> Activity Log </h3>
+			<ul>
+			<!-- unlooped object for conditional displays .isEmpty() method available to invoke -->
+				<c:choose>
+					<c:when test="${!userComments.isEmpty()}">
+						<c:forEach var="userComments" items="${userComments}">
+							<!-- URL VARIABLE -->
+							<c:set var="mainTopic_origin" value="${userComments.getThreadTopic().getForumSubTopic().getForumMainTopics().getTitle()}"/> 
+							<c:set var="subTopic_origin" value="${userComments.getThreadTopic().getForumSubTopic().getTitle()}"/>
+							<c:set var="thread_origin_id" value="${userComments.getThreadTopic().getId()}"/>
+							<c:set var="thread_origin_title" value="${userComments.getThreadTopic().getTitle()}"/>  
+								 
+								 <li> <c:out value="[${mainTopic_origin} / ${subTopic_origin}]"/> </li>
+								 <li>
+								 	<a href="/forums/${mainTopic_origin}/${subTopic_origin}/thread/${thread_origin_id}"> <c:out value="${thread_origin_title}"/> </a> 
+								 </li>
+								 
+								 <li> <c:out value="${userComments.getComment()}"/> </li>
+								 <hr>
+						</c:forEach>
+					</c:when>
+					
+					<c:otherwise>
+						<li>No data found</li>
+					</c:otherwise>
+				</c:choose>
+			</ul>
+	</div>	 
 	
+
 	
 </body>
 </html>

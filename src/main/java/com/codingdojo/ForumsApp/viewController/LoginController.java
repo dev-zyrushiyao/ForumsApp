@@ -46,33 +46,39 @@ public class LoginController {
     public String registration(@Valid @ModelAttribute("user") UserModel userModel,
     		BindingResult result, Model modelView, HttpSession session , RedirectAttributes redirectAttributes) {
     	
+    	UserModel userNameChecker = userService.findByUsername(userModel.getUserName());
+    	
     	//Register as USER	
     	userValidator.validate(userModel, result);
         if (result.hasErrors()) {
-        	
             return "registrationPage.jsp";
+    	
+        //if a username exist(not null) : display object of users data - Not saving the object of user instead just redirect page
         }else {
-        	UserModel userNameChecker = userService.findByUsername(userModel.getUserName());
-        	
-        	//if a username exist(not null) : display object of users data - Not saving the object of user instead just redirect page
-        	//if a username does not exist yet == null - Register a User
-        	if(userNameChecker !=null ) {
-        		redirectAttributes.addFlashAttribute("registrationMessageError", "Error: Username already taken");
-        		
+        	if(userModel.getUserName().contains(" ") || userModel.getPassword().contains(" ")) {
+        		//if the username parameter contains white space (do not save the object / register the user)
+        		redirectAttributes.addFlashAttribute("registrationMessageError", "Error: username/password contains white-space");
         		return "redirect:/registration";
+        	}else if(userNameChecker != null ) {    		
+        		//userNameChecker List[has an object] = Username already taken
+        		redirectAttributes.addFlashAttribute("registrationMessageError", "Error: Username already taken");
+            	return "redirect:/registration";	
         	}else {
-        		userService.saveWithUserRole(userModel);
-        		
-      	 	return "redirect:/registration/complete/profile/" + userModel.getUserName();
-       
+                //if a username does not exist yet == null - Register a User
+    			userService.saveWithUserRole(userModel);
+        		return "redirect:/registration/complete/profile/" + userModel.getUserName();	
+        	}
+        	
         }
-       }
-        
+        		 
     }
+        	
+    	
+    
     
 	//Complete Registration Page (GET)
 	@GetMapping("/registration/complete/profile/{userName}")
-	public String profilePage(RedirectAttributes redirectAttributes , @PathVariable String userName, Model modelView , HttpSession session) {
+	public String completeProfilePage(RedirectAttributes redirectAttributes , @PathVariable String userName, Model modelView , HttpSession session) {
 		//to load user account ID on JSP
 		UserModel userModel = userService.findByUsername(userName);
 
@@ -82,7 +88,7 @@ public class LoginController {
 				redirectAttributes.addFlashAttribute("registrationMessageError", "Access Denied!");
 				return "redirect:/registration";
 			}else {
-			//if the UserModel has not yet userData(null) then load the DataBind form / else User already completed profile -> redirect to /registration
+			//if the UserModel doesn't have yet a userData(null) then load the DataBind form / else User already completed profile -> redirect to /registration
 				UserModel userModelDataChecker = userModel;
 				modelView.addAttribute("userModelDataChecker", userModelDataChecker);
 			//Data checker is also used as conditional in JSP

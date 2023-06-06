@@ -44,7 +44,8 @@ public class UserModel {
 	  	@Size(min=4, max = 40, message = "Username parameter accept 4 ~ 40 characters" )
 	    private String userName;
 	    
-	  	@Size(min=4 , max = 40, message="Password parameter accept 4 ~ 40 characters")
+	  	//removed max = 60 because of Bcrypt
+	  	@Size(min=4 , message="Password parameter accept 4 ~ 40 characters")
 	    private String password;
 	    
 	    @Transient

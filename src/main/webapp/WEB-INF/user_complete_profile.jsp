@@ -14,6 +14,7 @@
 </head>
 <body>
 	
+	<a href="/login"> Complete profile later</a>
 		<c:if test="${userModelDataChecker.getUserData() == null}"> 
 			<form:form action="/registration/post/userdata/${currentUser.getUserName()}" method="POST" modelAttribute="userDataForm">
 			<label style="color:green"><c:out value="${userDataMessage}"></c:out></label>

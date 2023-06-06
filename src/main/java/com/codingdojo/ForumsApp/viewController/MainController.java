@@ -226,7 +226,7 @@ public class MainController {
 		}	
 	}
 	
-	//Thread update
+	//Thread update page
 	@GetMapping("/forums/update/thread/id/{id}")
 	public String updateThreadPage(Model modelView , @PathVariable Long id , ThreadModel threadModel) {
 		threadModel = this.threadService.findThreadById(id);
@@ -235,6 +235,7 @@ public class MainController {
 		return "user_dashboard_thread_update.jsp";
 	}
 	
+	//Thread update 
 	@PutMapping("/forums/update/thread/info/id/{id}")
 	public String updateThread(Model modelView, @PathVariable Long id , 
 		@Valid @ModelAttribute("threadUpdateForm")ThreadModel threadModel , BindingResult result) {
@@ -255,7 +256,7 @@ public class MainController {
 		}
 	}
 	
-	//BUG -> FOR FIXING
+	//Delete Thread + comments
 	@DeleteMapping("/forums/delete/thread/id/{id}")
 	public String deleteThread(@PathVariable Long id) {
 		
@@ -284,8 +285,22 @@ public class MainController {
 		String username = principal.getName();
 		modelView.addAttribute("currentUser", userService.findByUsername(username));
 		
+		
 		userModel = this.userService.findByUsername(userNameProfile);
 		modelView.addAttribute("userModel", userModel);
+		
+		//user thread (created thread)
+		List<ThreadModel> userThread = userModel.getThread();
+		modelView.addAttribute("userThread", userThread);
+		
+		System.out.println("is empty? : " + userThread.isEmpty());
+		System.out.println("is NOT empty? : " + !userThread.isEmpty());
+		
+		//user comments (comments on different threads)
+		List<CommentModel> userComments = userModel.getTopicComment();
+		Collections.reverse(userComments);
+		modelView.addAttribute("userComments", userComments);
+		
 		return "user_profile.jsp";
 	}	
 	
