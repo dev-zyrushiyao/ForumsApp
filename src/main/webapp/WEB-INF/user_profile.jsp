@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title> Complete your profile</title>
+<title> <c:out value="${userModel.getUserName()}"/> | Profile </title>
 </head>
 <body>
 	

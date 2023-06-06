@@ -293,9 +293,6 @@ public class MainController {
 		List<ThreadModel> userThread = userModel.getThread();
 		modelView.addAttribute("userThread", userThread);
 		
-		System.out.println("is empty? : " + userThread.isEmpty());
-		System.out.println("is NOT empty? : " + !userThread.isEmpty());
-		
 		//user comments (comments on different threads)
 		List<CommentModel> userComments = userModel.getTopicComment();
 		Collections.reverse(userComments);

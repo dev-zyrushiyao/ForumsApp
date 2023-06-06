@@ -134,26 +134,28 @@ public class LoginController {
     @PostMapping("/registration_admin")
     public String registrationAdmin(@Valid @ModelAttribute("user") UserModel userModel,
     		BindingResult result, Model modelView, HttpSession session , RedirectAttributes redirectAttributes) {
-
+    	
+    	UserModel userNameChecker = userService.findByUsername(userModel.getUserName());
+    	
     	//Register as ADMIN
     	userValidator.validate(userModel, result);
     	if (result.hasErrors()) {
     		
     		return "registrationPageAdmin.jsp";
+    	//if a username exist(not null) : display object of users data - Not saving the object of user instead just redirect page
         }else {
-        	UserModel userNameChecker = userService.findByUsername(userModel.getUserName());
-        	System.out.println("Username checker: " + userNameChecker);
-        	
-        	//if a username exist(not null) : display object of users data - Not saving the object of user instead just redirect page
-        	//if a username does not exist yet == null - Register a User
-        	if(userNameChecker !=null ) {
-        		redirectAttributes.addFlashAttribute("registrationMessageError", "Error: Username already taken");
-        		
+        	if(userModel.getUserName().contains(" ") || userModel.getPassword().contains(" ")) {
+        		//if the username parameter contains white space (do not save the object / register the user)
+        		redirectAttributes.addFlashAttribute("registrationMessageError", "Error: username/password contains white-space");
         		return "redirect:/registration_admin";
+        	}else if(userNameChecker != null ) {    		
+        		//userNameChecker List[has an object] = Username already taken
+        		redirectAttributes.addFlashAttribute("registrationMessageError", "Error: Username already taken");
+        		return "redirect:/registration_admin";	
         	}else {
-	        	redirectAttributes.addFlashAttribute("registrationMessage", "Registration success! <br> <a href='/login'>GO Back</a>");
-		        userService.saveUserWithAdminRole(userModel);
-		        return "redirect:/registration_admin";
+                //if a username does not exist yet == null - Register a User
+        		userService.saveUserWithAdminRole(userModel);
+    			return "redirect:/registration_admin";
         	}
         }
         
