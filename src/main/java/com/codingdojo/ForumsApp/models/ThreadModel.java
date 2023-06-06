@@ -3,6 +3,7 @@ package com.codingdojo.ForumsApp.models;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -48,7 +49,7 @@ public class ThreadModel {
 	@JoinColumn(name="thread_id")
 	private UserModel userThread;
 	
-	@OneToMany(mappedBy = "threadTopic"  , fetch = FetchType.LAZY )
+	@OneToMany(mappedBy = "threadTopic"  , fetch = FetchType.LAZY , cascade = CascadeType.ALL)
 	private List<CommentModel> comments;
 	
 	@Column(updatable = false)

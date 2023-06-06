@@ -62,7 +62,7 @@ public class MainController {
 	private CommentService commentService;
 	
 	//default for user
-	@GetMapping(value = {"/", "/dashboard"})
+	@GetMapping(value = {"/", "/dashboard" , "/forums"})
 	public String dashboardPage(Model modelView , Principal principal) {
 		// 1 - TO load Username on the /dashboard page
         String username = principal.getName();
@@ -132,11 +132,17 @@ public class MainController {
 	
 	//Post thread
 	@PostMapping("/forums/{mainTopic}/{subTopic}/create/topic")
-	public String postThread(RedirectAttributes redirectAttributes,
+	public String postThread(Model modelView,RedirectAttributes redirectAttributes,
 			@Valid @ModelAttribute("threadForm")ThreadModel threadModel, BindingResult result,
 			@PathVariable String mainTopic , @PathVariable String subTopic){
 		
 		if(result.hasErrors()) {
+			
+			ForumMainTopic forumMainTopic = this.mainTopicService.findTitle(mainTopic);
+			ForumSubTopic forumSubTopic = this.subTopicService.findTitle(subTopic);
+			modelView.addAttribute("forumMainTopic", forumMainTopic);
+			modelView.addAttribute("forumSubTopic", forumSubTopic);
+			
 			return "user_dashboard_thread_create.jsp";
 		}else {
 			//redirect to thread content after posting
@@ -217,11 +223,57 @@ public class MainController {
 			this.commentService.createComment(commentModel);
 			String returnURL = String.format("forums/%s/%s/thread/%d" , mainTopic , subTopic , (Long)session.getAttribute("threadIdSession"));
 			return "redirect:/" + returnURL;
-		}
-		
+		}	
 	}
 	
+	//Thread update
+	@GetMapping("/forums/update/thread/id/{id}")
+	public String updateThreadPage(Model modelView , @PathVariable Long id , ThreadModel threadModel) {
+		threadModel = this.threadService.findThreadById(id);
+		modelView.addAttribute("threadUpdateForm", threadModel);
+		
+		return "user_dashboard_thread_update.jsp";
+	}
 	
+	@PutMapping("/forums/update/thread/info/id/{id}")
+	public String updateThread(Model modelView, @PathVariable Long id , 
+		@Valid @ModelAttribute("threadUpdateForm")ThreadModel threadModel , BindingResult result) {
+		
+		if(result.hasErrors()) {
+			threadModel = this.threadService.findThreadById(id);
+			modelView.addAttribute("threadUpdateForm", threadModel);
+			return "user_dashboard_thread_update.jsp";
+		}else {
+			this.threadService.updateThread(threadModel);
+			
+			ForumMainTopic mainTopic = threadModel.getForumSubTopic().getForumMainTopics();
+			ForumSubTopic subTopic = threadModel.getForumSubTopic();
+			
+			//redirects back to viewing the thread
+			String returnURL = String.format("forums/%s/%s/thread/%d", mainTopic.getTitle() , subTopic.getTitle() , threadModel.getId());
+			return "redirect:/" + returnURL ;
+		}
+	}
+	
+	//BUG -> FOR FIXING
+	@DeleteMapping("/forums/delete/thread/id/{id}")
+	public String deleteThread(@PathVariable Long id) {
+		
+		ThreadModel threadModel = this.threadService.findThreadById(id);
+		ForumMainTopic mainTopic = threadModel.getForumSubTopic().getForumMainTopics();
+		ForumSubTopic subTopic = threadModel.getForumSubTopic();
+		
+		String mTopic = mainTopic.getTitle();
+		String sTopic = subTopic.getTitle();
+		
+		//redirect URL
+		String returnURL = String.format("forums/%s/%s", mTopic , sTopic);
+		
+		//delete thread
+		this.threadService.deleteThreadById(id);
+		
+		return "redirect:/" + returnURL;
+	}
 	
 	//PROFILE VIEWING
 	@GetMapping("/user/profile/{userNameProfile}")

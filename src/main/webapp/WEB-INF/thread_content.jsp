@@ -42,19 +42,28 @@
 		 Cannot change the UserRole as Optional because its binded with Many To Many Relation(Thus its declared as List)-->
 		<c:forEach var="currentUserRole" items="${currentUser.getRoles()}">
 			<c:if test="${currentUserRole.getName().equals('ROLE_ADMIN')}">
-				<form action="PLACEHOLDER" action="GET">
+				<form action="/forums/update/thread/id/${threadModel.getId()}" action="GET">
 					<input type="submit" value="Edit Post">
 				</form>
+				
+				<form:form action="/forums/delete/thread/id/${threadModel.getId()}" method="POST">
+					<input type="hidden" name="_method" value="DELETE">
+					<input type="submit" value="Delete Post" onClick="return confirm('Are you sure you want to delete this thread?')">
+				</form:form>
 			</c:if>
 			
 			<c:if test="${!currentUserRole.getName().equals('ROLE_ADMIN')}">
-				<form action="PLACEHOLDER" action="GET">
+				<form action="PLACEHOLDER" method="POST">
 					<input type="submit" value="Edit Post" title="This action is restricted to your account" disabled>
 				</form>
+				
+				<form:form action="PLACEHOLDER" method="POST">
+					<input type="submit" value="Delete Post" title="This action is restricted to your account" disabled>
+				</form:form>
 			</c:if>
 		</c:forEach>
 		
-		<!-- EDIT POST AS ADMIN TO BE ADDED -->
+		
 	
 		</div>
 		
