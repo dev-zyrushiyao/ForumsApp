@@ -15,11 +15,11 @@
 </head>
 <body>
 
-<a href="/admin/view/main/topic"> GO BACK</a>
+<a href="/forums/${ForumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/thread/${threadModel.getId()}"> GO BACK</a>
 <br>
 		<label>Update thread</label>
 		<br>
- 		<form:form action="/forums/update/thread/info/id/${threadModel.getId()}" method="POST" modelAttribute="threadUpdateForm">
+ 		<form:form action="/admin/forums/update/thread/info/id/${threadModel.getId()}" method="POST" modelAttribute="threadUpdateForm">
 			<input type="hidden" name="_method" value="put">
 			<ul>
 				<li>

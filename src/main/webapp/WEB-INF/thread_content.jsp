@@ -43,11 +43,11 @@
 		<c:forEach var="currentUserRole" items="${currentUser.getRoles()}">
 			<!-- Edit Post and Delete Thread -->
 			<c:if test="${currentUserRole.getName().equals('ROLE_ADMIN')}">
-				<form action="/forums/update/thread/id/${threadModel.getId()}" action="GET">
+				<form action="/admin/forums/update/thread/id/${threadModel.getId()}" action="GET">
 					<input type="submit" value="Edit Thread">
 				</form>
 				
-				<form:form action="/forums/delete/thread/id/${threadModel.getId()}" method="POST">
+				<form:form action="/admin/forums/delete/thread/id/${threadModel.getId()}" method="POST">
 					<input type="hidden" name="_method" value="DELETE">
 					<input type="submit" value="Delete Thread" onClick="return confirm('Are you sure you want to delete this thread?')">
 				</form:form>

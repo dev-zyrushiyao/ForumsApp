@@ -88,7 +88,7 @@ public class MainController {
         
         //Threads URL: /forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()
 			return "user_dashboard_subtopic.jsp";	
-	}
+	}	
 	
 	//view threads of subtopic
 	@GetMapping("/forums/{mainTopic}/{subTopic}")
@@ -227,16 +227,22 @@ public class MainController {
 	}
 	
 	//Thread update page
-	@GetMapping("/forums/update/thread/id/{id}")
+	@GetMapping("/admin/forums/update/thread/id/{id}")
 	public String updateThreadPage(Model modelView , @PathVariable Long id , ThreadModel threadModel) {
 		threadModel = this.threadService.findThreadById(id);
 		modelView.addAttribute("threadUpdateForm", threadModel);
+		
+		//go back link to Edit - back to thread viewing
+		ForumMainTopic forumMainTopic = threadModel.getForumSubTopic().getForumMainTopics();
+		ForumSubTopic forumSubTopic = threadModel.getForumSubTopic();
+		modelView.addAttribute("ForumMainTopic", forumMainTopic);
+		modelView.addAttribute("forumSubTopic", forumSubTopic);
 		
 		return "user_dashboard_thread_update.jsp";
 	}
 	
 	//Thread update 
-	@PutMapping("/forums/update/thread/info/id/{id}")
+	@PutMapping("/admin/forums/update/thread/info/id/{id}")
 	public String updateThread(Model modelView, @PathVariable Long id , 
 		@Valid @ModelAttribute("threadUpdateForm")ThreadModel threadModel , BindingResult result) {
 		
