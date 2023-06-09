@@ -339,11 +339,9 @@ public class MainController {
 			modelView.addAttribute("currentUser" , userService.findUserById(id));
 			return "user_updateInfo.jsp";
 		}else {
-			//updates the data
-			redirectAttributes.addFlashAttribute("updateUserDataMessage", "Data Successfully updated");
 			
 			this.userDataService.updateUserData(userData);
-			return "redirect:/update/user/profile/id/" + userData.getUserAccount().getId();	
+			return "redirect:/user/profile/" + userData.getUserAccount().getUserName();	
 		}
 	}
 	
@@ -356,11 +354,9 @@ public class MainController {
 			System.out.println("Update saving fail!");
 			return "user_updateInfo.jsp";
 		}else {
-			//updates the data
-			redirectAttributes.addFlashAttribute("updateUserDataMessage", "Data Successfully updated");
 			
 			this.userDataService.updateUserData(userData);
-			return "redirect:/update/user/profile/id/" + userData.getUserAccount().getId();	
+			return "redirect:/user/profile/" + userData.getUserAccount().getUserName();	
 		}
 	}
 

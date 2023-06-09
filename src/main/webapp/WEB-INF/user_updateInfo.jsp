@@ -18,8 +18,7 @@
 		<c:if test="${currentUser.getUserData() != null}">
 			<form:form action="/update/user/info/${currentUser.getUserData().getId()}" method="POST" modelAttribute="userDataUpdateForm">
 				<input type="hidden" name="_method" value="put">
-				<label style="color:green"><c:out value="${updateUserDataMessage}"></c:out></label>
-				<br>
+			
 				<label>Update your profile</label>
 				<ul>
 					<li>
@@ -58,8 +57,7 @@
 			<c:if test="${currentUser.getUserData() == null}">
 		 		<form:form action="/update/user/add/info/${currentUser.getId()}" method="POST" modelAttribute="userDataForm">
 				<input type="hidden" name="_method" value="put">
-				<label style="color:green"><c:out value="${updateUserDataMessage}"></c:out></label>
-				<br>
+
 				<label>Update your profile</label>
 				<ul>
 					<li>
