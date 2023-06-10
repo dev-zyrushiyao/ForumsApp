@@ -56,11 +56,24 @@ The Sub Topic model represents a sub topic in the database. A Sub Topic object h
 
 ## Thread
 
-// (work in progress)
+The Thread model represents a thread in the database. A thread object has the following fields:
 
-## Comments
+* `title`: a `CharField` minimum length of 5 and maximum length of 100, representing the title of the thread.
+* `content`: a `TextField` minimum length of 1 and maximum length of 200, representing the content of the thread.
+* `updatedAt`: a `DateTimeField` that auto-updates when the object is updated.
+* `createdAt`: a `DateTimeField` that auto-populates with the creation date and time of the object.
+* `forumSubTopic`: a `ForeignKey` to the `Sub Topic` model, representing the Sub Topic associated with the Thread.
+* `userThread`: a `ForeignKey` to the `User` model, representing the User associated with the Thread.
 
-// (work in progress)
+## Comment
+
+The Comment model represents a comment in the database. A Comment object has the following fields:
+
+* `comment`: a `TextField` minimum length of 1 and maximum length of 1000, representing the main content of the comment.
+* `updatedAt`: a `DateTimeField` that auto-updates when the object is updated.
+* `createdAt`: a `DateTimeField` that auto-populates with the creation date and time of the object.
+* `threadTopic`: a `ForeignKey` to the `Thread` model, representing the Thread associated with the Comment.
+* `userAccount`: a `ForeignKey` to the `User` model, representing the User associated with the Comment.
 
 ## Relationship between models
 
