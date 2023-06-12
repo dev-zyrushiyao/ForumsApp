@@ -1,0 +1,19 @@
+* {
+    font-family: sans-serif;
+}
+
+.inline {
+    display: inline;
+}
+
+.btn {
+    width: 115px;
+    height: 25px;
+    background: #2b78e4;
+    padding: 10px;
+    text-align: center;
+    border-radius: 2px;
+    color: white;
+    font-weight: bold;
+    line-height: 25px;
+}

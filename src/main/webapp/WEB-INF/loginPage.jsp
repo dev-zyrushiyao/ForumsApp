@@ -4,8 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Login Page</title>
+	<meta charset="ISO-8859-1">
+	<title>Login Page</title>
+	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 		
@@ -13,7 +14,7 @@
 	
 		
     	
-    <h1>Login</h1>
+    <h1>Dojo Dev Forums</h1>
     	<c:if test="${logoutMessage != null}">
 	        <label style="color:green"><c:out value="${logoutMessage}"></c:out></label>
 	    </c:if>
