@@ -9,20 +9,14 @@
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-		
-		
 	
-		
-    	
-    <h1>Dojo Dev Forums</h1>
-    	<c:if test="${logoutMessage != null}">
-	        <label style="color:green"><c:out value="${logoutMessage}"></c:out></label>
-	    </c:if>
-    		
-		<c:if test="${errorMessage != null}">
-		     <label style="color:red"><c:out value="${errorMessage}"></c:out></label>
-		</c:if>
-
+	<header class="main-header">
+		<h1 class="main-header-title font-color-primary">Dojo Dev Forums</h1>
+	</header>
+    
+		<div class="">
+			<h2 class="font-color-primary">Connect with a dojo full of developers around the globe</h2>
+		</div>
 
 		<div class="login-container">
 			<form method="POST" action="/login">
@@ -35,13 +29,27 @@
 					<input type="password" id="password" name="password"/>
 				</p>
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-					<input type="submit" value="Login"/>
+					<input class="btn-secondary margin-bot" type="submit" value="Login"/>
 			</form>
+
+			<div>
+				<c:if test="${errorMessage != null}">
+					 <label style="color:red"><c:out value="${errorMessage}"></c:out></label>
+				</c:if>
+
+			</div>
+
+			<div class="margin-y">
+				<span>Don't have an account?</span>
+				<a class="btn-primary blk-border" href="/registration">Join now!</a>
+			</div>
 			
+
+			<c:if test="${logoutMessage != null}">
+				<label style="color:green"><c:out value="${logoutMessage}"></c:out></label>
+			</c:if>
 		</div>
 
-		<span>Don't have an account?</span>
-		<a class="btn" href="/registration">Join now!</a>
 
 
 </body>

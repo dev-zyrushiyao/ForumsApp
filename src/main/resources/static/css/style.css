@@ -2,18 +2,56 @@
     font-family: sans-serif;
 }
 
-.inline {
-    display: inline;
+body {
+    background-color: #caddf8;
 }
 
-.btn {
-    width: 115px;
-    height: 25px;
+.inline {
+    display: inline-block;
+}
+
+.main-header-title {
+    /* color: #0a3965; */
+}
+
+.margin-y {
+    margin: 14px 0;
+}
+
+.margin-bot {
+    margin-bottom: 20px;
+}
+
+.font-color-primary {
+    color: #0a3965;
+}
+
+.login-container {
+    background-color: white;
+    padding: 10px 15px 10px 15px;
+    width: 35%;
+    border-radius: 10px;
+}
+
+.btn-primary {  
+    height: 20px;
     background: #2b78e4;
-    padding: 10px;
-    text-align: center;
+    padding: 7px 18px;
     border-radius: 2px;
     color: white;
+    font-weight: 600;
+}
+
+.btn-secondary {
+    width: 115px;
+    background: #999;
+    text-align: center;
+    border-radius: 2px;
+    color: black;
     font-weight: bold;
     line-height: 25px;
+}
+
+.blk-border {
+    border: 2px solid black;
 }
