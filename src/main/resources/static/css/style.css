@@ -10,11 +10,15 @@ body {
 }
 
 .main-content {
-    justify-content: space-around;
+    justify-content: space-evenly;
+    margin: 5em 8em 0;
+    
 }
 
 .left-content {
     align-items: center;
+    width: 40%;
+    padding-left: 3em;
 }
 
 .flex-row {
@@ -36,8 +40,16 @@ body {
 }
 
 .main-header-title {
-    margin-left: 16px;
-    padding: 18px 0;
+    margin-left: 20px;
+    padding: 24px 0;
+    font-size: 36px;
+}
+
+.intro-text {
+    font-size: 29px;
+    align-self: flex-start;
+    margin-bottom: 45px;
+    font-weight: normal;
 }
 
 .margin-y {
@@ -54,16 +66,19 @@ body {
 
 .login-container {
     background-color: white;
-    padding: 10px 15px 10px 15px;
+    padding: 25px 30px;
     width: 35%;
     border-radius: 10px;
 }
 
 .input-label {
-    font-size: 22px;
+    font-size: 19px;
+    margin-bottom: 7px;
 }
 
 .input-text-pri {
+    padding-left: 5px;
+    margin-bottom: 8px;
     height: 30px;
     width: 70%;
 }
@@ -83,7 +98,7 @@ input::placeholder {
 }
 
 .btn-secondary {
-    width: 115px;
+    width: 100%;
     background: #999;
     text-align: center;
     border-radius: 2px;
@@ -94,6 +109,14 @@ input::placeholder {
 
 .blk-border {
     border: 2px solid black;
+}
+
+.login-container .text-input {
+    width: 100%;
+}
+
+.login-cont-message span {
+    padding-right: 16px;
 }
 
 #globe-img {
