@@ -10,7 +10,7 @@
 <body>
 		
 		
-	<a href="/registration">Register here</a>
+	
 		
     	
     <h1>Login</h1>
@@ -21,18 +21,27 @@
 		<c:if test="${errorMessage != null}">
 		     <label style="color:red"><c:out value="${errorMessage}"></c:out></label>
 		</c:if>
-		    
+
+
+		<div class="login-container">
 			<form method="POST" action="/login">
 				<p>
-				    <label for="username">Username</label>
-				    <input type="text" id="username" name="username"/>
+					<label for="username">Username</label>
+					<input type="text" id="username" name="username"/>
 				</p>
 				<p>
-				    <label for="password">Password</label>
-				    <input type="password" id="password" name="password"/>
+					<label for="password">Password</label>
+					<input type="password" id="password" name="password"/>
 				</p>
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-					<input type="submit" value="Login!"/>
+					<input type="submit" value="Login"/>
 			</form>
+			
+		</div>
+
+		<span>Don't have an account?</span>
+		<a class="btn" href="/registration">Join now!</a>
+
+
 </body>
 </html>
