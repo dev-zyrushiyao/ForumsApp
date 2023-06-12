@@ -14,22 +14,25 @@
 		<h1 class="main-header-title font-color-primary">Dojo Dev Forums</h1>
 	</header>
     
-		<div class="">
+	<main class="main-content flex-row flex-centered">
+		<div class="left-content flex-column">
 			<h2 class="font-color-primary">Connect with a dojo full of developers around the globe</h2>
+			<img src="https://www.pngkit.com/png/full/781-7817356_international-shipping-icon-01-icon-globe-vector.png" alt="earth image" id="globe-img">
 		</div>
 
 		<div class="login-container">
 			<form method="POST" action="/login">
-				<p>
-					<label for="username">Username</label>
-					<input type="text" id="username" name="username"/>
-				</p>
-				<p>
-					<label for="password">Password</label>
-					<input type="password" id="password" name="password"/>
-				</p>
+				<div>
+					<p class="input-label"><label for="username">Username:</label></p>
+					<input class="input-text-pri blk-border" type="text" id="username" name="username" placeholder="Your Username"/>
+				</div>
+				<div>
+					<p class="input-label"><label for="password">Password:</label></p>
+					<input class="input-text-pri blk-border" type="password" id="password" name="password" placeholder="Your Password"/>
+				</div>
+				
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-					<input class="btn-secondary margin-bot" type="submit" value="Login"/>
+					<input class="btn-secondary margin-y" type="submit" value="Login"/>
 			</form>
 
 			<div>
@@ -49,6 +52,7 @@
 				<label style="color:green"><c:out value="${logoutMessage}"></c:out></label>
 			</c:if>
 		</div>
+	</main>
 
 
 
