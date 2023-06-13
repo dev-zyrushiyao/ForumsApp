@@ -9,55 +9,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Complete your profile</title>
+	<meta charset="ISO-8859-1">
+	<title>Complete your profile</title>
+	<link rel="stylesheet" href="../../../css/style.css">
 </head>
 <body>
+
+	<header class="main-header">
+		<h1 class="main-header-title font-color-primary">Dojo Dev Forums</h1>
+	</header>
 	
-	<a href="/login"> Complete profile later</a>
-		<c:if test="${userModelDataChecker.getUserData() == null}"> 
-			<form:form action="/registration/post/userdata/${currentUser.getUserName()}" method="POST" modelAttribute="userDataForm">
-			<label style="color:green"><c:out value="${userDataMessage}"></c:out></label>
-			<br>
-			<label>Complete your profile</label>
-			<ul>
-				<li>
-					<label>First Name: </label>
-					<form:input path="firstName" type="text"/>
-					<form:errors path="firstName" class="text-danger" style="color:red"/>
+	<a href="/login">Complete profile later</a>
+
+	<main class="flex-column flex-centered flex-centered-2">
+		<div class="login-container ">
+			<c:if test="${userModelDataChecker.getUserData() == null}"> 
+				<form:form action="/registration/post/userdata/${currentUser.getUserName()}" method="POST" modelAttribute="userDataForm">
+				<label style="color:green"><c:out value="${userDataMessage}"></c:out></label>
+				
+				<h1>Complete your profile</h1>
+				
 					
-				</li>
-				<li>
-					<label>Last Name: </label>
-					<form:input path="lastName" type="text"/>
-					<form:errors path="lastName" class="text-danger" style="color:red"/> 
-				</li>
-				<li>
-					<label>Location: </label>
-					<form:input path="location" type="text"/>
-					<form:errors path="location" class="text-danger" style="color:red"/>
-				</li>
-				<li>
-					<label>Favorite Prog. Language</label>
-					<form:input path="programmingLanguage" type="text"/>
-					<form:errors path="programmingLanguage" class="text-danger" style="color:red"/>
-				</li>
-
-				<!-- User ID will be hidden -->
-
-				<!-- <li>
-					<label>User ID</label> 
-				</li> -->
+						<!-- <label>First Name: </label> -->
+						<form:input path="firstName" type="text" placeholder="First Name"/>
+						<form:errors path="firstName" class="text-danger" style="color:red" />
+						
+						<!-- <label>Last Name: </label> -->
+						<form:input path="lastName" type="text" placeholder="Last Name"/>
+						<form:errors path="lastName" class="text-danger" style="color:red"/> 
+					
+						<!-- <label>Location: </label> -->
+						<form:input path="location" type="text" placeholder="Your Location"/>
+						<form:errors path="location" class="text-danger" style="color:red"/>
+					
+						<!-- <label>Favorite Prog. Language</label> -->
+						<form:input path="programmingLanguage" type="text" placeholder="Your Programming Language"/>
+						<form:errors path="programmingLanguage" class="text-danger" style="color:red"/>
+					
+	
+					<!-- User ID will be hidden -->
+	
+					<!-- <li>
+						<label>User ID</label> 
+					</li> -->
+					
+					<form:input path="userAccount" type="text" value="${currentUser.getId()}" hidden="true"/> 
+					
+					
+						<input type="submit" value="Submit">
+						<input type="reset" value="Clear">
+					
 				
-				<form:input path="userAccount" type="text" value="${currentUser.getId()}" hidden="true"/> 
-				
-				<li>
-					<input type="submit" value="Submit">
-					<input type="reset" value="Clear">
-				</li>
-			</ul>
-			</form:form>
-		 </c:if> 
+				</form:form>
+			 </c:if> 
+
+		</div>
+	</main>
 		
 		 
 	
