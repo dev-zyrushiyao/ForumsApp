@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title> Complete your profile</title>
+<title>Complete your profile</title>
 </head>
 <body>
 	
@@ -42,10 +42,15 @@
 					<form:input path="programmingLanguage" type="text"/>
 					<form:errors path="programmingLanguage" class="text-danger" style="color:red"/>
 				</li>
-				<li>
-					<label>User ID</label> <!-- to be hidden -->
-					<form:input path="userAccount" type="text" value="${currentUser.getId()}" readonly="true"/> 
-				</li>
+
+				<!-- User ID will be hidden -->
+
+				<!-- <li>
+					<label>User ID</label> 
+				</li> -->
+				
+				<form:input path="userAccount" type="text" value="${currentUser.getId()}" hidden="true"/> 
+				
 				<li>
 					<input type="submit" value="Submit">
 					<input type="reset" value="Clear">
