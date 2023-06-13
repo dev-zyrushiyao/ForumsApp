@@ -19,7 +19,7 @@
 		<h1 class="main-header-title font-color-primary">Dojo Dev Forums</h1>
 	</header>
 	
-	<a href="/login">Complete profile later</a>
+	
 
 	<main class="flex-column flex-centered flex-centered-2">
 		<div class="login-container ">
@@ -28,22 +28,23 @@
 				<label style="color:green"><c:out value="${userDataMessage}"></c:out></label>
 				
 				<h1>Complete your profile</h1>
+				<hr>
 				
 					
 						<!-- <label>First Name: </label> -->
-						<form:input path="firstName" type="text" placeholder="First Name"/>
+						<form:input class="text-input input-text-pri blk-border margin-y-sm" path="firstName" type="text" placeholder="First Name"/>
 						<form:errors path="firstName" class="text-danger" style="color:red" />
 						
 						<!-- <label>Last Name: </label> -->
-						<form:input path="lastName" type="text" placeholder="Last Name"/>
+						<form:input class="text-input input-text-pri blk-border margin-y-sm" path="lastName" type="text" placeholder="Last Name"/>
 						<form:errors path="lastName" class="text-danger" style="color:red"/> 
 					
 						<!-- <label>Location: </label> -->
-						<form:input path="location" type="text" placeholder="Your Location"/>
+						<form:input class="text-input input-text-pri blk-border margin-y-sm" path="location" type="text" placeholder="Your Location"/>
 						<form:errors path="location" class="text-danger" style="color:red"/>
 					
 						<!-- <label>Favorite Prog. Language</label> -->
-						<form:input path="programmingLanguage" type="text" placeholder="Your Programming Language"/>
+						<form:input class="text-input input-text-pri blk-border margin-y-sm" path="programmingLanguage" type="text" placeholder="Your Programming Language"/>
 						<form:errors path="programmingLanguage" class="text-danger" style="color:red"/>
 					
 	
@@ -56,13 +57,14 @@
 					<form:input path="userAccount" type="text" value="${currentUser.getId()}" hidden="true"/> 
 					
 					
-						<input type="submit" value="Submit">
-						<input type="reset" value="Clear">
+						<input class="btn-primary blk-border" type="submit" value="Submit">
+						<input class="btn-primary margin-y" id="clr-btn" type="reset" value="Clear">
 					
 				
 				</form:form>
 			 </c:if> 
 
+			 <a href="/login">Complete profile later</a>
 		</div>
 	</main>
 		

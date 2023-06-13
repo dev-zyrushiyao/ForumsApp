@@ -130,3 +130,8 @@ input::placeholder {
 #globe-img {
     width: 18vw;
 }
+
+#clr-btn {
+    background: #999;
+    color: black;
+}
