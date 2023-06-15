@@ -11,15 +11,42 @@
 <head>
 <meta charset="ISO-8859-1">
 <title><c:out value="${currentUser.getUserName()}"/> | Update Info</title>
+<link rel="stylesheet" href="../../../../css/style.css">
 </head>
 <body>
-	<a href="/user/profile/${currentUser.getUserName()}">GO BACK</a>
+
+	<!-- Header when logged in -->
+	<header class="main-header flex-row spc-bet">
+		<div>
+			<h1 class="main-header-title font-color-primary">Dojo Dev Forums</h1>
+		</div>
+		<!-- Profile Header Section -->
+		<div class="flex-row flex-centered dropdown">
+			<img id="profile-pic" src="../../../../img/default-img.png" alt="Default profile picture">
+			<p class="header-profile-name font-color-primary"><c:out value="${currentUser.getUserName()}"/>&nbsp;&nbsp;<span class="caret-down">&#9660;</span></p>
+			
+			<!-- Dropdown Content Section -->
+			<div class="dropdown-content">
+				<a class="dropdown-menu" href="/user/profile/${currentUser.getUserName()}/">View Profile</a>
+				<a class="dropdown-menu" href="/update/user/profile/id/${currentUser.getId()}">Edit Profile</a>
+				<form id="logoutForm" method="POST" action="/logout">
+					<a class="dropdown-menu logout">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+						<input id="logout-btn" type="submit" value="Logout!" />
+					</a>
+				</form>
+			</div>
+		</div>
+	</header>
+
+
+	
 
 		<c:if test="${currentUser.getUserData() != null}">
 			<form:form action="/update/user/info/${currentUser.getUserData().getId()}" method="POST" modelAttribute="userDataUpdateForm">
 				<input type="hidden" name="_method" value="put">
 			
-				<label>Update your profile</label>
+				<h2>Update your profile</h2>
 				<ul>
 					<li>
 						<label>First Name: </label>
@@ -93,7 +120,7 @@
 				</form:form> 
 			</c:if>
 			
-	
+			<a href="/user/profile/${currentUser.getUserName()}">GO BACK</a>
 	
 
 </body>

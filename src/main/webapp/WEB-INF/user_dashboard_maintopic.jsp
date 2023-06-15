@@ -15,6 +15,8 @@
 	<title>Dojo Dev Forums</title>
 </head>
 <body>
+
+	<!-- Header when logged in -->
 	<header class="main-header flex-row spc-bet">
 		<div>
 			<h1 class="main-header-title font-color-primary">Dojo Dev Forums</h1>
@@ -38,6 +40,7 @@
 		</div>
 	</header>
 
+	
 	<nav>
 		<h1> Hello, <a href="/user/profile/${currentUser.getUserName()}/"><c:out value="${currentUser.getUserName()}"/></a></h1>
 		
