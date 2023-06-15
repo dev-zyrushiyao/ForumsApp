@@ -39,8 +39,16 @@ body {
     justify-content: center;
 }
 
+.spc-bet {
+    justify-content: space-between;
+}
+
 .inline {
     display: inline-block;
+}
+
+.main-header {
+    margin: 0 24px;
 }
 
 .main-header-title {
@@ -70,6 +78,10 @@ body {
 
 .font-color-primary {
     color: #0a3965;
+}
+
+.font-color-secondary {
+    color: #2b78e4;
 }
 
 .login-container {
@@ -127,11 +139,22 @@ input::placeholder {
     padding-right: 16px;
 }
 
+.header-profile-name {
+    margin: 0 32px 0 25px;
+    font-size: 1.7em;
+}
+
 #globe-img {
     width: 18vw;
+    
 }
 
 #clr-btn {
     background: #999;
     color: black;
+}
+
+#profile-pic {
+    width: 64px;
+    height: fit-content;
 }

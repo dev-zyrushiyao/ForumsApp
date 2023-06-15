@@ -10,10 +10,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Dojo Dev Forums</title>
+	<meta charset="ISO-8859-1">
+	<link rel="stylesheet" href="css/style.css">
+	<title>Dojo Dev Forums</title>
 </head>
 <body>
+	<header class="main-header flex-row spc-bet">
+		<div>
+			<h1 class="main-header-title font-color-primary">Dojo Dev Forums</h1>
+		</div>
+		<!-- Profile Header Section -->
+		<div class="flex-row flex-centered">
+			<img id="profile-pic" src="img/default-img.png" alt="Default profile picture">
+			<p class="header-profile-name font-color-primary"><c:out value="${currentUser.getUserName()}"/>&nbsp;&nbsp;<span class="caret-down">&#9660;</span></p>
+		
+		</div>
+	</header>
+
 	<nav>
 		<h1> Hello, <a href="/user/profile/${currentUser.getUserName()}/"><c:out value="${currentUser.getUserName()}"/></a></h1>
 		<form id="logoutForm" method="POST" action="/logout">
