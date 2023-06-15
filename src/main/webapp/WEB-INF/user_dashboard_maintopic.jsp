@@ -20,19 +20,27 @@
 			<h1 class="main-header-title font-color-primary">Dojo Dev Forums</h1>
 		</div>
 		<!-- Profile Header Section -->
-		<div class="flex-row flex-centered">
+		<div class="flex-row flex-centered dropdown">
 			<img id="profile-pic" src="img/default-img.png" alt="Default profile picture">
 			<p class="header-profile-name font-color-primary"><c:out value="${currentUser.getUserName()}"/>&nbsp;&nbsp;<span class="caret-down">&#9660;</span></p>
-		
+			
+			<!-- Dropdown Content Section -->
+			<div class="dropdown-content">
+				<a class="dropdown-menu" href="/user/profile/${currentUser.getUserName()}/">View Profile</a>
+				<a class="dropdown-menu" href="/update/user/profile/id/${currentUser.getId()}">Edit Profile</a>
+				<form id="logoutForm" method="POST" action="/logout">
+					<a class="dropdown-menu logout">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+						<input id="logout-btn" type="submit" value="Logout!" />
+					</a>
+				</form>
+			</div>
 		</div>
 	</header>
 
 	<nav>
 		<h1> Hello, <a href="/user/profile/${currentUser.getUserName()}/"><c:out value="${currentUser.getUserName()}"/></a></h1>
-		<form id="logoutForm" method="POST" action="/logout">
-	        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-	        <input type="submit" value="Logout!" />
-    	</form>
+		
     </nav>
 	
 	<div id="main-forum-div">
@@ -50,6 +58,6 @@
 		</div>
 	</div>
 	
-		
+	<script src="js/app.js"></script>
 </body>
 </html>
