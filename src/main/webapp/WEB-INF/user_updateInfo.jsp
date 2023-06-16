@@ -40,7 +40,7 @@
 	</header>
 
 
-	
+	<main class="main-content-logged">
 
 		<c:if test="${currentUser.getUserData() != null}">
 			<form:form action="/update/user/info/${currentUser.getUserData().getId()}" method="POST" modelAttribute="userDataUpdateForm">
@@ -65,14 +65,15 @@
 						<form:errors path="location" class="text-danger" style="color:red"/>
 					</li>
 					<li>
-						<label>Favorite Prog. Language</label>
+						<label>Favorite Programming Language</label>
 						<form:input path="programmingLanguage" type="text"/>
 						<form:errors path="programmingLanguage" class="text-danger" style="color:red"/>
 					</li>
-					<li style="display:visible">
-						<label>User ID</label> <!-- to be hidden -->
-						<form:input path="userAccount" type="text" readonly="true"/> 
-					</li> 
+					<!-- <li> -->
+						<!-- to be hidden -->
+						<!-- <label>User ID</label>  -->
+						<form:input path="userAccount" type="text" hidden="true"/> 
+					<!-- </li>  -->
 					<li>
 						<input type="submit" value="UPDATE INFORMATION">
 						<input type="reset" value="Clear">
@@ -108,9 +109,12 @@
 						<form:input path="programmingLanguage" type="text"/>
 						<form:errors path="programmingLanguage" class="text-danger" style="color:red"/>
 					</li>
-					<li style="display:visible">
-						<label>User ID</label> <!-- to be hidden -->
-						<form:input path="userAccount" type="text" value="${currentUser.getId()}" readonly="true"/> 
+
+					<li>
+						<!-- to be hidden -->
+						<!-- <label>User ID</label>  -->
+						<form:input path="userAccount" type="text" value="${currentUser.getId()}" hidden="true"/> 
+					
 					</li> 
 					<li>
 						<input type="submit" value="UPDATE INFORMATION">
@@ -122,7 +126,7 @@
 			
 			<a href="/user/profile/${currentUser.getUserName()}">GO BACK</a>
 	
-
+		</main>
 
 
 			<!-- Link JavaScript File -->

@@ -40,30 +40,33 @@
 		</div>
 	</header>
 
-	
-	<nav>
-		<h1> Hello, <a href="/user/profile/${currentUser.getUserName()}/"><c:out value="${currentUser.getUserName()}"/></a></h1>
+	<main class="main-content-logged">
+
+		<nav>
+			<h1> Hello, <a href="/user/profile/${currentUser.getUserName()}/"><c:out value="${currentUser.getUserName()}"/></a></h1>
+		</nav>
 		
-    </nav>
-	
-	<div id="main-forum-div">
-		<div class="main-topic-div">
-			<div class="main-header">
-				<div class="main-title">
-					<c:forEach var="forumMainTopic" items="${forumMainTopic}">
-					<ul>	
-						<li><a href="/forums/${forumMainTopic.getTitle()}"><c:out value="${forumMainTopic.getTitle()}"/></a></li>
-						<li>- <c:out value="${forumMainTopic.getDescription()}"/></li>
-					</ul>
-					</c:forEach>
+		<div id="main-forum-div">
+			<div class="main-topic-div">
+				<div class="main-header">
+					<div class="main-title">
+						<c:forEach var="forumMainTopic" items="${forumMainTopic}">
+						<ul>	
+							<li><a href="/forums/${forumMainTopic.getTitle()}"><c:out value="${forumMainTopic.getTitle()}"/></a></li>
+							<li>- <c:out value="${forumMainTopic.getDescription()}"/></li>
+						</ul>
+						</c:forEach>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+
+	</main>
+
 	
 	<!-- Link JavaScript File -->
 	<script src="js/app.js"></script>
 
-	
+
 </body>
 </html>

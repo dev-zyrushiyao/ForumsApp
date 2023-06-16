@@ -5,8 +5,23 @@
     box-sizing: border-box;
 }
 
+ul li {
+    list-style-type: none;
+}
+
 body {
     background-color: #caddf8;
+}
+
+main.main-content-logged {
+    background-color: #e1e8f1;
+    margin: 0 3em;
+    border: 2px solid #1f1d1d;
+    height: calc(100vh - 90px);
+}
+
+main.main-content-logged div {
+    margin: 24px 32px;
 }
 
 .main-content {
@@ -122,6 +137,7 @@ input::placeholder {
     font-weight: 600;
 }
 
+
 .btn-secondary {
     width: 100%;
     background: #999;
@@ -130,6 +146,10 @@ input::placeholder {
     color: black;
     font-weight: bold;
     line-height: 25px;
+}
+
+.btn-primary:hover, .btn-secondary:hover {
+    cursor: pointer;
 }
 
 .blk-border {
@@ -189,6 +209,27 @@ input::placeholder {
     text-align: left;
 }
 
+.profile-page-username {
+    font-size: 2em;
+}
+
+ul.user-info img {
+    width: 7em;
+}
+
+ul.user-info li {
+    font-size: 1.4em;
+    margin-bottom: 4px;
+}
+
+ul.user-info li i.profile-page-joindate {
+    font-size: 16px;
+}
+
+ul.user-info li:nth-child(3) {
+    margin-bottom: 11px;
+}
+
 #globe-img {
     width: 18vw;
     
@@ -202,4 +243,8 @@ input::placeholder {
 #profile-pic {
     width: 64px;
     height: fit-content;
+}
+
+#edit-profile-btn {
+    margin-top: 18px;
 }
