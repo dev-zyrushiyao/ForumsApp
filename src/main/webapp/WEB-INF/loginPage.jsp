@@ -60,6 +60,7 @@
 	</main>
 
 
-
+	<!-- Link JavaScript File -->
+	<script src="/js/app.js"></script>
 </body>
 </html>

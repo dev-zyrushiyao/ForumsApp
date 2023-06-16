@@ -133,6 +133,11 @@
 	<a href="/dashboard">Go back</a>
 	
 
-	
+
+
+
+	<!-- Link JavaScript File -->
+	<script src="../../../js/app.js"></script>
+
 </body>
 </html>

@@ -55,6 +55,11 @@ body {
     margin-left: 20px;
     padding: 24px 0;
     font-size: 36px;
+    width: fit-content;
+}
+
+.main-header-title:hover {
+    cursor: pointer;
 }
 
 .intro-text {

@@ -123,5 +123,9 @@
 			<a href="/user/profile/${currentUser.getUserName()}">GO BACK</a>
 	
 
+
+
+			<!-- Link JavaScript File -->
+			<script src="../../../../js/app.js"></script>
 </body>
 </html>
