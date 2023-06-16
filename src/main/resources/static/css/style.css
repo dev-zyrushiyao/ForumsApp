@@ -10,7 +10,7 @@ ul li {
 }
 
 body {
-    background-color: #caddf8;
+    background: linear-gradient(270deg,#b4abf0,#e2e8f0,#9fc6f1);
 }
 
 main.main-content-logged {
@@ -109,6 +109,7 @@ main.main-content-logged > div {
     padding: 25px 30px;
     width: 35%;
     border-radius: 10px;
+    border: 1px solid #1f4ece;
 }
 
 .input-label {
