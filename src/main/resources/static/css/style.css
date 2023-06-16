@@ -20,7 +20,7 @@ main.main-content-logged {
     height: calc(100vh - 90px);
 }
 
-main.main-content-logged div {
+main.main-content-logged > div {
     margin: 24px 32px;
 }
 

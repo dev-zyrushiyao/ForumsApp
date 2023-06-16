@@ -42,31 +42,33 @@
 
 	<main class="main-content-logged">
 
-		<c:if test="${currentUser.getUserData() != null}">
+		<div class="flex-row spc-bet">
+			<div>
+				<c:if test="${currentUser.getUserData() != null}">
 			<form:form action="/update/user/info/${currentUser.getUserData().getId()}" method="POST" modelAttribute="userDataUpdateForm">
 				<input type="hidden" name="_method" value="put">
 			
-				<h2>Update your profile</h2>
+				<h2 class="margin-bot">Update your profile</h2>
 				<ul>
 					<li>
 						<label>First Name: </label>
-						<form:input path="firstName" type="text"/>
+						<p><form:input class="text-input input-text-pri blk-border margin-y-sm" path="firstName" type="text"/></p>
 						<form:errors path="firstName" class="text-danger" style="color:red"/>
 						
 					</li>
 					<li>
 						<label>Last Name: </label>
-						<form:input path="lastName" type="text"/>
+						<p><form:input class="text-input input-text-pri blk-border margin-y-sm" path="lastName" type="text"/></p>
 						<form:errors path="lastName" class="text-danger" style="color:red"/> 
 					</li>
 					<li>
 						<label>Location: </label>
-						<form:input path="location" type="text"/>
+						<p><form:input class="text-input input-text-pri blk-border margin-y-sm" path="location" type="text"/></p>
 						<form:errors path="location" class="text-danger" style="color:red"/>
 					</li>
-					<li>
-						<label>Favorite Programming Language</label>
-						<form:input path="programmingLanguage" type="text"/>
+					<li class="margin-bot">
+						<label>Preferred Language:</label>
+						<form:input class="text-input input-text-pri blk-border margin-y-sm" path="programmingLanguage" type="text"/>
 						<form:errors path="programmingLanguage" class="text-danger" style="color:red"/>
 					</li>
 					<!-- <li> -->
@@ -75,8 +77,8 @@
 						<form:input path="userAccount" type="text" hidden="true"/> 
 					<!-- </li>  -->
 					<li>
-						<input type="submit" value="UPDATE INFORMATION">
-						<input type="reset" value="Clear">
+						<input class="btn-primary" type="submit" value="Update">
+						<!-- <input type="reset" value="Clear"> -->
 					</li>
 				</ul>
 				</form:form>
@@ -118,13 +120,22 @@
 					</li> 
 					<li>
 						<input type="submit" value="UPDATE INFORMATION">
-						<input type="reset" value="Clear">
+						<!-- <input type="reset" value="Clear"> -->
 					</li>
 				</ul>
 				</form:form> 
 			</c:if>
+			</div>
+
+			<div>
+				<a href="/user/profile/${currentUser.getUserName()}"><< back to Profile Page</a>
+			</div>
+
+		</div>
+
+		
 			
-			<a href="/user/profile/${currentUser.getUserName()}">GO BACK</a>
+			
 	
 		</main>
 

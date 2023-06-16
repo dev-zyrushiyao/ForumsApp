@@ -45,34 +45,42 @@
 	<main class="main-content-logged">
 		
 		<!-- User Information -->
-		<div>
-			<c:choose>
-				<c:when test="${userModel.getUserData() == null}">
-					<ul>
-						<li>Username: <c:out value="${userModel.getUserName()}"/></li>
-						<li>Joined at: <c:out value="${userModel.getCreatedAt()}"/></li>
-					</ul>
-				</c:when>
-				
-				<c:otherwise>
-					<ul class="user-info">
-						<li><img src="../../../img/default-img.png" alt="Default profile picture"></li>
-						<li><p class="profile-page-username"><c:out value="${userModel.getUserName()}"/></p></li>
-						<li><i class="profile-page-joindate">joined at: <c:out value="${userModel.getCreatedAt()}"/></i></li>
-						<li><c:out value="${userModel.getUserData().getFirstName()} ${userModel.getUserData().getLastName()}"/></li>
-						<li><c:out value="${userModel.getUserData().getLocation()}"/></li>
-						<li>Technology/Language of Expertise:&nbsp;<c:out value="${userModel.getUserData().getProgrammingLanguage()}"/></li>
-						
-					</ul>
-				</c:otherwise> 
-			</c:choose>
-		
-			<c:if test="${currentUser.getUserName().equals(userModel.getUserName())}">
-				<form action="/update/user/profile/id/${currentUser.getId()}" method="GET">
-					<input id="edit-profile-btn" class="btn-primary" type="submit" value="Edit profile">
-				</form>
-			</c:if>
+		<div class="flex-row spc-bet">
+			<div>
+				<c:choose>
+					<c:when test="${userModel.getUserData() == null}">
+						<ul>
+							<li>Username: <c:out value="${userModel.getUserName()}"/></li>
+							<li>Joined at: <c:out value="${userModel.getCreatedAt()}"/></li>
+						</ul>
+					</c:when>
+					
+					<c:otherwise>
+						<ul class="user-info">
+							<li><img src="../../../img/default-img.png" alt="Default profile picture"></li>
+							<li><p class="profile-page-username"><c:out value="${userModel.getUserName()}"/></p></li>
+							<li><i class="profile-page-joindate">joined at: <c:out value="${userModel.getCreatedAt()}"/></i></li>
+							<li><c:out value="${userModel.getUserData().getFirstName()} ${userModel.getUserData().getLastName()}"/></li>
+							<li><c:out value="${userModel.getUserData().getLocation()}"/></li>
+							<li>Technology/Language of Expertise:&nbsp;<c:out value="${userModel.getUserData().getProgrammingLanguage()}"/></li>
+							
+						</ul>
+					</c:otherwise> 
+				</c:choose>
+			
+				<c:if test="${currentUser.getUserName().equals(userModel.getUserName())}">
+					<form action="/update/user/profile/id/${currentUser.getId()}" method="GET">
+						<input id="edit-profile-btn" class="btn-primary" type="submit" value="Edit profile">
+					</form>
+				</c:if>
+			</div>
+
+			<div>
+				<a href="/"><< back to Dashboard</a>
+			</div>
+
 		</div>
+
 		<div>
 			<c:if test="${currentUser.getUserName().equals(userModel.getUserName())}">	
 				<h3> My thread </h3>
