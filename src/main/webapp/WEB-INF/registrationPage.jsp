@@ -18,7 +18,7 @@
 	
     <main class="flex-column flex-centered flex-centered-2">
 
-        <div class="login-container ">
+        <div class="login-container">
             <h1>Create an account</h1>
             <hr>
             <p style="color:red"><form:errors path="user.*"/></p> 

@@ -12,8 +12,13 @@
 <head>
 <meta charset="ISO-8859-1">
 <title> <c:out value="${forumMainTopic.getTitle()}"/> | Dojo Dev Forums</title>
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+	<header class="main-header">
+		<h1 class="main-header-title font-color-primary">Dojo Dev Forums</h1>
+	</header>
+
 	<nav>
 		<h1> Hello, <a href="/user/profile/${currentUser.getUserName()}/"><c:out value="${currentUser.getUserName()}"/></a></h1>
 		<form id="logoutForm" method="POST" action="/logout">
@@ -38,5 +43,7 @@
 	</div>
 	
 		
+	<!-- Link JavaScript File -->
+	<script src="/js/app.js"></script>
 </body>
 </html>
