@@ -13,6 +13,9 @@ import javax.validation.Valid;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -112,6 +115,54 @@ public class MainController {
 		return "user_dashboard_thread.jsp";
 	}
 	
+	//PAGINATION THREAD
+	//localhost:8080/forums/Java/Spring Boot/page/0
+	@GetMapping("/forums/{mainTopic}/{subTopic}/page/{pageTarget}")
+	public String paginationThread(Model modelView , Principal principal,
+			@PathVariable String mainTopic , 
+			@PathVariable String subTopic, 
+			@PathVariable int pageTarget) {
+		String username = principal.getName();
+        modelView.addAttribute("currentUser", userService.findByUsername(username));
+		
+        //Form: Button-New Thread link 
+        ForumMainTopic mTopic = this.mainTopicService.findTitle(mainTopic);
+        ForumSubTopic sTopic = this.subTopicService.findTitle(subTopic);
+        modelView.addAttribute("mainTopic", mTopic);
+        modelView.addAttribute("subTopic", sTopic);
+        
+        //Thread List
+        List<ThreadModel> threadFinder = this.threadService.findByForumSubTopic(sTopic);
+        Collections.reverse(threadFinder);
+        modelView.addAttribute("threadFinder", threadFinder);
+		
+		// default data size per page PAGINATION
+		int pageSize = 10; 
+		PageRequest pageRequest = PageRequest.of(pageTarget, pageSize);
+		
+		//To Paginate All data from the model
+		//Page<ThreadModel> paginateThread = this.threadService.threadPagination(pageRequest);
+		
+		//ISSUE:BY DEFAULT PAGINATION WILL MAKE ALL THE THREADS FROM DIFFERENT TOPICS INTO ONE LIST [ALL DATA FROM THREAD MODEL] -> AS PAGE
+		//ISSUE: SOLVED CONVERTING A SEPARATE LIST OF (SUB TOPIC THREAD)[ONE TO MANY] -> TO A PAGE
+			//Source Fix #1: https://stackoverflow.com/a/37771947
+			//Source Fix #2: https://stackoverflow.com/a/60522317
+			//Source Fix #3: https://www.baeldung.com/spring-data-jpa-convert-list-page
+		int start = (int) pageRequest.getOffset();
+		int end = Math.min((start + pageRequest.getPageSize()), threadFinder.size());
+		Page<ThreadModel> threadPages = new PageImpl<ThreadModel>(threadFinder.subList(start, end), pageRequest, threadFinder.size());
+		
+		modelView.addAttribute("listOfThread" , threadPages.getContent()); //.getContent returns the data as List of Iteration of JSP ; w/o it spring boot will throw an error JspTagException:[Don't know how to iterate over supplied "items" in &lt;forEach&gt;]
+		modelView.addAttribute("totalPages", threadPages.getTotalPages());
+		
+		//To check the content will be shown as Pagination
+		for(ThreadModel threads : threadPages) {
+			System.out.println("page " + pageTarget + ": " + threads.getTitle());
+		}
+        
+		return "user_dashboard_thread.jsp";
+	}
+	
 	@GetMapping("/forums/{mainTopic}/{subTopic}/new/thread")
 	public String createThreadPage(Model modelView , ThreadModel threadModel , Principal principal ,
 		  @PathVariable String mainTopic , @PathVariable String subTopic) {
@@ -189,6 +240,8 @@ public class MainController {
 		
 		return "thread_content.jsp";
 	}
+	
+
 	
 	//thread reply
 	@PostMapping("/forums/{mainTopic}/{subTopic}/thread/new/reply")

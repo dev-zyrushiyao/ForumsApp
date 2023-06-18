@@ -11,9 +11,10 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title> <c:out value="${forumMainTopic.getTitle()}"/> | Dojo Dev Forums</title>
+<title> <c:out value="${subTopic.getTitle()}"/> | Dojo Dev Forums</title>
 </head>
 <body>
+	
 	<nav>
 		<h1> Hello, <a href="/user/profile/${currentUser.getUserName()}/"><c:out value="${currentUser.getUserName()}"/></a></h1>
 		<form id="logoutForm" method="POST" action="/logout">
@@ -21,21 +22,26 @@
 	        <input type="submit" value="Logout!" />
     	</form>
     </nav>
+    
+    <form action="/forums/${mainTopic.getTitle()}/${subTopic.getTitle()}/new/thread/" method="GET">
+    	<input type="submit" value="New Thread">
+    </form>
+    
 	
-	<div id="main-forum-div">
+ 	<div id="main-forum-div">
 		<div class="main-topic-div">
 			<div class="main-header">
 				<div class="main-title">
-					<c:forEach var="forumSubTopic" items="${forumSubTopic}">
+					<c:forEach var="threadFinder" items="${threadFinder}">
 					<ul>	
-						<li><a href="/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/page/0"><c:out value="${forumSubTopic.getTitle()}"/></a></li>
-						<li>- <c:out value="${forumSubTopic.getDescription()}"/></li>
+						<li><a href="/forums/${mainTopic.getTitle()}/${subTopic.getTitle()}/thread/${threadFinder.getId()}"><c:out value="${threadFinder.getTitle()}"/></a></li>
+						<li>- <a href="/user/profile/${threadFinder.getUserThread().getUserName()}"><c:out value="${threadFinder.getUserThread().getUserName()}"/></a></li>
 					</ul>
 					</c:forEach>
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> 
 	
 		
 </body>

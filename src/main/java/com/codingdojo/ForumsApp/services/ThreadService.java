@@ -3,6 +3,8 @@ package com.codingdojo.ForumsApp.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.codingdojo.ForumsApp.models.ForumSubTopic;
@@ -42,6 +44,10 @@ public class ThreadService {
 	//Search Threads of particular SubTopic
 	public List<ThreadModel> findByForumSubTopic(ForumSubTopic forumSubTopic){
 		return this.threadRepo.findByForumSubTopic(forumSubTopic);
+	}
+	
+	public Page<ThreadModel> threadPagination(Pageable pageable){
+		return this.threadRepo.findAll(pageable);
 	}
 	
 }

@@ -28,7 +28,7 @@
 				<div class="main-title">
 					<c:forEach var="forumSubTopic" items="${forumSubTopic}">
 					<ul>	
-						<li><a href="/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/page/0"><c:out value="${forumSubTopic.getTitle()}"/></a></li>
+						<li><a href="/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}"><c:out value="${forumSubTopic.getTitle()}"/></a></li>
 						<li>- <c:out value="${forumSubTopic.getDescription()}"/></li>
 					</ul>
 					</c:forEach>
