@@ -47,16 +47,22 @@
 
 				<div class="login-cont-message margin-y">
 					<span>Don't have an account?</span>
-					<a class="btn-primary blk-border" href="/registration">Join now!</a>
+					<a class="btn-primary blk-border" href="/registration">Join as user</a>
 				</div>
+
+				
 				
 
 				<c:if test="${logoutMessage != null}">
 					<label style="color:green"><c:out value="${logoutMessage}"></c:out></label>
 				</c:if>
 
+				<div>
+					<a href="/registration_admin">Become an admin</a>
+				</div>
 			</div>
 		
+			
 	</main>
 
 
