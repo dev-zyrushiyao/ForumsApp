@@ -2,6 +2,7 @@
 
 var headerTitle = document.querySelector(".main-header-title");
 var logoutBtn = document.getElementById("logoutForm");
+var adminDashboardBtn = document.getElementById("adminForm");
 
 var homePage = "http://localhost:8080/"
 
@@ -13,6 +14,14 @@ if(logoutBtn != null)
         logoutBtn.submit()
     })
 }
+
+if(adminDashboardBtn != null)
+{
+    adminDashboardBtn.addEventListener("click", function(){
+        adminDashboardBtn.submit()
+    })
+}
+
 
 
 // Clicking the Header will redirect to Main Page "/"

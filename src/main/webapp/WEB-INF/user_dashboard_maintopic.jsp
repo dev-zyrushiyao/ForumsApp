@@ -28,6 +28,14 @@
 			
 			<!-- Dropdown Content Section -->
 			<div class="dropdown-content">
+
+				<form id="adminForm" method="GET" action="/admin">
+					<a class="dropdown-menu logout">
+						<!-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> -->
+						<input id="adminDash-btn" type="submit" value="Admin Dashboard" />
+					</a>
+				</form>
+
 				<a class="dropdown-menu" href="/user/profile/${currentUser.getUserName()}/">View Profile</a>
 				<a class="dropdown-menu" href="/update/user/profile/id/${currentUser.getId()}">Edit Profile</a>
 				<form id="logoutForm" method="POST" action="/logout">

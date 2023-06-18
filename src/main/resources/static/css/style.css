@@ -230,7 +230,7 @@ input::placeholder {
 
 .dropdown-content a:hover {background-color: #0e0749;}
 
-.dropdown-content #logout-btn {
+.dropdown-content #logout-btn, .dropdown-content #adminDash-btn {
     background-color: inherit;
     color: inherit;
     cursor: pointer;
