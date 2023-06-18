@@ -27,6 +27,19 @@
 			
 			<!-- Dropdown Content Section -->
 			<div class="dropdown-content">
+				
+				<!-- ADMIN ACCESS ONLY -->
+				<c:forEach var="currentUserRole" items="${currentUser.getRoles()}">
+					<c:if test="${currentUserRole.getName().equals('ROLE_ADMIN')}">
+						<form id="adminForm" method="GET" action="/admin">
+							<a class="dropdown-menu logout">
+								<input id="adminDash-btn" type="submit" value="Admin Dashboard" />
+							</a>
+						</form>
+					</c:if>
+				</c:forEach>
+
+				<!-- DROPDOWN MENU FOR ALL -->
 				<a class="dropdown-menu" href="/user/profile/${currentUser.getUserName()}/">View Profile</a>
 				<a class="dropdown-menu" href="/update/user/profile/id/${currentUser.getId()}">Edit Profile</a>
 				<form id="logoutForm" method="POST" action="/logout">
@@ -36,6 +49,8 @@
 					</a>
 				</form>
 			</div>
+
+			
 		</div>
 	</header>
 
@@ -44,6 +59,8 @@
 
 		<div class="flex-row spc-bet">
 			<div>
+
+				<!-- ADMIN UPDATE PROFILE FORM -->
 				<c:if test="${currentUser.getUserData() != null}">
 			<form:form action="/update/user/info/${currentUser.getUserData().getId()}" method="POST" modelAttribute="userDataUpdateForm">
 				<input type="hidden" name="_method" value="put">
@@ -84,6 +101,8 @@
 				</form:form>
 			</c:if>
 			
+
+			<!-- USER UPDATE PROFILE FORM -->
 			<c:if test="${currentUser.getUserData() == null}">
 
 		 		<form:form action="/update/user/add/info/${currentUser.getId()}" method="POST" modelAttribute="userDataForm">
