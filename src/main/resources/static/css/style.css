@@ -13,11 +13,15 @@ body {
     background: linear-gradient(270deg,#b4abf0,#e2e8f0,#9fc6f1);
 }
 
+/* body#bootstrap-overlap {
+    line-height: 1;
+} */
+
 main.main-content-logged {
     background-color: #e1e8f1;
     margin: 0 3em;
     border: 2px solid #1f1d1d;
-    height: calc(100vh - 90px);
+    height: calc(100vh - 92px);
 }
 
 main.main-content-logged > div {
@@ -66,11 +70,13 @@ main.main-content-logged > div {
     margin: 0 24px;
 }
 
-.main-header-title {
+.main-header-title, #bootstrap-overlap .main-header-title {
     margin-left: 20px;
     padding: 24px 0;
     font-size: 36px;
     width: fit-content;
+    margin-bottom: 0rem;
+    font-weight: bold;
 }
 
 .main-header-title:hover {
@@ -214,7 +220,7 @@ input::placeholder {
     top: 85px;
 }
 
-.dropdown-content a.dropdown-menu, #bootstrap-overrides .dropdown-content a.dropdown-menu {
+.dropdown-content a.dropdown-menu-loc, #bootstrap-overrides .dropdown-content a.dropdown-menu-loc {
     padding-left: 12px;
     color: #dfe5ee;
     padding: 12px 16px;

@@ -33,7 +33,7 @@
 				<c:forEach var="currentUserRole" items="${currentUser.getRoles()}">
 					<c:if test="${currentUserRole.getName().equals('ROLE_ADMIN')}">
 						<form id="adminForm" method="GET" action="/admin">
-							<a class="dropdown-menu logout">
+							<a class="dropdown-menu-loc-loc logout">
 								<input id="adminDash-btn" type="submit" value="Admin Dashboard" />
 							</a>
 						</form>
@@ -41,10 +41,10 @@
 				</c:forEach>
 
 				<!-- DROPDOWN MENU FOR ALL -->
-				<a class="dropdown-menu" href="/user/profile/${currentUser.getUserName()}/">View Profile</a>
-				<a class="dropdown-menu" href="/update/user/profile/id/${currentUser.getId()}">Edit Profile</a>
+				<a class="dropdown-menu-loc" href="/user/profile/${currentUser.getUserName()}/">View Profile</a>
+				<a class="dropdown-menu-loc" href="/update/user/profile/id/${currentUser.getId()}">Edit Profile</a>
 				<form id="logoutForm" method="POST" action="/logout">
-					<a class="dropdown-menu logout">
+					<a class="dropdown-menu-loc logout">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 						<input id="logout-btn" type="submit" value="Logout!" />
 					</a>
