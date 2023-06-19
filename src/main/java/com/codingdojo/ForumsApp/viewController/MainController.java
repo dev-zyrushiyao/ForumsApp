@@ -42,6 +42,8 @@ import com.codingdojo.ForumsApp.services.ThreadService;
 import com.codingdojo.ForumsApp.services.UserDataService;
 import com.codingdojo.ForumsApp.services.UserService;
 
+import net.bytebuddy.asm.Advice.This;
+
 
 @Controller
 public class MainController {
@@ -93,30 +95,52 @@ public class MainController {
 			return "user_dashboard_subtopic.jsp";	
 	}	
 	
-	//view threads of subtopic
-	@GetMapping("/forums/{mainTopic}/{subTopic}")
-	public String SubTopicThread(Model modelView , @PathVariable String mainTopic , @PathVariable String subTopic , 
-			Principal principal) {
+	
+
+	
+	@GetMapping("/forums/{mainTopic}/{subTopic}/new/thread")
+	public String createThreadPage(Model modelView , ThreadModel threadModel , Principal principal ,
+		  @PathVariable String mainTopic , @PathVariable String subTopic) {
 		String username = principal.getName();
-        modelView.addAttribute("currentUser", userService.findByUsername(username));
-        
-        //Form: Button-New Thread link 
-        ForumMainTopic mTopic = this.mainTopicService.findTitle(mainTopic);
-        ForumSubTopic sTopic = this.subTopicService.findTitle(subTopic);
-        modelView.addAttribute("mainTopic", mTopic);
-        modelView.addAttribute("subTopic", sTopic);
-        
-        //Thread List
-        List<ThreadModel> threadFinder = this.threadService.findByForumSubTopic(sTopic);
-        Collections.reverse(threadFinder);
-        modelView.addAttribute("threadFinder", threadFinder);
-       
+		modelView.addAttribute("currentUser", userService.findByUsername(username));
 		
-		return "user_dashboard_thread.jsp";
+		//thread form
+		modelView.addAttribute("threadForm", threadModel);
+		
+		ForumMainTopic forumMainTopic = this.mainTopicService.findTitle(mainTopic);
+		ForumSubTopic forumSubTopic = this.subTopicService.findTitle(subTopic);
+		modelView.addAttribute("forumMainTopic", forumMainTopic);
+		modelView.addAttribute("forumSubTopic", forumSubTopic);
+		
+		
+		return "user_dashboard_thread_create.jsp";
 	}
 	
-	//PAGINATION THREAD
-	//localhost:8080/forums/Java/Spring Boot/page/0
+	//Post thread
+	@PostMapping("/forums/{mainTopic}/{subTopic}/create/topic")
+	public String postThread(Model modelView,RedirectAttributes redirectAttributes,
+			@Valid @ModelAttribute("threadForm")ThreadModel threadModel, BindingResult result,
+			@PathVariable String mainTopic , @PathVariable String subTopic){
+		
+		if(result.hasErrors()) {
+			
+			ForumMainTopic forumMainTopic = this.mainTopicService.findTitle(mainTopic);
+			ForumSubTopic forumSubTopic = this.subTopicService.findTitle(subTopic);
+			modelView.addAttribute("forumMainTopic", forumMainTopic);
+			modelView.addAttribute("forumSubTopic", forumSubTopic);
+			
+			return "user_dashboard_thread_create.jsp";
+		}else {
+			//redirect to thread content after posting
+			this.threadService.createThread(threadModel);
+			String returnURL = String.format("forums/%s/%s/thread/%d", mainTopic, subTopic , threadModel.getId());
+			return "redirect:/" + returnURL;
+		
+		}	
+	}
+	
+	//PAGINATION SUBTOPICS THREAD
+	//Sample Route: localhost:8080/forums/Java/Spring Boot/page/0
 	@GetMapping("/forums/{mainTopic}/{subTopic}/page/{pageTarget}")
 	public String paginationThread(Model modelView , Principal principal,
 			@PathVariable String mainTopic , 
@@ -163,47 +187,6 @@ public class MainController {
 		return "user_dashboard_thread.jsp";
 	}
 	
-	@GetMapping("/forums/{mainTopic}/{subTopic}/new/thread")
-	public String createThreadPage(Model modelView , ThreadModel threadModel , Principal principal ,
-		  @PathVariable String mainTopic , @PathVariable String subTopic) {
-		String username = principal.getName();
-		modelView.addAttribute("currentUser", userService.findByUsername(username));
-		
-		//thread form
-		modelView.addAttribute("threadForm", threadModel);
-		
-		ForumMainTopic forumMainTopic = this.mainTopicService.findTitle(mainTopic);
-		ForumSubTopic forumSubTopic = this.subTopicService.findTitle(subTopic);
-		modelView.addAttribute("forumMainTopic", forumMainTopic);
-		modelView.addAttribute("forumSubTopic", forumSubTopic);
-		
-		
-		return "user_dashboard_thread_create.jsp";
-	}
-	
-	//Post thread
-	@PostMapping("/forums/{mainTopic}/{subTopic}/create/topic")
-	public String postThread(Model modelView,RedirectAttributes redirectAttributes,
-			@Valid @ModelAttribute("threadForm")ThreadModel threadModel, BindingResult result,
-			@PathVariable String mainTopic , @PathVariable String subTopic){
-		
-		if(result.hasErrors()) {
-			
-			ForumMainTopic forumMainTopic = this.mainTopicService.findTitle(mainTopic);
-			ForumSubTopic forumSubTopic = this.subTopicService.findTitle(subTopic);
-			modelView.addAttribute("forumMainTopic", forumMainTopic);
-			modelView.addAttribute("forumSubTopic", forumSubTopic);
-			
-			return "user_dashboard_thread_create.jsp";
-		}else {
-			//redirect to thread content after posting
-			this.threadService.createThread(threadModel);
-			String returnURL = String.format("forums/%s/%s/thread/%d", mainTopic, subTopic , threadModel.getId());
-			return "redirect:/" + returnURL;
-		
-		}	
-	}
-	
 	//Thread content
 	@GetMapping("/forums/{mainTopic}/{subTopic}/thread/{id}")
 	public String threadPage(HttpSession session , @PathVariable String mainTopic, @PathVariable String subTopic, @PathVariable Long id ,
@@ -220,10 +203,10 @@ public class MainController {
 		
 		//if a user tries to access unexisted ID thread-> redirects back to SubTopics Thread 
 		//EXAMPLE: (/forums/Python/AI Development/thread/{unexistedRandomNumberId} -> redirect back to /forums/Python/AI Development
-		if(threadModel == null) {
-			String returnURL = String.format("forums/%s/%s", mainTopic , subTopic);
-			return "redirect:/" + returnURL;
-		}
+			if(threadModel == null) {
+				String returnURL = String.format("forums/%s/%s", mainTopic , subTopic);
+				return "redirect:/" + returnURL;
+			}
 		
 		//reply form
 		CommentModel commentModel = new CommentModel();
@@ -241,9 +224,7 @@ public class MainController {
 		return "thread_content.jsp";
 	}
 	
-
-	
-	//thread reply
+	//thread reply (no ID on route to prevent updating a comment when posted a reply)
 	@PostMapping("/forums/{mainTopic}/{subTopic}/thread/new/reply")
 	public String threadReply(HttpSession session , Model modelView , Principal principal , RedirectAttributes redirectAttributes , 
 			@Valid @ModelAttribute("threadReplyForm")CommentModel commentModel , BindingResult result,
@@ -279,7 +260,77 @@ public class MainController {
 		}	
 	}
 	
-	//Thread update page
+	@GetMapping("/admin/forums/{mainTopic}/{subTopic}/thread/{id}/update/reply/{replyId}")
+	public String updateReplyPage(Principal principal , Model modelView , CommentModel commentModel , 
+			@PathVariable String mainTopic,
+			@PathVariable String subTopic,
+			@PathVariable Long id,
+			@PathVariable Long replyId ) {
+		
+		String username = principal.getName();
+		modelView.addAttribute("currentUser", userService.findByUsername(username));
+		
+		commentModel = this.commentService.findReplyId(replyId);
+		modelView.addAttribute("updateReplyForm", commentModel);
+		modelView.addAttribute("commentModel", this.commentService.findReplyId(replyId));
+		
+		ForumMainTopic forumMainTopic = this.mainTopicService.findTitle(mainTopic);
+		ForumSubTopic forumSubTopic = this.subTopicService.findTitle(subTopic);
+		modelView.addAttribute("forumMainTopic", forumMainTopic);
+		modelView.addAttribute("forumSubTopic", forumSubTopic);
+		
+		ThreadModel threadModel = this.threadService.findThreadById(id);
+		modelView.addAttribute("threadModel", threadModel);
+		
+		return "thread_updateReply.jsp";
+	}
+	
+	@PutMapping("/admin/forums/{mainTopic}/{subTopic}/thread/{threadId}/update/info/reply/{id}")
+	public String updateReply(Principal principal , Model modelView , @Valid @ModelAttribute("updateReplyForm") CommentModel commentModel , BindingResult result , 
+			@PathVariable String mainTopic,
+			@PathVariable String subTopic,
+			@PathVariable Long threadId ,
+			@PathVariable Long id ) {
+		
+		if(result.hasErrors()) {
+			String username = principal.getName();
+			modelView.addAttribute("currentUser", userService.findByUsername(username));
+			
+//			commentModel = this.commentService.findReplyId(id);
+//			modelView.addAttribute("updateReplyForm", commentModel);
+			modelView.addAttribute("commentModel", this.commentService.findReplyId(id));
+			
+			ForumMainTopic forumMainTopic = this.mainTopicService.findTitle(mainTopic);
+			ForumSubTopic forumSubTopic = this.subTopicService.findTitle(subTopic);
+			modelView.addAttribute("forumMainTopic", forumMainTopic);
+			modelView.addAttribute("forumSubTopic", forumSubTopic);
+		
+			ThreadModel threadModel = this.threadService.findThreadById(threadId);
+			modelView.addAttribute("threadModel", threadModel);
+
+			return "thread_updateReply.jsp";
+		}else {
+			this.commentService.updateComment(commentModel);
+			String returnURL = String.format("forums/%s/%s/thread/%d" , mainTopic , subTopic , threadId);
+			return "redirect:/" + returnURL;
+		}
+		
+	}
+	
+	//delete replies
+	@DeleteMapping("/admin/forums/{mainTopic}/{subTopic}/thread/{id}/delete/reply/{replyId}")
+	public String deleteReply(
+			@PathVariable String mainTopic,
+			@PathVariable String subTopic,
+			@PathVariable Long id,
+			@PathVariable Long replyId) {
+		
+		this.commentService.deleteCommentId(replyId);
+		String returnURL = String.format("forums/%s/%s/thread/%d" , mainTopic , subTopic , id);
+		return "redirect:/" + returnURL;
+	}
+	
+	//Thread content update page
 	@GetMapping("/admin/forums/update/thread/id/{id}")
 	public String updateThreadPage(Model modelView , @PathVariable Long id , ThreadModel threadModel) {
 		threadModel = this.threadService.findThreadById(id);
@@ -294,7 +345,7 @@ public class MainController {
 		return "user_dashboard_thread_update.jsp";
 	}
 	
-	//Thread update 
+	//Thread content update 
 	@PutMapping("/admin/forums/update/thread/info/id/{id}")
 	public String updateThread(Model modelView, @PathVariable Long id , 
 		@Valid @ModelAttribute("threadUpdateForm")ThreadModel threadModel , BindingResult result) {
@@ -316,7 +367,7 @@ public class MainController {
 	}
 	
 	//Delete Thread + comments
-	@DeleteMapping("/forums/delete/thread/id/{id}")
+	@DeleteMapping("/admin/forums/delete/thread/id/{id}")
 	public String deleteThread(@PathVariable Long id) {
 		
 		ThreadModel threadModel = this.threadService.findThreadById(id);
@@ -327,7 +378,7 @@ public class MainController {
 		String sTopic = subTopic.getTitle();
 		
 		//redirect URL
-		String returnURL = String.format("forums/%s/%s", mTopic , sTopic);
+		String returnURL = String.format("forums/%s/%s/page/0", mTopic , sTopic);
 		
 		//delete thread
 		this.threadService.deleteThreadById(id);
