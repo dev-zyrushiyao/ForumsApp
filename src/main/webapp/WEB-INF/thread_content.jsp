@@ -83,6 +83,21 @@
 		<div>
 			<c:forEach var="threadReplies" items="${threadReplies}">
 				<ul>
+					<!-- Edit Delete Comments (Admin) -->
+					<c:forEach var="currentUserRole" items="${currentUser.getRoles()}">
+						<c:if test="${currentUserRole.getName().equals('ROLE_ADMIN')}">
+							<li><form:form method="GET" action="/admin/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/thread/${threadModel.getId()}/update/reply/${threadReplies.getId()}">
+									<input type="submit" value="EDIT">
+								</form:form> 
+							
+								<form:form method= "POST" action="/admin/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/thread/${threadModel.getId()}/delete/reply/${threadReplies.getId()}">
+									<input type="hidden" name="_method" value="DELETE">
+									<input type="submit" value="Delete" onClick="return confirm('Delete this comment?')">
+								</form:form>
+							</li>
+						</c:if>
+					</c:forEach>
+					
 					<li> <c:out value="${threadReplies.getComment()}"/> </li>
 					<li> by <a href="/user/profile/${threadReplies.getUserAccount().getUserName()}"> <c:out value="${threadReplies.getUserAccount().getUserName()}"/> </a> </li>
 				</ul>
