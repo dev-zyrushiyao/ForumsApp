@@ -33,7 +33,7 @@
 				<c:forEach var="currentUserRole" items="${currentUser.getRoles()}">
 					<c:if test="${currentUserRole.getName().equals('ROLE_ADMIN')}">
 						<form id="adminForm" method="GET" action="/admin">
-							<a class="dropdown-menu-loc-loc logout">
+							<a class="dropdown-menu-loc logout">
 								<input id="adminDash-btn" type="submit" value="Admin Dashboard" />
 							</a>
 						</form>

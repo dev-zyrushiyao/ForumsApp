@@ -495,18 +495,22 @@ public class MainController {
 	}
 	
 	@GetMapping("/admin/create/main/topic")
-	public String MainTopicPage(Model modelView , ForumMainTopic mainTopic) {
+	public String MainTopicPage(Principal principal, Model modelView , ForumMainTopic mainTopic) {
 		modelView.addAttribute("mainTopicForm", mainTopic );
-		
+		String username = principal.getName();
+		modelView.addAttribute("currentUser", userService.findByUsername(username));
 		return "admin_mainTopic.jsp";
 	}
 	
 		//add a main/sub topic using GET 
 	@GetMapping("/admin/create/new/main/topic")
 	public String createMainTopic(RedirectAttributes redirectAttributes,
-			@Valid @ModelAttribute("mainTopicForm")ForumMainTopic forumMainTopic , BindingResult result) {
+			@Valid @ModelAttribute("mainTopicForm")ForumMainTopic forumMainTopic , BindingResult result, Model modelView, Principal principal, ForumMainTopic mainTopic) {
 		
 		if(result.hasErrors()) {
+			modelView.addAttribute("mainTopicForm", mainTopic );
+			String username = principal.getName();
+			modelView.addAttribute("currentUser", userService.findByUsername(username));
 			return "admin_mainTopic.jsp";
 		}else {
 			redirectAttributes.addFlashAttribute("mainTopicMessage", "New Main Topic Added!");
@@ -547,7 +551,11 @@ public class MainController {
 	
 	//-----------ADMIN - SUB TOPIC-------------//
 	@GetMapping("/admin/view/{mainTopic}/subtopic")
-	public String subtopicPage(@PathVariable String mainTopic , Model modelView) {
+	public String subtopicPage(@PathVariable String mainTopic , Model modelView, Principal principal) {
+		
+		// Renders the currentUser object
+		String username = principal.getName();
+		modelView.addAttribute("currentUser", userService.findByUsername(username));
 		
 		//to used as Path variable for [Add sub Topic] route
 		ForumMainTopic forumMainTopic = this.mainTopicService.findTitle(mainTopic);
@@ -561,7 +569,11 @@ public class MainController {
 	}
 	
 	@GetMapping("/admin/create/{mainTopic}/sub/topic")
-	public String SubTopicPage(@PathVariable String mainTopic ,Model modelView) {
+	public String SubTopicPage(@PathVariable String mainTopic, Model modelView, Principal principal) {
+		
+		// Renders the currentUser object
+				String username = principal.getName();
+				modelView.addAttribute("currentUser", userService.findByUsername(username));
 		
 		modelView.addAttribute("subTopicForm", new ForumSubTopic());
 		
