@@ -10,4 +10,5 @@ public class ForumsAppApplication {
 		SpringApplication.run(ForumsAppApplication.class, args);
 	}
 
+	
 }

@@ -432,9 +432,15 @@ public class MainController {
 	
 	//-----------ADMIN - MAIN TOPIC-------------//
 	@GetMapping("/admin/view/main/topic")
-	public String viewMainTopic(Model modelView) {
+	public String viewMainTopic(Principal principal, Model modelView) {
+		
+		String username = principal.getName();
+		modelView.addAttribute("currentUser", userService.findByUsername(username));
+		
 		modelView.addAttribute("forumMainTopic", this.mainTopicService.findAllTopic());
+		
 		return "admin_viewMainTopic.jsp";
+//		return "pf_admin_viewMainTopic.jsp";
 	}
 	
 	@GetMapping("/admin/create/main/topic")
