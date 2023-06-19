@@ -520,7 +520,11 @@ public class MainController {
 	}
 	
 	@GetMapping("/admin/update/main/topic/id/{id}")
-	public String editMainTopicPage(@PathVariable Long id, Model modelView , ForumMainTopic forumMainTopic) {
+	public String editMainTopicPage(@PathVariable Long id, Model modelView , ForumMainTopic forumMainTopic, Principal principal, ForumMainTopic mainTopic) {
+		
+		modelView.addAttribute("mainTopicForm", mainTopic );
+		String username = principal.getName();
+		modelView.addAttribute("currentUser", userService.findByUsername(username));
 		
 	 forumMainTopic = this.mainTopicService.findTopicById(id);
 		modelView.addAttribute("updateMainTopicForm", forumMainTopic);
@@ -572,8 +576,8 @@ public class MainController {
 	public String SubTopicPage(@PathVariable String mainTopic, Model modelView, Principal principal) {
 		
 		// Renders the currentUser object
-				String username = principal.getName();
-				modelView.addAttribute("currentUser", userService.findByUsername(username));
+		String username = principal.getName();
+		modelView.addAttribute("currentUser", userService.findByUsername(username));
 		
 		modelView.addAttribute("subTopicForm", new ForumSubTopic());
 		
@@ -599,7 +603,11 @@ public class MainController {
 	}
 	
 	@GetMapping("/admin/update/sub/topic/id/{id}")
-	public String updateSubTopicPage(@PathVariable Long id , Model modelView) {
+	public String updateSubTopicPage(@PathVariable Long id , Model modelView, Principal principal) {
+		
+		// Renders the currentUser object
+		String username = principal.getName();
+		modelView.addAttribute("currentUser", userService.findByUsername(username));
 		
 		ForumSubTopic forumSubTopic = this.subTopicService.findId(id);
 		modelView.addAttribute("updateSubTopicForm", forumSubTopic);

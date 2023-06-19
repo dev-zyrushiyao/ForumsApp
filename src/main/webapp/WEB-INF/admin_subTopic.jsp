@@ -55,7 +55,7 @@
 		</div>
 	</header>
 
-	<!-- Profile Page Content -->
+	<!-- Main Page Content -->
 	<main class="main-content-logged">
 		<div class="flex-row spc-bet">
 			<div>
