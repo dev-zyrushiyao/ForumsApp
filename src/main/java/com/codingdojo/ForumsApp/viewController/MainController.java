@@ -146,6 +146,7 @@ public class MainController {
 			@PathVariable String mainTopic , 
 			@PathVariable String subTopic, 
 			@PathVariable int pageTarget) {
+		// Render User info
 		String username = principal.getName();
         modelView.addAttribute("currentUser", userService.findByUsername(username));
 		
