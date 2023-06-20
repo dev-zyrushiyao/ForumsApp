@@ -27,6 +27,7 @@ main.main-content-logged {
     margin: 0 3em;
     border: 2px solid #1f1d1d;
     height: calc(100vh - 103px);
+    overflow-y: auto;
 }
 
 main.main-content-logged > div {
@@ -291,8 +292,12 @@ ul.thread-comments:hover {
     background-color: #9999992a;
 }
 
+ul li:nth-child(1){
+    margin-bottom: 4px;
+}
+
 .thread-comment-content {
-    font-size: 1.1rem;
+    font-size: 1.18rem;
 }
 
 #globe-img {

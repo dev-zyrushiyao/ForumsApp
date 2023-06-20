@@ -77,8 +77,8 @@
     </nav> -->
 		
 		<div>
-		 	<h1><c:out value="${threadModel.getTitle()}"/></h1>
-		 	
+			<h1><c:out value="${threadModel.getTitle()}"/></h1>
+			
 		 	
 		<!-- Looped a UserRoleModel List as forEach of the current user ROLE,
 		 it only loop 1 element since a single user only has single role;
@@ -113,6 +113,7 @@
 		
 		<!-- Thread content -->
 		
+		
 			<p class="thread-content-info">
 				posted by: <a href="/user/profile/${threadModel.getUserThread().getUserName()}"><c:out value="${threadModel.getUserThread().getUserName()}"/></a>
 				<br>
@@ -123,7 +124,6 @@
 				</c:forEach>
 			<p>
 			<p class="thread-content-post"> <c:out value="${threadModel.getContent()}"/> </p> 
-		
 		
 		<!-- Thread replies -->
 		
@@ -178,7 +178,15 @@
 			<input type="submit" value="Add comment">
 		</form:form> 
 	</div>
+
+	<a href="/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/page/0"><< back to Thread List Page</a>
 	</main>
 	
+
+
+
+
+	<!-- Link JavaScript File -->
+	<script src="/js/app.js"></script>
 </body>
 </html>
