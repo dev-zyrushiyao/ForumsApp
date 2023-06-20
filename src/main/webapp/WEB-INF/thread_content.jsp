@@ -11,25 +11,70 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title> <c:out value="${threadModel.getTitle()}"/> | Dojo Dev Forum  </title>
+<title>Dojo Dev Forum | <c:out value="${threadModel.getTitle()}"/></title>
  <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css"/>
  <link rel ="stylesheet" type="text/css" href="/css/dashboard-style.css">
 
 <!-- GOOGLE API FONT -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<!-- <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet"> -->
+
+<link rel="stylesheet" href="../../../../../css/style.css">
 
 </head>
 <body>
 	
-	<nav>
+	<!-- Header when logged in -->
+	<header class="main-header flex-row spc-bet">
+		<div>
+			<h1 class="main-header-title font-color-primary">Dojo Dev Forums</h1>
+		</div>
+		<!-- Profile Header Section -->
+		<div class="flex-row flex-centered dropdown">
+			<img id="profile-pic" src="../../../../../img/default-img.png" alt="Default profile picture">
+			<p class="header-profile-name font-color-primary"><c:out value="${currentUser.getUserName()}"/>&nbsp;&nbsp;<span class="caret-down">&#9660;</span></p>
+			
+			
+			<!-- Dropdown Content Section -->
+			<div class="dropdown-content">
+				
+				<!-- ADMIN ACCESS ONLY -->
+				<c:forEach var="currentUserRole" items="${currentUser.getRoles()}">
+					<c:if test="${currentUserRole.getName().equals('ROLE_ADMIN')}">
+						<form id="adminForm" method="GET" action="/admin">
+							<a class="dropdown-menu-loc logout">
+								<input id="adminDash-btn" type="submit" value="Admin Dashboard" />
+							</a>
+						</form>
+					</c:if>
+				</c:forEach>
+
+				<!-- DROPDOWN MENU FOR ALL -->
+				<a class="dropdown-menu-loc" href="/user/profile/${currentUser.getUserName()}/">View Profile</a>
+				<a class="dropdown-menu-loc" href="/update/user/profile/id/${currentUser.getId()}">Edit Profile</a>
+				<form id="logoutForm" method="POST" action="/logout">
+					<a class="dropdown-menu-loc logout">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+						<input id="logout-btn" type="submit" value="Logout!" />
+					</a>
+				</form>
+			</div>
+
+
+		</div>
+	</header>
+
+
+	<main class="main-content-logged">
+
+	<!-- <nav>
 		<h1> Hello, <a href="/user/profile/${currentUser.getUserName()}/"><c:out value="${currentUser.getUserName()}"/></a></h1>
 		<form id="logoutForm" method="POST" action="/logout">
 	        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	        <input type="submit" value="Logout!" />
     	</form>
-    </nav>
+    </nav> -->
 		
 		<div>
 		 	<h1><c:out value="${threadModel.getTitle()}"/></h1>
@@ -56,20 +101,20 @@
 			
 			<c:if test="${!currentUserRole.getName().equals('ROLE_ADMIN')}">
 				<form action="PLACEHOLDER" method="POST">
-					<input type="submit" value="Edit Thread" title="This action is restricted to your account" disabled>
+					<input type="submit" value="Edit Thread" title="This action is restricted to your account" hidden="true">
 				</form>
 				
 				<form:form action="PLACEHOLDER" method="POST">
-					<input type="submit" value="Delete Thread" title="This action is restricted to your account" disabled>
+					<input type="submit" value="Delete Thread" title="This action is restricted to your account" hidden="true">
 				</form:form>
 			</c:if>
 		</c:forEach>
-		</div>
+		
 		
 		<!-- Thread content -->
-		<div>
-			<p>
-				<a href="/user/profile/${threadModel.getUserThread().getUserName()}"><c:out value="${threadModel.getUserThread().getUserName()}"/></a>
+		
+			<p class="thread-content-info">
+				posted by: <a href="/user/profile/${threadModel.getUserThread().getUserName()}"><c:out value="${threadModel.getUserThread().getUserName()}"/></a>
 				<br>
 				<c:out value="${threadModel.getCreatedAt()}"/>
 				<br>
@@ -77,31 +122,33 @@
 					<c:out value="${userRole.getName()}"/>
 				</c:forEach>
 			<p>
-			<p> <c:out value="${threadModel.getContent()}"/> </p> 
-		</div>
+			<p class="thread-content-post"> <c:out value="${threadModel.getContent()}"/> </p> 
+		
 		
 		<!-- Thread replies -->
-		<div>
+		
+			<h5>Comments:</h5>
 			<c:forEach var="threadReplies" items="${threadReplies}">
-				<ul>
-					<!-- Edit Delete Comments (Admin) -->
-					<c:forEach var="currentUserRole" items="${currentUser.getRoles()}">
-						<c:if test="${currentUserRole.getName().equals('ROLE_ADMIN')}">
-							<li><form:form method="GET" action="/admin/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/thread/${threadModel.getId()}/update/reply/${threadReplies.getId()}">
-									<input type="submit" value="EDIT">
-								</form:form> 
-							
-								<form:form method= "POST" action="/admin/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/thread/${threadModel.getId()}/delete/reply/${threadReplies.getId()}">
-									<input type="hidden" name="_method" value="DELETE">
-									<input type="submit" value="Delete" onClick="return confirm('Delete this comment?')">
-								</form:form>
-							</li>
-						</c:if>
-					</c:forEach>
-					
-					<li> <c:out value="${threadReplies.getComment()}"/> </li>
-					<li> by <a href="/user/profile/${threadReplies.getUserAccount().getUserName()}"> <c:out value="${threadReplies.getUserAccount().getUserName()}"/> </a> </li>
+				<ul class="thread-comments">
+					<li><a href="/user/profile/${threadReplies.getUserAccount().getUserName()}"><c:out value="${threadReplies.getUserAccount().getUserName()}"/></a> - added a comment</li>
+					<li><p class="thread-comment-content"><c:out value="${threadReplies.getComment()}"/></p></li>
 				</ul>
+
+				<!-- Edit Delete Comments (Admin) -->
+				<c:forEach var="currentUserRole" items="${currentUser.getRoles()}">
+					<c:if test="${currentUserRole.getName().equals('ROLE_ADMIN')}">
+						<li><form:form method="GET" action="/admin/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/thread/${threadModel.getId()}/update/reply/${threadReplies.getId()}">
+								<span><input type="submit" value="Edit comment"></span>
+							</form:form> 
+						
+							<form:form method= "POST" action="/admin/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/thread/${threadModel.getId()}/delete/reply/${threadReplies.getId()}">
+								<input type="hidden" name="_method" value="DELETE">
+								<span><input type="submit" value="Delete comment" onClick="return confirm('Delete this comment?')"></span>
+							</form:form>
+						</li>
+					</c:if>
+				</c:forEach>
+				
 				<hr>
 			</c:forEach> 
 		
@@ -110,25 +157,28 @@
 		
 		
 		<!-- thread reply form -->
+		<div>
 		 <form:form action="/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/thread/new/reply" method="POST" modelAttribute="threadReplyForm">
-			<form:textarea path="comment" rows="10" cols="150" style="resize:none"></form:textarea>
+			<form:textarea class="padding-sm" path="comment" rows="8" cols="75" ></form:textarea>
 			<form:errors path="comment" class="text-danger" style="color:red"/>
 			<ul>
-				<li><!-- To be hidden -->
-					<label>Thread ID:</label>
-					<form:input type="text" path="threadTopic" value="${threadModel.getId()}"/>
-					<input type="text" title="${threadModel.getTitle()}" value="${threadModel.getTitle()}">
+				<!-- To be hidden -->
+				<li>
+					<!-- <label>Thread ID:</label> -->
+					<form:input type="text" path="threadTopic" value="${threadModel.getId()}" hidden="true"/>
+					<input type="text" title="${threadModel.getTitle()}" value="${threadModel.getTitle()}" hidden="true">
 				</li>
 				
 				<li>
-					<label>User ID:</label>
-					<form:input type="text" path="userAccount" value="${currentUser.getId()}"/>
-					<input type="text" value="${currentUser.getUserName()}">
+					<!-- <label>User ID:</label> -->
+					<form:input type="text" path="userAccount" value="${currentUser.getId()}" hidden="true"/>
+					<input type="text" value="${currentUser.getUserName()}" hidden="true">
 				</li>
 			</ul>
-			<input type="submit" value="POST REPLY">
+			<input type="submit" value="Add comment">
 		</form:form> 
-		
+	</div>
+	</main>
 	
 </body>
 </html>
