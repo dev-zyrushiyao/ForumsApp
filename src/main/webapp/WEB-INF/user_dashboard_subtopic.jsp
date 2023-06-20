@@ -60,7 +60,7 @@
 		<div class="flex-row spc-bet">
 			<div>
 				<nav>
-					<h1 class="margin-bot"> Hello, <a href="/user/profile/${currentUser.getUserName()}/"><c:out value="${currentUser.getUserName()}"/></a></h1>
+					<h1 class="margin-bot">Hello, <a href="/user/profile/${currentUser.getUserName()}/"><c:out value="${currentUser.getUserName()}"/></a></h1>
 					
 				</nav>
 				
@@ -83,6 +83,7 @@
 			
 	
 		</div>
+	
 	</main>
 		
 	<!-- Link JavaScript File -->

@@ -124,6 +124,8 @@
 </div>
 
 </div>
+<a href="/forums/${mainTopic.getTitle()}"><< back to Sub-Topic selection page</a>
+
 </main>
 	<!-- Link JavaScript File -->
 	<script src="/js/app.js"></script>
