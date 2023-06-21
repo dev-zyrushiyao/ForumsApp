@@ -3,6 +3,7 @@
 var headerTitle = document.querySelector(".main-header-title");
 var logoutBtn = document.getElementById("logoutForm");
 var adminDashboardBtn = document.getElementById("adminForm");
+// var commentContainer = document.querySelectorAll(".thread-comments")
 
 var homePage = "http://localhost:8080/"
 
@@ -23,9 +24,15 @@ if(adminDashboardBtn != null)
 }
 
 
-
 // Clicking the Header will redirect to Main Page "/"
 headerTitle.addEventListener("click", function(){
     // console.log("Hello")
     window.location.href = homePage;
 })
+
+
+// commentContainer.addEventListener("mouseover", function(){
+//     document.querySelector(".comment-admin-btns").style.display = "initial";
+    
+// })
+

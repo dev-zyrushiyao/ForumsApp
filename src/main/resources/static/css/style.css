@@ -287,6 +287,10 @@ ul.user-info li:nth-child(3) {
     font-size: 13px;
 }
 
+ul.thread-comments{
+    width: 84vw;
+}
+
 ul.thread-comments:hover {
 
     background-color: #9999992a;
@@ -299,6 +303,43 @@ ul li:nth-child(1){
 .thread-comment-content {
     font-size: 1.18rem;
 }
+
+.mini-btn-lc {
+    padding: 2px 5px;
+    width: 42px;
+    border: 3px inset;
+}
+
+.mini-btn-lc-sm {
+    padding: 0px 4px;
+    border: 1px inset;
+}
+
+.mini-btn-edit {
+    background-color: #a7c0e228;
+    border-color: #555ff3;
+}
+
+.mini-btn-delete {
+    background-color: #f0b9b933;
+    border-color: #f35555;
+}
+
+.edit-btn-cont {
+    margin-right: 14px;
+}
+
+.edit-btn-cont-sm {
+    margin-right: 6px;
+}
+
+/* .comment-admin-btns {
+    display: none;
+} */
+
+/* .comment-admin-btns:hover {
+    display: initial;
+} */
 
 #globe-img {
     width: 18vw;

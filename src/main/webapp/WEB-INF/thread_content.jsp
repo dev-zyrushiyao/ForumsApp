@@ -12,6 +12,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Dojo Dev Forum | <c:out value="${threadModel.getTitle()}"/></title>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
  <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css"/>
  <link rel ="stylesheet" type="text/css" href="/css/dashboard-style.css">
 
@@ -68,49 +69,43 @@
 
 	<main class="main-content-logged">
 
-	<!-- <nav>
-		<h1> Hello, <a href="/user/profile/${currentUser.getUserName()}/"><c:out value="${currentUser.getUserName()}"/></a></h1>
-		<form id="logoutForm" method="POST" action="/logout">
-	        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-	        <input type="submit" value="Logout!" />
-    	</form>
-    </nav> -->
-		
 		<div>
-			<h1><c:out value="${threadModel.getTitle()}"/></h1>
-			
+			<h5><a href="/forums/${forumMainTopic.getTitle()}">${forumMainTopic.getTitle()}</a> > <a href="/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/page/0">${forumSubTopic.getTitle()}</a> > <a href="/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/thread/${threadModel.getId()}">Thread#${threadModel.getId()}</a></h5>
+
+			<div class="flex-row spc-bet">
+
+			<div>
+				<h1><c:out value="${threadModel.getTitle()}"/></h1>
+			</div>
 		 	
-		<!-- Looped a UserRoleModel List as forEach of the current user ROLE,
-		 it only loop 1 element since a single user only has single role;
-		 used loop so we can have access to UserRoleModel.getName(), otherwise
-		 it will have a conflict on conditional(if-else) 
-		 because we can't compare an string('ROLE_ADMIN') to an Object ;
-		 Cannot change the UserRole as Optional because its binded with Many To Many Relation(Thus its declared as List)-->
-		<c:forEach var="currentUserRole" items="${currentUser.getRoles()}">
-			<!-- Edit Post and Delete Thread -->
-			<c:if test="${currentUserRole.getName().equals('ROLE_ADMIN')}">
-				<form action="/admin/forums/update/thread/id/${threadModel.getId()}" action="GET">
-					<input type="submit" value="Edit Thread">
-				</form>
-				
-				<form:form action="/admin/forums/delete/thread/id/${threadModel.getId()}" method="POST">
-					<input type="hidden" name="_method" value="DELETE">
-					<input type="submit" value="Delete Thread" onClick="return confirm('Are you sure you want to delete this thread?')">
-				</form:form>
-			</c:if>
-			
-			<c:if test="${!currentUserRole.getName().equals('ROLE_ADMIN')}">
-				<form action="PLACEHOLDER" method="POST">
-					<input type="submit" value="Edit Thread" title="This action is restricted to your account" hidden="true">
-				</form>
-				
-				<form:form action="PLACEHOLDER" method="POST">
-					<input type="submit" value="Delete Thread" title="This action is restricted to your account" hidden="true">
-				</form:form>
-			</c:if>
-		</c:forEach>
 		
+			<c:forEach var="currentUserRole" items="${currentUser.getRoles()}">
+				<!-- Edit Post and Delete Thread -->
+				<c:if test="${currentUserRole.getName().equals('ROLE_ADMIN')}">
+
+				<div class="flex-row">
+
+						<div class="edit-btn-cont">
+							<form action="/admin/forums/update/thread/id/${threadModel.getId()}" action="GET">
+								<button class="mini-btn-lc mini-btn-edit" type="submit"><i class="fa fa-pencil" style="color:rgb(31, 31, 31); font-size: 32px;"></i></button>
+							</form>
+						</div>
+
+						<div class="del-btn-cont">
+							<form:form action="/admin/forums/delete/thread/id/${threadModel.getId()}" method="POST">
+								<input type="hidden" name="_method" value="DELETE">
+								<button class="mini-btn-lc mini-btn-delete" type="submit" onClick="return confirm('Are you sure you want to delete this post? Don\'t say I don\'t warn you.')"><i class="fa fa-trash-o" style="color:red; font-size: 32px;"></i></button>
+							</form:form>
+						</div>
+					
+				</div>
+
+				</c:if>
+				
+				
+			</c:forEach>
 		
+		</div>
 		<!-- Thread content -->
 		
 		
@@ -129,26 +124,47 @@
 		
 			<h5>Comments:</h5>
 			<c:forEach var="threadReplies" items="${threadReplies}">
-				<ul class="thread-comments">
-					<li><a href="/user/profile/${threadReplies.getUserAccount().getUserName()}"><c:out value="${threadReplies.getUserAccount().getUserName()}"/></a> - added a comment</li>
-					<li><p class="thread-comment-content"><c:out value="${threadReplies.getComment()}"/></p></li>
-				</ul>
 
-				<!-- Edit Delete Comments (Admin) -->
-				<c:forEach var="currentUserRole" items="${currentUser.getRoles()}">
-					<c:if test="${currentUserRole.getName().equals('ROLE_ADMIN')}">
-						<li><form:form method="GET" action="/admin/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/thread/${threadModel.getId()}/update/reply/${threadReplies.getId()}">
-								<span><input type="submit" value="Edit comment"></span>
-							</form:form> 
+				<div class="flex-row spc-bet">
+
+					<div>
+						<ul class="thread-comments">
+							<li><a href="/user/profile/${threadReplies.getUserAccount().getUserName()}"><c:out value="${threadReplies.getUserAccount().getUserName()}"/></a> - added a comment</li>
+							<li><p class="thread-comment-content"><c:out value="${threadReplies.getComment()}"/></p></li>
+						</ul>
+					</div>
+
+
+					<!-- Edit Delete Comments (Admin) -->
+					<div class="comment-admin-btns">
+
 						
-							<form:form method= "POST" action="/admin/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/thread/${threadModel.getId()}/delete/reply/${threadReplies.getId()}">
-								<input type="hidden" name="_method" value="DELETE">
-								<span><input type="submit" value="Delete comment" onClick="return confirm('Delete this comment?')"></span>
-							</form:form>
-						</li>
-					</c:if>
-				</c:forEach>
+						<c:forEach var="currentUserRole" items="${currentUser.getRoles()}">
+							<c:if test="${currentUserRole.getName().equals('ROLE_ADMIN')}">
+								<div class="flex-row">
+									<div class="edit-btn-cont-sm">
+										<form:form method="GET" action="/admin/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/thread/${threadModel.getId()}/update/reply/${threadReplies.getId()}">
+											<button class="mini-btn-lc-sm mini-btn-edit" type="submit"><i class="fa fa-pencil" style="color:rgb(31, 31, 31); font-size: 16px;"></i></button>
+										</form:form> 
+									</div>
+
+									<div class="del-btn-cont">
+										<form:form method= "POST" action="/admin/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/thread/${threadModel.getId()}/delete/reply/${threadReplies.getId()}">
+											<input type="hidden" name="_method" value="DELETE">
+											<button class="mini-btn-lc-sm mini-btn-delete" type="submit" onClick="return confirm('Delete this comment?')"><i class="fa fa-trash-o" style="color:red; font-size: 16px;"></i></button>
+										</form:form>
+									</div>
+								</div>
+							</c:if>
+						</c:forEach>
+
+					</div>
+
+				</div>
 				
+
+				
+
 				<hr>
 			</c:forEach> 
 		
@@ -179,7 +195,7 @@
 		</form:form> 
 	</div>
 
-	<a href="/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/page/0"><< back to Thread List Page</a>
+	
 	</main>
 	
 
