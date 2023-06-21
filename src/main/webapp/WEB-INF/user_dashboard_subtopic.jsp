@@ -62,10 +62,13 @@
 		
 		<div class="flex-row spc-bet">
 			<div>
-				<nav>
-					<h1 class="margin-bot">Hello, <a href="/user/profile/${currentUser.getUserName()}/"><c:out value="${currentUser.getUserName()}"/></a></h1>
+
+				<div class="margin-bot">
+					<!-- BREADCRUMB -->
+					<h1>This is the ${forumMainTopic.getTitle()} Topic</h1>
+					<p>${forumMainTopic.getDescription()}</p>
 					
-				</nav>
+				</div>
 				
 				
 				<div id="main-forum-div">
@@ -84,7 +87,7 @@
 				</div>
 			</div>
 			
-	
+			<a href="/">back to Main Dashboard</a>
 		</div>
 	
 	</main>

@@ -155,7 +155,8 @@ public class LoginController {
         	}else {
                 //if a username does not exist yet == null - Register a User
         		userService.saveUserWithAdminRole(userModel);
-    			return "redirect:/registration_admin";
+        		redirectAttributes.addFlashAttribute("adminRegistrationMessageSuccess", "Admin Information Successfully saved");
+    			return "redirect:/login";
         	}
         }
         

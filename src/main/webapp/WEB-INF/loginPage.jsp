@@ -60,6 +60,8 @@
 				<div>
 					<a href="/registration_admin">Become an admin</a>
 				</div>
+
+				<p style="color:green"><c:out value="${adminRegistrationMessageSuccess}"/></p>
 			</div>
 		
 			
