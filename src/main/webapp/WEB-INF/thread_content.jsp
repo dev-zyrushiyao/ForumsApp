@@ -70,6 +70,7 @@
 	<main class="main-content-logged">
 
 		<div>
+			<!-- BREADCRUMB -->
 			<h5><a href="/forums/${forumMainTopic.getTitle()}">${forumMainTopic.getTitle()}</a> > <a href="/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/page/0">${forumSubTopic.getTitle()}</a> > <a href="/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/thread/${threadModel.getId()}">Thread#${threadModel.getId()}</a></h5>
 
 			<div class="flex-row spc-bet">
@@ -130,7 +131,7 @@
 
 					<div>
 						<ul class="thread-comments">
-							<li><a href="/user/profile/${threadReplies.getUserAccount().getUserName()}"><c:out value="${threadReplies.getUserAccount().getUserName()}"/></a> - added a comment</li>
+							<li><a href="/user/profile/${threadReplies.getUserAccount().getUserName()}"><c:out value="${threadReplies.getUserAccount().getUserName()}"/></a> - added a comment <span class="cmt-createdTime">(${threadReplies.getCreatedAt()})</span></li>
 							<li><p class="thread-comment-content"><c:out value="${threadReplies.getComment()}"/></p></li>
 						</ul>
 					</div>

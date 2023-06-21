@@ -77,8 +77,8 @@ main.main-content-logged > div {
 }
 
 .main-header-title, #bootstrap-overlap .main-header-title {
-    margin-left: 20px;
-    padding: 24px 0;
+    margin-left: 24px;
+    padding: 24px 20px;
     font-size: 36px;
     width: fit-content;
     margin-bottom: 0rem;
@@ -87,6 +87,7 @@ main.main-content-logged > div {
 
 .main-header-title:hover {
     cursor: pointer;
+    background-color: #49494923;
 }
 
 .intro-text {
@@ -331,6 +332,11 @@ ul li:nth-child(1){
 
 .edit-btn-cont-sm {
     margin-right: 6px;
+}
+
+.cmt-createdTime{
+    font-size: 0.8rem;
+    color: #353535ce;
 }
 
 /* .comment-admin-btns {

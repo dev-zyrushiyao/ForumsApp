@@ -55,8 +55,11 @@
 		</div>
 	</header>
 
+
+	<!-- Main Content -->
 	<main class="main-content-logged">
 
+		
 		<div class="flex-row spc-bet">
 			<div>
 				<nav>
