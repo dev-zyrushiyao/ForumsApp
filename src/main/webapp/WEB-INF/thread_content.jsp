@@ -88,6 +88,7 @@
 						<div class="edit-btn-cont">
 							<form action="/admin/forums/update/thread/id/${threadModel.getId()}" action="GET">
 								<button class="mini-btn-lc mini-btn-edit" type="submit"><i class="fa fa-pencil" style="color:rgb(31, 31, 31); font-size: 32px;"></i></button>
+								
 							</form>
 						</div>
 
@@ -122,7 +123,7 @@
 		
 		<!-- Thread replies -->
 		
-			<h5>Comments:</h5>
+		<h5>Comments (${threadReplies.size()}):</h5>
 			<c:forEach var="threadReplies" items="${threadReplies}">
 
 				<div class="flex-row spc-bet">
@@ -191,7 +192,7 @@
 					<input type="text" value="${currentUser.getUserName()}" hidden="true">
 				</li>
 			</ul>
-			<input type="submit" value="Add comment">
+			<input class="btn-primary" type="submit" value="Add">
 		</form:form> 
 	</div>
 

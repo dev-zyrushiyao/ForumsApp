@@ -202,6 +202,8 @@ public class MainController {
 		List<CommentModel> threadReplies = this.commentService.findCommentsOnThread(threadModel);
 		modelView.addAttribute("threadReplies", threadReplies);
 		
+		int numOfComments = threadReplies.size();
+		System.out.println(numOfComments);
 		//if a user tries to access unexisted ID thread-> redirects back to SubTopics Thread 
 		//EXAMPLE: (/forums/Python/AI Development/thread/{unexistedRandomNumberId} -> redirect back to /forums/Python/AI Development
 			if(threadModel == null) {
