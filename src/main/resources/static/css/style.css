@@ -114,6 +114,10 @@ main.main-content-logged > div {
     margin-bottom: 20px;
 }
 
+.margin-bot-lgr {
+    margin-bottom: 141px;
+}
+
 .font-color-primary {
     color: #0a3965;
 }
@@ -413,4 +417,13 @@ ul li:nth-child(1){
 
 #edit-profile-btn {
     margin-top: 18px;
+}
+
+#rand-quote-display {
+    margin: 0 auto;
+    border: 1px solid #1f1d1d;
+    border-radius: 10px;
+    background-color: #3a2ede28;
+    width: 40em;
+    padding: 14px;
 }

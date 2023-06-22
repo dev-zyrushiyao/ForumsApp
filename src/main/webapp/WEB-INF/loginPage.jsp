@@ -14,8 +14,11 @@
 		<h1 class="main-header-title font-color-primary">Dojo Dev Forums</h1>
 	</header>
     
-	<main class="main-content flex-row flex-centered">
+	<main>
 
+		<div class="main-content flex-row flex-centered margin-bot-lgr">
+
+		
 			<div class="left-content flex-column">
 				<h2 class="font-color-primary intro-text">Connect with a dojo full of developers around the globe</h2>
 				<img src="https://www.pngkit.com/png/full/781-7817356_international-shipping-icon-01-icon-globe-vector.png" alt="earth image" id="globe-img">
@@ -64,7 +67,15 @@
 				<p style="color:green"><c:out value="${adminRegistrationMessageSuccess}"/></p>
 			</div>
 		
-			
+		</div>
+
+		<div class="flex-row flex-centered flex-centered-2" id="rand-quote-display">
+			<div>
+				<h2 class="margin-bot font-color-primary" id="text-quote"></h2>
+				<p class="font-color-primary" id="auth-quote"></p>
+			</div>
+		</div>
+		
 	</main>
 
 
