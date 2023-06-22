@@ -25,7 +25,7 @@
 	<!-- Header when logged in -->
 	<header class="main-header flex-row spc-bet">
 		<div>
-			<h1 class="main-header-title font-color-primary">Dojo Dev Forums</h1>
+			<h1 class="main-header-title font-color-primary">&lt; Dojo Dev Forum &gt;</h1>
 		</div>
 		<!-- Profile Header Section -->
 		<div class="flex-row flex-centered dropdown">

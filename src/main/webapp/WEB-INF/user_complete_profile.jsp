@@ -16,7 +16,7 @@
 <body>
 
 	<header class="main-header">
-		<h1 class="main-header-title font-color-primary">Dojo Dev Forums</h1>
+		<h1 class="main-header-title font-color-primary">&lt; Dojo Dev Forum &gt;</h1>
 	</header>
 	
 	

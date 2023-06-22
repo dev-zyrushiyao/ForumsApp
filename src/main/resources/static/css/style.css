@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Satisfy:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merienda:wght@300;400;500;600;700;800;900&display=swap');
 
 * {
     font-family: 'Poppins', sans-serif;
@@ -83,7 +85,8 @@ main.main-content-logged > div {
     font-size: 36px;
     width: fit-content;
     margin-bottom: 0rem;
-    font-weight: bold;
+    font-weight: 900;
+    font-family: 'Noto Serif JP', serif;
 }
 
 .main-header-title:hover {
@@ -92,10 +95,11 @@ main.main-content-logged > div {
 }
 
 .intro-text {
-    font-size: 29px;
+    font-size: 2.4rem;
     align-self: flex-start;
     margin-bottom: 45px;
-    font-weight: normal;
+    font-weight: 600;
+    font-family: 'Noto Serif JP', serif;
 }
 
 .margin-y-sm {
@@ -116,7 +120,7 @@ main.main-content-logged > div {
 }
 
 .margin-bot-lgr {
-    margin-bottom: 90px;
+    margin-bottom: 70px;
 }
 
 .font-color-primary {
@@ -430,6 +434,11 @@ ul li:nth-child(1){
 }
 
 #text-quote {
-    font-size: 2rem;
+    font-size: 1.7rem;
+    font-family: 'Merienda', cursive;
+}
+
+#auth-quote {
+    font-size: 1.3rem;
     font-family: 'Satisfy', cursive;
 }
