@@ -207,6 +207,13 @@ public class MainController {
 		String datePosted = simpleDateFormat.format(threadCreated);
 		modelView.addAttribute("datePosted", datePosted);
 		
+		// Date Formatt 
+//		UserModel userModel = this.userService.findUserById(1L);
+//    	DateFormat dateFormat = DateFormat.getDateInstance();
+//    	System.out.println("Created at : " +  userModel.getCreatedAt());
+//    	System.out.println("Date Format : " + dateFormat.format(userModel.getCreatedAt()));
+//    	System.out.println("Date Format with substring:" + dateFormat.format(userModel.getCreatedAt()).substring(3, 10)); //substring param (int start , int end) 
+//    	System.out.println("Date Format with time:" + DateFormat.getTimeInstance().format(userModel.getCreatedAt()));
 		
 		
 		//if a user tries to access unexisted ID thread-> redirects back to SubTopics Thread 
