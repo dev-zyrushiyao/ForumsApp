@@ -196,7 +196,7 @@ public class MainController {
 		//view all replies to a thread / add replies origin(username)
 		List<CommentModel> threadReplies = this.commentService.findCommentsOnThread(threadModel);
 		modelView.addAttribute("threadReplies", threadReplies);
-		
+		//modelView.addAttribute("dateCommented", threadReplies)
 		
 		// Date Formatting
 		Date threadCreated = threadModel.getCreatedAt();
