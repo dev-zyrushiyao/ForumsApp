@@ -34,7 +34,7 @@
 			<img id="profile-pic" src="../../../img/default-img.png" alt="Default profile picture">
 			<p class="header-profile-name font-color-primary"><c:out value="${currentUser.getUserName()}"/>&nbsp;&nbsp;<span class="caret-down">&#9660;</span></p>
 			
-			<!-- Dropdown Content Section -->
+			
 			<!-- Dropdown Content Section -->
 			<div class="dropdown-content">
 				
@@ -67,14 +67,11 @@
 
 		<div id="sticky-header">
 			<div id="header-flexbox">
-				<h1 id="user-greeting">Welcome, Admin <span id="user"><c:out value="${currentUser.getUserName()}"/></span></h1>
+				<h1 id="user-greeting">Admin Dashboard</h1>
 				
 				<a id="new-game-link" href="/admin/view/main/topic"> View Main Topic List </a>
 					
-				<!-- <form id="logoutForm" method="POST" action="/logout">
-					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-					<input type="submit" value="Logout!" />
-				</form> -->
+				
 			</div>
 		</div>
 	

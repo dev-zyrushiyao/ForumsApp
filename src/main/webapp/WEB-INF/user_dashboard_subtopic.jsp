@@ -63,31 +63,46 @@
 		<div class="flex-row spc-bet">
 			<div>
 
+				<!-- BREADCRUMB -->
 				<div class="margin-bot">
-					<!-- BREADCRUMB -->
+					<h2><a href="/">Dashboard</a> > ${forumMainTopic.getTitle()}</h2>
+				</div>
+				<div class="margin-bot">
+					
 					<h1>This is the ${forumMainTopic.getTitle()} Topic</h1>
 					<p>${forumMainTopic.getDescription()}</p>
 					
 				</div>
 				
-				
-				<div id="main-forum-div">
-					<div class="main-topic-div">
-						<div class="main-header">
-							<div class="main-title">
-								<c:forEach var="forumSubTopic" items="${forumSubTopic}">
-								<ul>	
-									<li><a href="/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/page/0"><c:out value="${forumSubTopic.getTitle()}"/></a></li>
-									<li>- <c:out value="${forumSubTopic.getDescription()}"/></li>
-								</ul>
-								</c:forEach>
-							</div>
+				<div class="flex-column topic-wrapper">
+					
+					<c:forEach var="forumSubTopic" items="${forumSubTopic}">
+						
+					<a href="/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/page/0">
+						<div class="topic-cont sub-topic-cont">
+							<p class="cont-sub-title-text"><c:out value="${forumSubTopic.getTitle()}"/></p>
+							<p class="cont-sub-desc-text"><c:out value="${forumSubTopic.getDescription()}"/></p>
 						</div>
-					</div>
-				</div>
+					</a>
+						
+					</c:forEach>
+
+					<!-- ADMIN ACCESS ONLY -->
+					<c:forEach var="currentUserRole" items="${currentUser.getRoles()}">
+						<c:if test="${currentUserRole.getName().equals('ROLE_ADMIN')}">
+							<form id="adminForm" method="GET" action="/admin/create/${forumMainTopic.getTitle()}/sub/topic">
+								<a class="dropdown-menu-loc logout">
+									<input id="adminDash-btn" type="submit" value="New Sub Topic" />
+								</a>
+							</form>
+						</c:if>
+					</c:forEach>
+							
 			</div>
+			</div>
+
+
 			
-			<a href="/">back to Main Dashboard</a>
 		</div>
 	
 	</main>

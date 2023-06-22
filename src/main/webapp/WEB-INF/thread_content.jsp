@@ -71,7 +71,7 @@
 
 		<div>
 			<!-- BREADCRUMB -->
-			<h5><a href="/forums/${forumMainTopic.getTitle()}">${forumMainTopic.getTitle()}</a> > <a href="/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/page/0">${forumSubTopic.getTitle()}</a> > <a href="/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/thread/${threadModel.getId()}">Thread#${threadModel.getId()}</a></h5>
+			<h5><a href="/">Dashboard</a> > <a href="/forums/${forumMainTopic.getTitle()}">${forumMainTopic.getTitle()}</a> > <a href="/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/page/0">${forumSubTopic.getTitle()}</a> > Thread#${threadModel.getId()}</h5>
 
 			<div class="flex-row spc-bet">
 

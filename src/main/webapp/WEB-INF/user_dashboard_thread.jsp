@@ -70,7 +70,7 @@
 
 						<div>
 						<!-- BREADCRUMB -->
-						<h5><a href="/forums/${mainTopic.getTitle()}">${mainTopic.getTitle()}</a> > <a href="/forums/${mainTopic.getTitle()}/${subTopic.getTitle()}/page/0">${subTopic.getTitle()}</a></h5>
+						<h5><a href="/">Dashboard</a> > <a href="/forums/${mainTopic.getTitle()}">${mainTopic.getTitle()}</a> > ${subTopic.getTitle()}</h5>
 
 						<div class="flex-row spc-bet">
 							
@@ -156,7 +156,7 @@
 					</main>
 
 
-					
+
 					<!-- Link JavaScript File -->
 					<script src="/js/app.js"></script>
 				</body>
