@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
 
 * {
     font-family: 'Poppins', sans-serif;
@@ -115,7 +116,7 @@ main.main-content-logged > div {
 }
 
 .margin-bot-lgr {
-    margin-bottom: 141px;
+    margin-bottom: 90px;
 }
 
 .font-color-primary {
@@ -423,7 +424,12 @@ ul li:nth-child(1){
     margin: 0 auto;
     border: 1px solid #1f1d1d;
     border-radius: 10px;
-    background-color: #3a2ede28;
+    background-color: #fcf8fdf8;
     width: 40em;
-    padding: 14px;
+    padding: 18px 22px;
+}
+
+#text-quote {
+    font-size: 2rem;
+    font-family: 'Satisfy', cursive;
 }
