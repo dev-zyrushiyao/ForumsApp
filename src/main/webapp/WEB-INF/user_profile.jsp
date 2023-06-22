@@ -64,6 +64,7 @@
 			<div>
 				<c:choose>
 					<c:when test="${userModel.getUserData() == null}">
+						<h2 class="margin-bot">Complete your profile <a href="/update/user/profile/id/${currentUser.getId()}">here</a></h2>
 						<ul>
 							<li>Username: <c:out value="${userModel.getUserName()}"/></li>
 							<li>Join Date: <c:out value="${dateJoined}"/></li>
