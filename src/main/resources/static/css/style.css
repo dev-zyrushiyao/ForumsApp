@@ -123,6 +123,10 @@ main.main-content-logged > div {
     margin-bottom: 70px;
 }
 
+.padding-bot {
+    padding-bottom: 15px;
+}
+
 .font-color-primary {
     color: #0a3965;
 }
@@ -425,6 +429,10 @@ p input.input-field-res {
 div input.edit-btn-bs {
     font-weight: 400;
     border-radius: 6px;
+}
+
+p.profile-topic-path {
+    font-size: 1.2rem;
 }
 
 #globe-img {

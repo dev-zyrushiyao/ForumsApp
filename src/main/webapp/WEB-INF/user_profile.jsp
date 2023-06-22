@@ -60,7 +60,7 @@
 	<main class="main-content-logged">
 		
 		<!-- User Information -->
-		<div class="flex-row spc-bet">
+		<div class="flex-row spc-bet margin-bot-lgr">
 			<div>
 				<c:choose>
 					<c:when test="${userModel.getUserData() == null}">
@@ -96,15 +96,16 @@
 
 		</div>
 
+		<!-- Thread List -->
 		<div>
 			<c:if test="${currentUser.getUserName().equals(userModel.getUserName())}">	
-				<h3> My thread </h3>
+				<h2 class="margin-bot">My thread (${userModel.getThread().size()}):</h2>
 			</c:if>
 			
 			<c:if test="${!currentUser.getUserName().equals(userModel.getUserName())}">	
-				<h3> <c:out value="${userModel.getUserName()}"/>'s thread </h3>
+				<h2 class="margin-bot"> <c:out value="${userModel.getUserName()}"/>'s threads (${userModel.getThread().size()}):</h2>
 			</c:if>
-				<ul>
+				
 					<!-- unlooped object for conditional displays .isEmpty() method available to invoke -->
 					<c:choose>
 						<c:when test="${!userThread.isEmpty()}">
@@ -112,11 +113,13 @@
 								<!-- URL VARIABLE -->
 								<c:set var="mainTopic_origin" value="${userThread.getForumSubTopic().getForumMainTopics().getTitle()}"/> 
 								<c:set var="subTopic_origin" value="${userThread.getForumSubTopic().getTitle()}"/>
-								
-									 <li> <c:out value="[${mainTopic_origin} / ${subTopic_origin}]"/> </li>
-									 <li> 
-										 <a href="/forums/${mainTopic_origin}/${subTopic_origin}/thread/${userThread.getId()}"> <c:out value="${userThread.getTitle()}"/> </a> 
-									 </li>	 
+								<ul class="margin-bot">
+									 <li> <p class="profile-topic-path">[ ${mainTopic_origin} &gt; ${subTopic_origin} ]</p> </li>
+									 <li class="margin-bot"> 
+										${userModel.getUserName()} posted a thread in ${subTopic_origin}: <p><a href="/forums/${mainTopic_origin}/${subTopic_origin}/thread/${userThread.getId()}">"${userThread.getTitle()}"</a></p> 
+									 </li>
+									 <hr>
+								</ul>	 
 							</c:forEach>
 						</c:when>
 						
@@ -124,12 +127,12 @@
 							<li>No data found</li>
 						</c:otherwise>
 					</c:choose>
-				</ul>
+				
 		</div>	 
 		
 		<div>	
-			<h3> Activity Log </h3>
-				<ul>
+			<h2 class="margin-bot">Activity Log (${userModel.getTopicComment().size()}):</h2>
+				
 				<!-- unlooped object for conditional displays .isEmpty() method available to invoke -->
 					<c:choose>
 						<c:when test="${!userComments.isEmpty()}">
@@ -139,14 +142,14 @@
 								<c:set var="subTopic_origin" value="${userComments.getThreadTopic().getForumSubTopic().getTitle()}"/>
 								<c:set var="thread_origin_id" value="${userComments.getThreadTopic().getId()}"/>
 								<c:set var="thread_origin_title" value="${userComments.getThreadTopic().getTitle()}"/>  
-									 
-									 <li> <c:out value="[${mainTopic_origin} / ${subTopic_origin}]"/> </li>
+								<ul class="margin-bot">
+									 <li><p class="profile-topic-path">[ ${mainTopic_origin} &gt; ${subTopic_origin} ]</p> </li>
 									 <li>
-										 <a href="/forums/${mainTopic_origin}/${subTopic_origin}/thread/${thread_origin_id}"> <c:out value="${thread_origin_title}"/> </a> 
+										 <p id="profile-topic-threadTitle">${userModel.getUserName()} commented on: <a href="/forums/${mainTopic_origin}/${subTopic_origin}/thread/${thread_origin_id}"> <c:out value="${thread_origin_title}"/></a></p>
 									 </li>
-									 
-									 <li> <c:out value="${userComments.getComment()}"/> </li>
+									 <li class="margin-bot"><p id="profile-topic-threadComment"><i><c:out value="${userComments.getComment()}"/></i></p> </li>
 									 <hr>
+								</ul>
 							</c:forEach>
 						</c:when>
 						
@@ -154,7 +157,7 @@
 							<li>No data found</li>
 						</c:otherwise>
 					</c:choose>
-				</ul>
+				
 		</div>
 		
 		
