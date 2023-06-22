@@ -66,7 +66,7 @@
 					<c:when test="${userModel.getUserData() == null}">
 						<ul>
 							<li>Username: <c:out value="${userModel.getUserName()}"/></li>
-							<li>Joined at: <c:out value="${userModel.getCreatedAt()}"/></li>
+							<li>Join Date: <c:out value="${dateJoined}"/></li>
 						</ul>
 					</c:when>
 					
@@ -74,7 +74,7 @@
 						<ul class="user-info">
 							<li><img src="../../../img/default-img.png" alt="Default profile picture"></li>
 							<li><p class="profile-page-username"><c:out value="${userModel.getUserName()}"/></p></li>
-							<li><i class="profile-page-joindate">joined at: <c:out value="${userModel.getCreatedAt()}"/></i></li>
+							<li><i class="profile-page-joindate">Join Date: <c:out value="${dateJoined}"/></i></li>
 							<li><c:out value="${userModel.getUserData().getFirstName()} ${userModel.getUserData().getLastName()}"/></li>
 							<li><c:out value="${userModel.getUserData().getLocation()}"/></li>
 							<li>Technology/Language of Expertise:&nbsp;<c:out value="${userModel.getUserData().getProgrammingLanguage()}"/></li>

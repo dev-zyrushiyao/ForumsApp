@@ -1,16 +1,13 @@
 package com.codingdojo.ForumsApp.viewController;
 
 import java.security.Principal;
-
+import java.text.SimpleDateFormat;
 import java.util.Collections;
-
+import java.util.Date;
 import java.util.List;
-
-
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,7 +22,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.codingdojo.ForumsApp.auth.UserModel;
@@ -41,8 +37,6 @@ import com.codingdojo.ForumsApp.services.SubTopicService;
 import com.codingdojo.ForumsApp.services.ThreadService;
 import com.codingdojo.ForumsApp.services.UserDataService;
 import com.codingdojo.ForumsApp.services.UserService;
-
-import net.bytebuddy.asm.Advice.This;
 
 
 @Controller
@@ -198,18 +192,30 @@ public class MainController {
 		ThreadModel threadModel = this.threadService.findThreadById(id);
 		modelView.addAttribute("threadModel", threadModel);
 		
+		
 		//view all replies to a thread / add replies origin(username)
 		List<CommentModel> threadReplies = this.commentService.findCommentsOnThread(threadModel);
 		modelView.addAttribute("threadReplies", threadReplies);
 		
-		int numOfComments = threadReplies.size();
-		System.out.println(numOfComments);
+		
+		// Date Formatting
+		Date threadCreated = threadModel.getCreatedAt();
+		
+		String datePatternThread = "dd/MMM/yyyy h:mm a";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePatternThread);
+		
+		String datePosted = simpleDateFormat.format(threadCreated);
+		modelView.addAttribute("datePosted", datePosted);
+		
+		
+		
 		//if a user tries to access unexisted ID thread-> redirects back to SubTopics Thread 
 		//EXAMPLE: (/forums/Python/AI Development/thread/{unexistedRandomNumberId} -> redirect back to /forums/Python/AI Development
-			if(threadModel == null) {
-				String returnURL = String.format("forums/%s/%s", mainTopic , subTopic);
-				return "redirect:/" + returnURL;
-			}
+		if(threadModel == null) 
+		{
+			String returnURL = String.format("forums/%s/%s", mainTopic , subTopic);
+			return "redirect:/" + returnURL;
+		}
 		
 		//reply form
 		CommentModel commentModel = new CommentModel();
@@ -401,9 +407,18 @@ public class MainController {
 		String username = principal.getName();
 		modelView.addAttribute("currentUser", userService.findByUsername(username));
 		
+		// Date Formatting
+		Date accountCreated = userService.findByUsername(username).getCreatedAt();
+		String datePatternJoined = "MMMM yyyy";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePatternJoined);
 		
+		String dateJoined = simpleDateFormat.format(accountCreated);
+		modelView.addAttribute("dateJoined", dateJoined);
+				
+		// Rendering to JSP
 		userModel = this.userService.findByUsername(userNameProfile);
 		modelView.addAttribute("userModel", userModel);
+		
 		
 		//user thread (created thread)
 		List<ThreadModel> userThread = userModel.getThread();

@@ -110,7 +110,7 @@
 			<p class="thread-content-info">
 				posted by: <a href="/user/profile/${threadModel.getUserThread().getUserName()}"><c:out value="${threadModel.getUserThread().getUserName()}"/></a>
 				<br>
-				<c:out value="${threadModel.getCreatedAt()}"/>
+				<c:out value="${datePosted}"/>
 				<br>
 				<c:forEach var="userRole" items="${userRole}">
 					<c:out value="${userRole.getName()}"/>
@@ -127,7 +127,13 @@
 
 					<div>
 						<ul class="thread-comments">
-							<li><a href="/user/profile/${threadReplies.getUserAccount().getUserName()}"><c:out value="${threadReplies.getUserAccount().getUserName()}"/></a> - added a comment <span class="cmt-createdTime">(${threadReplies.getCreatedAt()})</span></li>
+							<li>
+								<a href="/user/profile/${threadReplies.getUserAccount().getUserName()}"><c:out value="${threadReplies.getUserAccount().getUserName()}"/></a> - added a comment 
+								
+								<span class="cmt-createdTime">
+									( ${threadReplies.getCreatedAtFormatted()} )
+								</span>
+							</li>
 							<li><p class="thread-comment-content"><c:out value="${threadReplies.getComment()}"/></p></li>
 						</ul>
 					</div>

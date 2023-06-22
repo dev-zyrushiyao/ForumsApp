@@ -1,5 +1,6 @@
 package com.codingdojo.ForumsApp.models;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -63,6 +64,7 @@ public class CommentModel {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 
 	public CommentModel(
 			@NotBlank(message = "This field should not be blank") @Size(min = 1, max = 500, message = "This parameter only accept 1 ~ 500 characters") String comment,
@@ -92,6 +94,14 @@ public class CommentModel {
 
 	public Date getCreatedAt() {
 		return createdAt;
+	}
+	
+	public String getCreatedAtFormatted() {
+		String pattern = "dd/MMM/yyyy h:mm a";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+		String formattedDate = simpleDateFormat.format(createdAt);
+		
+		return formattedDate;
 	}
 
 	public void setCreatedAt(Date createdAt) {

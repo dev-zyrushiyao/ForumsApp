@@ -1,5 +1,7 @@
 package com.codingdojo.ForumsApp.services;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,4 +51,6 @@ public class CommentService {
 	public List<CommentModel> findCommentsOnThread(ThreadModel threadTopic){
 		return this.commentRepo.findByThreadTopic(threadTopic);
 	}
+	
+	
 }
