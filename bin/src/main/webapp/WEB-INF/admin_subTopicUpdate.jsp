@@ -12,39 +12,85 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Update Sub Topic</title>
-<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+<!-- <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css"/> -->
+<link rel="stylesheet" href="../../../../../css/style.css">
 </head>
 <body>
 
-<h1>Update Sub Topic ID: <c:out value="${updateSubTopicForm.getId()}"/></h1>
-	<p><a href="/admin/view/${updateSubTopicForm.getForumMainTopics().getTitle()}/subtopic">GO BACK</a></p>
-	<form:form action="/admin/update/info/sub/topic/id/${updateSubTopicForm.getId()}" method="POST" modelAttribute="updateSubTopicForm">
-		<input type="hidden" name="_method" value="put">
-		<label style="color:green"><c:out value="${updateTopicMessage}"/></label>
-		<ul>
-			<li>
-				<label>Main Topic Title: </label>
-				<form:input  path="title" type="text"/>
-				<br>
-				<form:errors path="title" class="text-danger" style="color:red"/> 
-			</li>
-			<li>
-				<label>Description: </label>
-				<form:input path="description" type="text"/>
-				<br>
-				<form:errors path="description" class="text-danger" style="color:red"/> 
-			</li>
-			<li>
-					<!-- To be Hidden -->
-					<form:label path="forumMainTopics">Main Topic ID: </form:label>
-					<form:input path="forumMainTopics" type="text" value="${MainTopicName.getId()}" readonly="true"/>
-			</li>
-		</ul>
-		<input type="submit" value="UPDATE">
+	<!-- Header when logged in -->
+<header class="main-header flex-row spc-bet">
+	<div>
+		<h1 class="main-header-title font-color-primary">Dojo Dev Forums</h1>
+	</div>
+	<!-- Profile Header Section -->
+	<div class="flex-row flex-centered dropdown">
+		<img id="profile-pic" src="../../../../../img/default-img.png" alt="Default profile picture">
+		<p class="header-profile-name font-color-primary"><c:out value="${currentUser.getUserName()}"/>&nbsp;&nbsp;<span class="caret-down">&#9660;</span></p>
 		
-	</form:form>
-	
-		
+		<!-- Dropdown Content Section -->
+		<!-- Dropdown Content Section -->
+		<div class="dropdown-content">
+			
+			<!-- ADMIN ACCESS ONLY -->
+			<c:forEach var="currentUserRole" items="${currentUser.getRoles()}">
+				<c:if test="${currentUserRole.getName().equals('ROLE_ADMIN')}">
+					<form id="adminForm" method="GET" action="/admin">
+						<a class="dropdown-menu-loc logout">
+							<input id="adminDash-btn" type="submit" value="Admin Dashboard" />
+						</a>
+					</form>
+				</c:if>
+			</c:forEach>
 
+			<!-- DROPDOWN MENU FOR ALL -->
+			<a class="dropdown-menu-loc" href="/user/profile/${currentUser.getUserName()}/">View Profile</a>
+			<a class="dropdown-menu-loc" href="/update/user/profile/id/${currentUser.getId()}">Edit Profile</a>
+			<form id="logoutForm" method="POST" action="/logout">
+				<a class="dropdown-menu-loc logout">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+					<input id="logout-btn" type="submit" value="Logout!" />
+				</a>
+			</form>
+		</div>
+		
+	</div>
+</header>
+
+<main class="main-content-logged">
+	<div class="flex-row spc-bet">
+		<div>
+
+			<h2 class="margin-bot">Update Sub Topic: <c:out value="${updateSubTopicForm.getTitle()}"/></h2>
+				
+				<form:form action="/admin/update/info/sub/topic/id/${updateSubTopicForm.getId()}" method="POST" modelAttribute="updateSubTopicForm">
+					<input type="hidden" name="_method" value="put">
+					<label style="color:green"><c:out value="${updateTopicMessage}"/></label>
+					<ul>
+						<li>
+							<label>Main Topic Title: </label>
+							<p><form:input class="text-input input-text-pri blk-border margin-y-sm" path="title" type="text"/></p>
+							
+							<form:errors path="title" class="text-danger" style="color:red"/> 
+						</li>
+						<li>
+							<label>Description: </label>
+							<p><form:input class="text-input input-text-pri blk-border margin-y-sm" path="description" type="text"/></p>
+							
+							<form:errors path="description" class="text-danger" style="color:red"/> 
+						</li>
+						<li>
+								<!-- To be Hidden -->
+								<!-- <form:label path="forumMainTopics">Main Topic ID: </form:label> -->
+								<form:input path="forumMainTopics" type="text" value="${MainTopicName.getId()}" hidden="true"/>
+						</li>
+					</ul>
+					<input class="btn-primary margin-bot" type="submit" value="UPDATE">
+					
+				</form:form>
+
+				<p><a href="/admin/view/${updateSubTopicForm.getForumMainTopics().getTitle()}/subtopic">GO BACK</a></p>
+		</div>
+	</div>
+</main>
 </body>
 </html>

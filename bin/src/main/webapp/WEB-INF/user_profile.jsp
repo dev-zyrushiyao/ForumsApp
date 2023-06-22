@@ -26,16 +26,31 @@
 			<p class="header-profile-name font-color-primary"><c:out value="${currentUser.getUserName()}"/>&nbsp;&nbsp;<span class="caret-down">&#9660;</span></p>
 			
 			<!-- Dropdown Content Section -->
+			<!-- Dropdown Content Section -->
 			<div class="dropdown-content">
-				<a class="dropdown-menu" href="/user/profile/${currentUser.getUserName()}/">View Profile</a>
-				<a class="dropdown-menu" href="/update/user/profile/id/${currentUser.getId()}">Edit Profile</a>
+				
+				<!-- ADMIN ACCESS ONLY -->
+				<c:forEach var="currentUserRole" items="${currentUser.getRoles()}">
+					<c:if test="${currentUserRole.getName().equals('ROLE_ADMIN')}">
+						<form id="adminForm" method="GET" action="/admin">
+							<a class="dropdown-menu-loc logout">
+								<input id="adminDash-btn" type="submit" value="Admin Dashboard" />
+							</a>
+						</form>
+					</c:if>
+				</c:forEach>
+
+				<!-- DROPDOWN MENU FOR ALL -->
+				<a class="dropdown-menu-loc" href="/user/profile/${currentUser.getUserName()}/">View Profile</a>
+				<a class="dropdown-menu-loc" href="/update/user/profile/id/${currentUser.getId()}">Edit Profile</a>
 				<form id="logoutForm" method="POST" action="/logout">
-					<a class="dropdown-menu logout">
+					<a class="dropdown-menu-loc logout">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 						<input id="logout-btn" type="submit" value="Logout!" />
 					</a>
 				</form>
 			</div>
+			
 		</div>
 	</header>
 	

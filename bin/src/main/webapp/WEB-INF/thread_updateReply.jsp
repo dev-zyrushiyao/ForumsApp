@@ -11,16 +11,14 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Dashboard</title>
- <!-- <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css"/> -->
- <link rel ="stylesheet" type="text/css" href="/css/dashboard-style.css">
-
+<title> Update Comment | Dojo Dev Forum  </title>
+ <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+ <!-- <link rel ="stylesheet" type="text/css" href="/css/dashboard-style.css"> -->
+ <link rel="stylesheet" href="../../../../../../../../css/style.css">
 <!-- GOOGLE API FONT -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="../../../css/style.css">
 </head>
 <body>
 
@@ -31,7 +29,7 @@
 		</div>
 		<!-- Profile Header Section -->
 		<div class="flex-row flex-centered dropdown">
-			<img id="profile-pic" src="../../../img/default-img.png" alt="Default profile picture">
+			<img id="profile-pic" src="../../../../../../../../img/default-img.png" alt="Default profile picture">
 			<p class="header-profile-name font-color-primary"><c:out value="${currentUser.getUserName()}"/>&nbsp;&nbsp;<span class="caret-down">&#9660;</span></p>
 			
 			
@@ -59,26 +57,49 @@
 					</a>
 				</form>
 			</div>
-			
+
+
 		</div>
 	</header>
 
 	<main class="main-content-logged">
 
-		<div id="sticky-header">
-			<div id="header-flexbox">
-				<h1 id="user-greeting">Admin Dashboard</h1>
-				
-				<a id="new-game-link" href="/admin/view/main/topic"> View Main Topic List </a>
-					
-				
-			</div>
-		</div>
 	
-	</main>
+	<nav>
+		<h1> Hello, <a href="/user/profile/${currentUser.getUserName()}/"><c:out value="${currentUser.getUserName()}"/></a></h1>
+		<form id="logoutForm" method="POST" action="/logout">
+	        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+	        <input type="submit" value="Logout!" />
+    	</form>
+    </nav>
+	
+	
+	<a href="/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/thread/${threadModel.getId()}">GO BACK</a>
+	<h3>Edit comment ID: <c:out value="${updateReplyForm.getId()}"/> </h3>
+	
+	<form:form action="/admin/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/thread/${threadModel.getId()}/update/info/reply/${commentModel.getId()}" method="POST" modelAttribute="updateReplyForm">
+		<input type="hidden" name="_method" value="PUT">
+		
+		<label>Comment:</label>
+		<p><form:textarea class="padding-sm" type="text" path="comment" rows="8" cols="75"/></p>
+		<br>
+		<form:errors path="comment" class="text-danger" style="color:red"/>
+		
+		<!-- TO BE HIDDEN -->
+		<form:input type="text" path="threadTopic" hidden="true"/>
+		<form:input type="text" path="userAccount" hidden="true"/>
+		
+		<input type="submit" value="Update Comment">
+	</form:form>
+		
+</main>
+
+
+
+
+
 
 	<!-- Link JavaScript File -->
-	<script src="../../../js/app.js"></script>
-
+	<script src="/js/app.js"></script>
 </body>
 </html>
