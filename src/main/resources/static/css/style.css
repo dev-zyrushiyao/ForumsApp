@@ -365,7 +365,7 @@ ul li:nth-child(1){
     text-decoration: none;
 }
 
-.topic-cont {
+.topic-cont, .admin-func-cont, .admin-func-soon-cont {
     padding: 12px 32px;
     margin-bottom: 12px;
     border: 1px solid #4d4d4d;
@@ -373,8 +373,21 @@ ul li:nth-child(1){
     width: 32em; 
 }
 
+.admin-func-cont {
+    background: linear-gradient(90deg,#272727,#1e2d40ab);
+    color: rgb(255, 251, 251);
+    text-decoration: none;
+}
+
+.admin-func-soon-cont {
+    background: linear-gradient(90deg,#27272731,rgba(30, 45, 64, 0.144));
+    color: rgb(26, 26, 26);
+    text-decoration: none;
+    cursor: default;
+}
+
 .main-topic-cont {
-    background: linear-gradient(90deg,#1e2d40,#1e2d40ab);
+    background: linear-gradient(90deg,#034499,#1e2d40ab);
 }
 
 .sub-topic-cont {

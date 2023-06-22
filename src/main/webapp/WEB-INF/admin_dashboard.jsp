@@ -67,10 +67,13 @@
 
 		<div id="sticky-header">
 			<div id="header-flexbox">
-				<h1 id="user-greeting">Admin Dashboard</h1>
-				
-				<a id="new-game-link" href="/admin/view/main/topic"> View Main Topic List </a>
-					
+				<h1 class="margin-bot">Admin Dashboard</h1>
+				<h3 class="margin-bot">Select admin functionality:</h3>
+				<divv class="flex-column">
+					<a class="admin-func-cont" href="/admin/view/main/topic"> View Main Topic List </a>
+					<a class="admin-func-soon-cont" href="#"> More Admin functions soon </a>
+
+				</div>
 				
 			</div>
 		</div>
