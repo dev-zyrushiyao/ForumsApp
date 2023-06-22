@@ -57,10 +57,10 @@
 </header>
 
 <main class="main-content-logged">
+	<div>
+	<a href="/admin">&lt;&lt; back</a>
 	
-	<a href="/admin"> GO BACK</a>
-	<a  href="/admin/create/main/topic"> Add Main Topic </a>
-	<h1>All main topics</h1>
+	<h1>Main topics</h1>
 		
 		
 	<table class="table table-hover">
@@ -82,15 +82,17 @@
 				  <td> 
 					  <div>
 						  <form action="/admin/update/main/topic/id/${topicList.getId()}" method="GET">
-							  <input type="submit" class="btn btn-primary" value="EDIT">
+							  <input type="submit" class="btn btn-primary edit-btn-bs" value="Edit">
 						  </form>
 									  
 						<form:form action="/admin/delete/main/topic/id/${topicList.getId()}" method="POST">
 							 <input type="hidden" name="_method" value="DELETE"> 
-							 <input type="submit" class="btn btn-danger" value="DELETE" onClick="return confirm('Are you sure you want to delete [ID:' + ${topicList.getId()} + ']')">
+							 <input type="submit" class="btn btn-danger" value="Delete" onClick="return confirm('Are you sure you want to delete [ID:' + ${topicList.getId()} + ']')">
 						</form:form>
 						  
 					  </div>
+					  
+					  
 				  </td>
 		</tr>
 		</c:forEach> 	
@@ -98,6 +100,11 @@
 	  </tbody>
 	</table>
 
+	
+	<form method="GET" action="/admin/create/main/topic">
+			<input class="btn btn-primary" type="submit" value="Add a Main Topic" />
+	</form>
+</div>
 </main>
 
 

@@ -60,45 +60,51 @@
 
 <main class="main-content-logged">
 
-<a href="/admin/view/main/topic"> GO BACK</a>
-<a  href="/admin/create/${forumMainTopic.getTitle()}/sub/topic"> Add Sub Topic </a>
-	<h1>Sub topic of <c:out value="${forumMainTopic.getTitle()}"/></h1>
-	
-		<table class="table table-hover">
-		  <thead>
-		    <tr>
-		      <th scope="ID">#</th>
-		      <th scope="col">Title</th>
-		      <th scope="col">Description</th>
-		      <th scope="col">Action</th>
-		    </tr>
-		  </thead>
-		  <tbody>
-  	
-  <!-- Crud for sub topic implemented create only for now, the rest of crud is to follow -->
- <c:forEach var="topicList" items="${listOfSubTopics}">
-	<tr>
-	      <th scope="row"><c:out value="${topicList.getId()}"/></th>
-	      <td><c:out value="${topicList.getTitle()}"/></td>
-	      <td> <c:out value="${topicList.getDescription()}"/> </td>
-		      <td> 
-		      	<div>
-			      	<form action="/admin/update/sub/topic/id/${topicList.getId()}" method="GET">
-			      		<input type="submit" class="btn btn-primary" value="EDIT">
-			      	</form>
-			      				
-					<form:form action="/admin/delete/sub/topic/id/${topicList.getId()}" method="POST">
-						 <input type="hidden" name="_method" value="DELETE"> 
-						 <input type="submit" class="btn btn-danger" value="DELETE" onClick="return confirm('Are you sure you want to delete [ID:' + ${topicList.getId()} + ']')">
-					</form:form>
-			      	
-		      	</div>
-		      </td>
-	</tr>
-	</c:forEach> 	
-	  </tbody>
-</table>
+	<div>
+		<a href="/admin/view/main/topic">&lt;&lt; back</a>
 
+			<h1><c:out value="${forumMainTopic.getTitle()}"/> Sub topics</h1>
+			
+				<table class="table table-hover">
+				<thead>
+					<tr>
+					<th scope="ID">#</th>
+					<th scope="col">Title</th>
+					<th scope="col">Description</th>
+					<th scope="col">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+			
+		<!-- Crud for sub topic implemented create only for now, the rest of crud is to follow -->
+		<c:forEach var="topicList" items="${listOfSubTopics}">
+			<tr>
+				<th scope="row"><c:out value="${topicList.getId()}"/></th>
+				<td><c:out value="${topicList.getTitle()}"/></td>
+				<td> <c:out value="${topicList.getDescription()}"/> </td>
+					<td> 
+						<div>
+							<form action="/admin/update/sub/topic/id/${topicList.getId()}" method="GET">
+								<input type="submit" class="btn btn-primary edit-btn-bs" value="Edit">
+							</form>
+										
+							<form:form action="/admin/delete/sub/topic/id/${topicList.getId()}" method="POST">
+								<input type="hidden" name="_method" value="DELETE"> 
+								<input type="submit" class="btn btn-danger" value="Delete" onClick="return confirm('Are you sure you want to delete [ID:' + ${topicList.getId()} + ']')">
+							</form:form>
+							
+						</div>
+					</td>
+			</tr>
+			</c:forEach> 	
+			</tbody>
+		</table>
+
+
+		<form method="GET" action="/admin/create/${forumMainTopic.getTitle()}/sub/topic">
+			<input class="btn btn-primary" type="submit" value="Add a Sub Topic" />
+		</form>
+</div>
 </main>
 
 

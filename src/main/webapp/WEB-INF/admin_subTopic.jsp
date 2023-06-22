@@ -68,15 +68,15 @@
 
 		<ul>
 				<li>
-					<form:label path="title">Topic Title: </form:label>
-					<p><form:input class="text-input input-text-pri blk-border margin-y-sm" path="title" type="text"/></p>
+					<form:label path="title">Sub-Topic Name:</form:label>
+					<p><form:input class="text-input input-text-pri blk-border margin-y-sm input-field-res" path="title" type="text"/></p>
 					
 					<form:errors path="title" class="text-danger" style="color:red"/>
 					
 				</li>
 				<li>
 					<form:label path="description">Description: </form:label>
-					<p><form:input class="text-input input-text-pri blk-border margin-y-sm" path="description" type="text"/></p>
+					<p><form:input class="text-input input-text-pri blk-border margin-y-sm input-field-res" path="description" type="text"/></p>
 					
 					<form:errors path="description" class="text-danger" style="color:red"/> 
 				</li>

@@ -27,7 +27,7 @@
 		<img id="profile-pic" src="../../../../../img/default-img.png" alt="Default profile picture">
 		<p class="header-profile-name font-color-primary"><c:out value="${currentUser.getUserName()}"/>&nbsp;&nbsp;<span class="caret-down">&#9660;</span></p>
 		
-		<!-- Dropdown Content Section -->
+		
 		<!-- Dropdown Content Section -->
 		<div class="dropdown-content">
 			
@@ -68,13 +68,13 @@
 					<ul>
 						<li>
 							<label>Main Topic Title: </label>
-							<p><form:input class="text-input input-text-pri blk-border margin-y-sm" path="title" type="text"/></p>
+							<p><form:input class="text-input input-text-pri blk-border margin-y-sm input-field-res" path="title" type="text"/></p>
 							
 							<form:errors path="title" class="text-danger" style="color:red"/> 
 						</li>
 						<li>
 							<label>Description: </label>
-							<p><form:input class="text-input input-text-pri blk-border margin-y-sm" path="description" type="text"/></p>
+							<p><form:input class="text-input input-text-pri blk-border margin-y-sm input-field-res" path="description" type="text"/></p>
 							
 							<form:errors path="description" class="text-danger" style="color:red"/> 
 						</li>

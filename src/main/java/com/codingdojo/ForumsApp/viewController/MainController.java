@@ -335,9 +335,12 @@ public class MainController {
 	
 	//Thread content update page
 	@GetMapping("/admin/forums/update/thread/id/{id}")
-	public String updateThreadPage(Model modelView , @PathVariable Long id , ThreadModel threadModel) {
+	public String updateThreadPage(Model modelView , @PathVariable Long id , ThreadModel threadModel, Principal principal) {
 		threadModel = this.threadService.findThreadById(id);
 		modelView.addAttribute("threadUpdateForm", threadModel);
+		
+		String username = principal.getName();
+		modelView.addAttribute("currentUser", userService.findByUsername(username));
 		
 		//go back link to Edit - back to thread viewing
 		ForumMainTopic forumMainTopic = threadModel.getForumSubTopic().getForumMainTopics();

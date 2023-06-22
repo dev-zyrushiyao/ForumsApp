@@ -69,19 +69,19 @@
 		<ul>
 				<li>
 					<label>Title: </label>
-					<p><form:input class="text-input input-text-pri blk-border margin-y-sm" path="title" type="text"/></p>
+					<p><form:input class="text-input input-text-pri blk-border margin-y-sm input-field-res" path="title" type="text"/></p>
 					
 					<form:errors path="title" class="text-danger" style="color:red"/>
 					
 				</li>
 				<li>
 					<label>Description: </label>
-					<p><form:input class="text-input input-text-pri blk-border margin-y-sm" path="description" type="text"/></p>
+					<p><form:input class="text-input input-text-pri blk-border margin-y-sm input-field-res" path="description" type="text"/></p>
 					
 					<form:errors path="description" class="text-danger" style="color:red"/> 
 				</li>
 				<li>
-					<input class="btn-primary margin-bot" type="submit" value="CREATE TOPIC">
+					<input class="btn-primary margin-bot" type="submit" value="Add">
 					<!-- <input type="reset" value="Clear"> -->
 				</li>
 			</ul>

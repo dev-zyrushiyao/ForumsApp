@@ -11,7 +11,9 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Dojo Dev Forum | New Thread</title>
+<title>Dojo Dev Forum | Edit Thread</title>
+<link rel="stylesheet" href="../../../../../css/style.css">
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css"/>
 </head>
 <body>
 
@@ -22,7 +24,7 @@
 		</div>
 		<!-- Profile Header Section -->
 		<div class="flex-row flex-centered dropdown">
-			<img id="profile-pic" src="../../../../img/default-img.png" alt="Default profile picture">
+			<img id="profile-pic" src="../../../../../../img/default-img.png" alt="Default profile picture">
 			<p class="header-profile-name font-color-primary">
 				<c:out value="${currentUser.getUserName()}" />&nbsp;&nbsp;<span
 					class="caret-down">&#9660;</span>
@@ -59,46 +61,52 @@
 		</div>
 	</header>
 
-<a href="/forums/${ForumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/thread/${threadModel.getId()}"> GO BACK</a>
-<br>
-		<label>Update thread</label>
-		<br>
- 		<form:form action="/admin/forums/update/thread/info/id/${threadModel.getId()}" method="POST" modelAttribute="threadUpdateForm">
-			<input type="hidden" name="_method" value="put">
-			<ul>
-				<li>
-					<label>Topic Title: </label>
-					<form:input path="title" type="text"/>
-					<br>
-					<form:errors path="title" class="text-danger" style="color:red"/>
-				</li>
-				<li>
-					<label>Post content: </label>
-					<form:textarea path="content" type="text"/>
-					<br>
-					<form:errors path="content" class="text-danger" style="color:red"/> 
-				</li>
+	<main class="main-content-logged">
+		<div>
+	
 			
-					<li> <!-- TO BE HIDDEN  -->
-					<label>forumSubTopic ID: </label>
-					<form:input path="forumSubTopic" type="text" value="${forumSubTopic.getId()}" readonly="true"/>
-					<br>
-					<form:errors path="forumSubTopic" class="text-danger" style="color:red"/>
-				</li>	
-				<li> <!-- TO BE HIDDEN  -->
-					<label>User Thread ID: </label>
-					<form:input path="userThread" type="text" value="${currentUser.getId()}" readonly="true"/>
-					<br>
-					<form:errors path="userThread" class="text-danger" style="color:red"/>
-				</li>
-				<li>
-					<input type="submit" value="UPDATE TOPIC">
-					<input type="reset" value="Clear">
-				</li>
-			</ul>
 			
+					<h2 class="marign-bot">Edit post</h2>
+					
+					<form:form action="/admin/forums/update/thread/info/id/${threadModel.getId()}" method="POST" modelAttribute="threadUpdateForm">
+						<input type="hidden" name="_method" value="put">
+						<ul>
+							<li>
+								<label>Title: </label>
+								<p><form:input class="text-input input-text-pri blk-border margin-y-sm input-field-res" path="title" type="text"/></p>
+								
+								<form:errors path="title" class="text-danger" style="color:red"/>
+							</li>
+							<li>
+								<label>Content: </label>
+								<p><form:textarea class="padding-sm blk-border" path="content" rows="8" cols="75"/></p>
+								<br>
+								<form:errors path="content" class="text-danger" style="color:red"/> 
+							</li>
+							<!-- TO BE HIDDEN  -->
+							<li> 
+								<form:input path="forumSubTopic" type="text" value="${forumSubTopic.getId()}" hidden="true"/>
+								<form:errors path="forumSubTopic" class="text-danger" style="color:red"/>
+							</li>	
+							<!-- TO BE HIDDEN  -->
+							<li> 
+								
+								<form:input path="userThread" type="text" value="${currentUser.getId()}" hidden="true"/>
+								
+								<form:errors path="userThread" class="text-danger" style="color:red"/>
+							</li>
+							<li>
+								<input class="btn-primary" type="submit" value="Update">
+								<a href="/forums/${ForumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/thread/${threadModel.getId()}">cancel</a>
+							</li>
+						</ul>
+						
 
-			</form:form>
+						</form:form>
 
+		</div>
+	</main>
+			<!-- Link JavaScript File -->
+			<script src="/js/app.js"></script>
 </body>
 </html>

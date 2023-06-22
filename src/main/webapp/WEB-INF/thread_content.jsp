@@ -16,10 +16,6 @@
  <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css"/>
  <link rel ="stylesheet" type="text/css" href="/css/dashboard-style.css">
 
-<!-- GOOGLE API FONT -->
-<!-- <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet"> -->
 
 <link rel="stylesheet" href="../../../../../css/style.css">
 
@@ -137,7 +133,7 @@
 					</div>
 
 
-					<!-- Edit Delete Comments (Admin) -->
+					<!-- Edit Delete Comments Button (Admin) -->
 					<div class="comment-admin-btns">
 
 						
@@ -163,10 +159,6 @@
 					</div>
 
 				</div>
-				
-
-				
-
 				<hr>
 			</c:forEach> 
 		
@@ -177,7 +169,9 @@
 		<!-- thread reply form -->
 		<div>
 		 <form:form action="/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/thread/new/reply" method="POST" modelAttribute="threadReplyForm">
-			<form:textarea class="padding-sm" path="comment" rows="8" cols="75" ></form:textarea>
+			
+		 	<!-- COMMENT TEXTAREA -->
+		 	<form:textarea class="padding-sm" path="comment" rows="8" cols="75" placeholder="Write a comment..."></form:textarea>
 			<form:errors path="comment" class="text-danger" style="color:red"/>
 			<ul>
 				<!-- To be hidden -->

@@ -405,6 +405,15 @@ ul li:nth-child(1){
     font-weight: 300;
 }
 
+p input.input-field-res {
+    width: 20vw;
+}
+
+div input.edit-btn-bs {
+    font-weight: 400;
+    border-radius: 6px;
+}
+
 #globe-img {
     width: 18vw;
     
