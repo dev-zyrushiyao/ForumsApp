@@ -530,7 +530,7 @@ public class MainController {
 		return "admin_mainTopic.jsp";
 	}
 	
-		//add a main/sub topic using GET 
+	
 	@PostMapping("/admin/create/new/main/topic")
 	public String createMainTopic(RedirectAttributes redirectAttributes,
 			@Valid @ModelAttribute("mainTopicForm")ForumMainTopic forumMainTopic , BindingResult result, Model modelView, Principal principal) {
@@ -541,9 +541,17 @@ public class MainController {
 			modelView.addAttribute("currentUser", userService.findByUsername(username));
 			return "admin_mainTopic.jsp";
 		}else {
-			this.mainTopicService.createTopic(forumMainTopic);	
-			redirectAttributes.addFlashAttribute("mainTopicMessage", "New Main Topic Added!");
-			return "redirect:/admin/create/main/topic";
+			ForumMainTopic mainTopicDataChecker = this.mainTopicService.findTitle(forumMainTopic.getTitle());
+			if(mainTopicDataChecker != null) {
+				redirectAttributes.addFlashAttribute("mainTopicErrorMessage", "ERROR: MainTopic already exist");
+//				System.out.println("ERROR: MainTopic already exist");
+				return "redirect:/admin/create/main/topic";
+			}else {
+				this.mainTopicService.createTopic(forumMainTopic);	
+				redirectAttributes.addFlashAttribute("mainTopicMessage", "New Main Topic Added!");
+				return "redirect:/admin/create/main/topic";
+			}
+			
 		}
 	}
 	
@@ -620,15 +628,23 @@ public class MainController {
 	public String createSubTopic(@PathVariable String mainTopic ,Model modelView , RedirectAttributes redirectAttributes ,
 			@Valid @ModelAttribute("subTopicForm")ForumSubTopic forumSubTopic , BindingResult result) {
 		
+		//forumMainTopic for return url
+		ForumMainTopic forumMainTopic = this.mainTopicService.findTitle(mainTopic);
+		
 		if(result.hasErrors()) {
-			ForumMainTopic forumMainTopic = this.mainTopicService.findTitle(mainTopic);
 			modelView.addAttribute("MainTopicName", forumMainTopic);
 			return "admin_subTopic.jsp";
 		}else {
-			ForumMainTopic forumMainTopic = this.mainTopicService.findTitle(mainTopic);
-			redirectAttributes.addFlashAttribute("subTopicMessage", "Subtopic Added!");
-			this.subTopicService.createTopic(forumSubTopic);
-			return "redirect:/admin/create/" + forumMainTopic.getTitle() + "/sub/topic";
+			ForumSubTopic subTopicDataChecker = this.subTopicService.findTitle(forumSubTopic.getTitle());
+			if(subTopicDataChecker != null) {
+				redirectAttributes.addFlashAttribute("subTopicErrorMessage", "ERROR: SubTopic already exist");
+//				System.out.println("ERROR: SubTopic already exist");
+				return "redirect:/admin/create/" + forumMainTopic.getTitle() + "/sub/topic";
+			}else {
+				redirectAttributes.addFlashAttribute("subTopicMessage", "Subtopic Added!");
+				this.subTopicService.createTopic(forumSubTopic);
+				return "redirect:/admin/create/" + forumMainTopic.getTitle() + "/sub/topic";
+			}
 		}
 	}
 	
