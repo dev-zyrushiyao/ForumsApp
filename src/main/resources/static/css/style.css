@@ -374,15 +374,17 @@ ul li:nth-child(1){
 .topic-wrapper {
     margin-top: 18px;
     margin-left: 22px;
+    width: fit-content;
 }
 
-.topic-wrapper a {
+.topic-wrapper a, .admin-func-cont {
     text-decoration: none;
+    margin-bottom: 12px;
 }
 
 .topic-cont, .admin-func-cont, .admin-func-soon-cont {
     padding: 12px 32px;
-    margin-bottom: 12px;
+    /* margin-bottom: 12px; */
     border: 1px solid #4d4d4d;
     border-radius: 10px;
     width: 32em; 
