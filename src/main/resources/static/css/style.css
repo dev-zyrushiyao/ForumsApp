@@ -95,7 +95,7 @@ main.main-content-logged > div {
 }
 
 .word-break {
-    word-break: break-all;
+    word-break: break-word;
 }
 
 .intro-text {
