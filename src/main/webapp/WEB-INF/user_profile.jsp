@@ -11,7 +11,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title> <c:out value="${userModel.getUserName()}"/> | Profile </title>
-<link rel="stylesheet" href="../../../css/style.css">
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
@@ -22,7 +22,7 @@
 		</div>
 		<!-- Profile Header Section -->
 		<div class="flex-row flex-centered dropdown">
-			<img id="profile-pic" src="../../../img/default-img.png" alt="Default profile picture">
+			<img id="profile-pic" src="/img/default-img.png" alt="Default profile picture">
 			<p class="header-profile-name font-color-primary"><c:out value="${currentUser.getUserName()}"/>&nbsp;&nbsp;<span class="caret-down">&#9660;</span></p>
 			
 			<!-- Dropdown Content Section -->
@@ -73,7 +73,7 @@
 					
 					<c:otherwise>
 						<ul class="user-info">
-							<li><img src="../../../img/default-img.png" alt="Default profile picture"></li>
+							<li><img src="/img/default-img.png" alt="Default profile picture"></li>
 							<li><p class="profile-page-username"><c:out value="${userModel.getUserName()}"/></p></li>
 							<li><i class="profile-page-joindate">Join Date: <c:out value="${dateJoined}"/></i></li>
 							<li><c:out value="${userModel.getUserData().getFirstName()} ${userModel.getUserData().getLastName()}"/></li>
@@ -170,7 +170,7 @@
 
 
 	<!-- Link JavaScript File -->
-	<script src="../../../js/app.js"></script>
+	<script src="/js/app.js"></script>
 
 </body>
 </html>

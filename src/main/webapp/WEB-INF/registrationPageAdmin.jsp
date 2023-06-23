@@ -8,7 +8,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Admin Registration Page</title>
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 	

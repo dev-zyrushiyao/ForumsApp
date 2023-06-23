@@ -14,7 +14,7 @@
 					<title> Update Comment | Dojo Dev Forum </title>
 					<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
 					<!-- <link rel ="stylesheet" type="text/css" href="/css/dashboard-style.css"> -->
-					<link rel="stylesheet" href="../../../../../../../../css/style.css">
+					<link rel="stylesheet" href="/css/style.css">
 					<!-- GOOGLE API FONT -->
 					<link rel="preconnect" href="https://fonts.googleapis.com">
 					<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,7 +31,7 @@
 						</div>
 						<!-- Profile Header Section -->
 						<div class="flex-row flex-centered dropdown">
-							<img id="profile-pic" src="../../../../../../../../img/default-img.png"
+							<img id="profile-pic" src="/img/default-img.png"
 								alt="Default profile picture">
 							<p class="header-profile-name font-color-primary">
 								<c:out value="${currentUser.getUserName()}" />&nbsp;&nbsp;<span
