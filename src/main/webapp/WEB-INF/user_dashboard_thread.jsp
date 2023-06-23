@@ -12,7 +12,7 @@
 				<head>
 					<meta charset="ISO-8859-1">
 					<title>
-						<c:out value="${subTopic.getTitle()}" /> | Dojo Dev Forums
+						<c:out value="${subTopic.getTitle()}" /> | Dojo Dev Forum
 					</title>
 					<!-- Bootstrap CSS -->
 					<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />

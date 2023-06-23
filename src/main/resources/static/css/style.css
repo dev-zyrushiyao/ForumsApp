@@ -114,6 +114,9 @@ main.main-content-logged > div {
     padding: 6px;
 }
 
+.margin-bot-smlr {
+    margin-bottom: 6px;
+}
 
 .margin-bot {
     margin-bottom: 20px;
@@ -121,6 +124,10 @@ main.main-content-logged > div {
 
 .margin-bot-lgr {
     margin-bottom: 70px;
+}
+
+.margin-rt-lgr {
+    margin-right: 50px;
 }
 
 .padding-bot {
@@ -190,6 +197,10 @@ input::placeholder {
     font-weight: 600;
 }
 
+.btn-add-subtopic {
+    background: #c1b3e9;
+    color: #231220;
+}
 
 .btn-secondary {
     width: 100%;

@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title> <c:out value="${forumMainTopic.getTitle()}"/> | Dojo Dev Forums</title>
+<title> <c:out value="${forumMainTopic.getTitle()}"/> | Dojo Dev Forum</title>
 <link rel="stylesheet" href="../../../../css/style.css">
 </head>
 <body>
@@ -67,12 +67,33 @@
 				<div class="margin-bot">
 					<h2><a href="/">Dashboard</a> > ${forumMainTopic.getTitle()}</h2>
 				</div>
-				<div class="margin-bot">
+
+				<div class="flex-row flex-centered">
+
+					<div class="margin-bot-smlr margin-rt-lgr">
 					
-					<h1>This is the ${forumMainTopic.getTitle()} Topic</h1>
-					<p>${forumMainTopic.getDescription()}</p>
-					
+						<h1 class="margin-bot-smlr">This is the ${forumMainTopic.getTitle()} Topic</h1>
+						<p>${forumMainTopic.getDescription()}</p>
+						
+					</div>
+
+					<div>
+
+						<!-- ADMIN ACCESS ONLY -->
+						<c:forEach var="currentUserRole" items="${currentUser.getRoles()}">
+							<c:if test="${currentUserRole.getName().equals('ROLE_ADMIN')}">
+								<form id="adminForm" method="GET" action="/admin/create/${forumMainTopic.getTitle()}/sub/topic">
+									<a class="dropdown-menu-loc logout">
+										<input class="btn-primary btn-add-subtopic" type="submit" value="New Sub Topic" />
+									</a>
+								</form>
+							</c:if>
+						</c:forEach>
+
+					</div>
 				</div>
+
+				
 				
 				<div class="flex-column topic-wrapper">
 					
@@ -87,16 +108,7 @@
 						
 					</c:forEach>
 
-					<!-- ADMIN ACCESS ONLY -->
-					<c:forEach var="currentUserRole" items="${currentUser.getRoles()}">
-						<c:if test="${currentUserRole.getName().equals('ROLE_ADMIN')}">
-							<form id="adminForm" method="GET" action="/admin/create/${forumMainTopic.getTitle()}/sub/topic">
-								<a class="dropdown-menu-loc logout">
-									<input id="adminDash-btn" type="submit" value="New Sub Topic" />
-								</a>
-							</form>
-						</c:if>
-					</c:forEach>
+					
 							
 			</div>
 			</div>

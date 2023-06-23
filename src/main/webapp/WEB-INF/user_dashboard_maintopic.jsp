@@ -12,7 +12,7 @@
 <head>
 	<meta charset="ISO-8859-1">
 	<link rel="stylesheet" href="css/style.css">
-	<title>Dashboard | Dojo Dev Forums</title>
+	<title>Dashboard | Dojo Dev Forum</title>
 </head>
 <body>
 
@@ -59,10 +59,27 @@
 	<main class="main-content-logged">
 
 		<div>
-			<div>
-				<h1 class="margin-bot">Dashboard</h1>
-				<p>Choose your topic:</p>
+
+			<div class="flex-row flex-centered">
+				<div class="margin-rt-lgr">
+					<h1 class="margin-bot-smlr">Dashboard</h1>
+					<p>Choose your topic:</p>
+				</div>
+				<div>
+					<!-- ADMIN ACCESS ONLY -->
+					<c:forEach var="currentUserRole" items="${currentUser.getRoles()}">
+						<c:if test="${currentUserRole.getName().equals('ROLE_ADMIN')}">
+							<form id="adminForm" method="GET" action="/admin/create/main/topic">
+								<a class="dropdown-menu-loc logout">
+									<input class="btn-primary" type="submit" value="New Main Topic" />
+								</a>
+							</form>
+						</c:if>
+					</c:forEach>
 			</div>
+
+			</div>
+			
 			
 			
 			<div class="flex-column topic-wrapper">
@@ -79,16 +96,7 @@
 					</a>
 				</c:forEach>
 					
-				<!-- ADMIN ACCESS ONLY -->
-				<c:forEach var="currentUserRole" items="${currentUser.getRoles()}">
-					<c:if test="${currentUserRole.getName().equals('ROLE_ADMIN')}">
-						<form id="adminForm" method="GET" action="/admin/create/main/topic">
-							<a class="dropdown-menu-loc logout">
-								<input id="adminDash-btn" type="submit" value="New Main Topic" />
-							</a>
-						</form>
-					</c:if>
-				</c:forEach>
+				
 
 
 
