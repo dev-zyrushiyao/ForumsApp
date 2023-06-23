@@ -62,7 +62,7 @@
 		<div>
 		<h2 class="margin-bot">Create Main Topic</h2>
 
-		<form:form action="/admin/create/new/main/topic" method="GET" modelAttribute="mainTopicForm">
+		<form:form action="/admin/create/new/main/topic" method="POST" modelAttribute="mainTopicForm">
 			
 			<label style="color:green"><c:out value="${mainTopicMessage}"></c:out></label>
 

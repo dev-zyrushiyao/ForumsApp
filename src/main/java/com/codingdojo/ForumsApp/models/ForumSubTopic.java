@@ -70,9 +70,7 @@ public class ForumSubTopic {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ForumSubTopic(
-			@NotBlank(message = "This field should not be blank") @Size(min = 4, max = 15, message = "This parameter accept 4 ~ 15 characters") String title,
-			@NotBlank(message = "This field should not be blank") @Size(min = 4, max = 20, message = "This parameter accept 4 ~ 20 characters") String description,
+	public ForumSubTopic(String title,String description,
 			ForumMainTopic forumMainTopics) {
 		super();
 		this.title = title;
