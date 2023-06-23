@@ -206,13 +206,13 @@ public class MainController {
 		
 		
 		// Date Formatting
-//		Date threadCreated = threadModel.getCreatedAt();
-//		
-//		String datePatternThread = "dd/MMM/yyyy h:mm a";
-//		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePatternThread);
-//		
-//		String datePosted = simpleDateFormat.format(threadCreated);
-//		modelView.addAttribute("datePosted", datePosted);
+		Date threadCreated = threadModel.getCreatedAt();
+		
+		String datePatternThread = "dd/MMM/yyyy h:mm a";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePatternThread);
+		
+		String datePosted = simpleDateFormat.format(threadCreated);
+		modelView.addAttribute("datePosted", datePosted);
 		
 		// Date Formatt 
 //		UserModel userModel = this.userService.findUserById(1L);
@@ -222,8 +222,7 @@ public class MainController {
 //    	System.out.println("Date Format with substring:" + dateFormat.format(userModel.getCreatedAt()).substring(3, 10)); //substring param (int start , int end) 
 //    	System.out.println("Date Format with time:" + DateFormat.getTimeInstance().format(userModel.getCreatedAt()));
 
-		
-		
+
 		//reply form
 		CommentModel commentModel = new CommentModel();
 		modelView.addAttribute("threadReplyForm" , commentModel);
@@ -542,9 +541,7 @@ public class MainController {
 			modelView.addAttribute("currentUser", userService.findByUsername(username));
 			return "admin_mainTopic.jsp";
 		}else {
-			modelView.addAttribute("mainTopicMessage", "New Main Topic Added!");
-			this.mainTopicService.createTopic(forumMainTopic);
-			
+			this.mainTopicService.createTopic(forumMainTopic);	
 			redirectAttributes.addFlashAttribute("mainTopicMessage", "New Main Topic Added!");
 			return "redirect:/admin/create/main/topic";
 		}
