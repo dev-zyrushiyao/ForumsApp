@@ -8,7 +8,8 @@
 <head>
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" href="/css/style.css">
-<title>Title Page</title>
+<link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+<title>Registration | Dojo Dev Forum</title>
 </head>
 <body>
 

@@ -11,11 +11,11 @@
 
 				<head>
 					<meta charset="ISO-8859-1">
-					<title>
-						<c:out value="${subTopic.getTitle()}" /> | Dojo Dev Forum
-					</title>
+					<title><c:out value="${subTopic.getTitle()}" /> | Dojo Dev Forum</title>
 					<!-- Bootstrap CSS -->
 					<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
+
+					<link rel="icon" type="image/x-icon" href="/img/favicon.ico">
 					<link rel="stylesheet" href="/css/style.css">
 				</head>
 

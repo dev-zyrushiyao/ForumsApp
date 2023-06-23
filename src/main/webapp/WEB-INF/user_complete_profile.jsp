@@ -10,8 +10,9 @@
 <html>
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Complete your profile</title>
+	<title>Complete your profile | Dojo Dev Forum</title>
 	<link rel="stylesheet" href="/css/style.css">
+	<link rel="icon" type="image/x-icon" href="/img/favicon.ico">
 </head>
 <body>
 

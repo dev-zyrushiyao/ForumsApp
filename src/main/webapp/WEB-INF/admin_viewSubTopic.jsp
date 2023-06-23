@@ -14,6 +14,7 @@
 <title>Java Sub Topics</title>
 <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css"/>
 <link rel="stylesheet" href="/css/style.css">
+<link rel="icon" type="image/x-icon" href="/img/favicon.ico">
 </head>
 <body>
 

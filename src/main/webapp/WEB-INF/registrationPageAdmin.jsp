@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Admin Registration Page</title>
+<title>Admin Registration | Dojo Dev Forum</title>
 <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>

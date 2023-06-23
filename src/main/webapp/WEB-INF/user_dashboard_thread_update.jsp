@@ -9,12 +9,13 @@
 <%@ page isErrorPage="true" %> 
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Dojo Dev Forum | Edit Thread</title>
- <link rel="stylesheet" href="/css/style.css">
-<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css"/>
-</head>
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Edit Thread | Dojo Dev Forum</title>
+		<link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+		<link rel="stylesheet" href="/css/style.css">
+		<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+	</head>
 <body>
 
 	<!-- Header when logged in -->

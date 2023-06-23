@@ -10,7 +10,8 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title><c:out value="${currentUser.getUserName()}"/> | Update Info</title>
+<title>Update Info | Dojo Dev Forum</title>
+<link rel="icon" type="image/x-icon" href="/img/favicon.ico">
 <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>

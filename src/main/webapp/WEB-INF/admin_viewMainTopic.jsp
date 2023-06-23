@@ -14,6 +14,7 @@
 <title>View All Main Topics</title>
 <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css"/>
 <link rel ="stylesheet" type="text/css" href="/css/style.css">
+<link rel="icon" type="image/x-icon" href="/img/favicon.ico">
 </head>
 <body id="bootstrap-overlap">
 

@@ -10,7 +10,8 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title> <c:out value="${userModel.getUserName()}"/> | Profile </title>
+<title> <c:out value="${userModel.getUserName()}"/> | Dojo Dev Forum </title>
+<link rel="icon" type="image/x-icon" href="/img/favicon.ico">
 <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>

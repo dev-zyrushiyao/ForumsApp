@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+<link rel="icon" type="image/x-icon" href="/img/favicon.ico">
 <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -29,7 +29,7 @@
 		</div>
 		<!-- Profile Header Section -->
 		<div class="flex-row flex-centered dropdown">
-			<img id="profile-pic" src="../../../img/default-img.png" alt="Default profile picture">
+			<img id="profile-pic" src="/img/default-img.png" alt="Default profile picture">
 			<p class="header-profile-name font-color-primary"><c:out value="${currentUser.getUserName()}"/>&nbsp;&nbsp;<span class="caret-down">&#9660;</span></p>
 			
 			

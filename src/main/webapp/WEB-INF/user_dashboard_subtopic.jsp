@@ -11,8 +11,9 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title> <c:out value="${forumMainTopic.getTitle()}"/> | Dojo Dev Forum</title>
+<title><c:out value="${forumMainTopic.getTitle()}"/> | Dojo Dev Forum</title>
 <link rel="stylesheet" href="/css/style.css">
+<link rel="icon" type="image/x-icon" href="/img/favicon.ico">
 </head>
 <body>
 
