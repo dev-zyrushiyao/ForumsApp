@@ -81,7 +81,7 @@
 						<li>
 								<!-- To be Hidden -->
 								<!-- <form:label path="forumMainTopics">Main Topic ID: </form:label> -->
-								<form:input path="forumMainTopics" type="text" value="${MainTopicName.getId()}" hidden="true"/>
+								<form:input path="forumMainTopics" type="text" value="${MainTopicName.getId()}"/>
 						</li>
 					</ul>
 					<input class="btn-primary margin-bot" type="submit" value="UPDATE">

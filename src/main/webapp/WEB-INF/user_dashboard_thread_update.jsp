@@ -12,7 +12,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Dojo Dev Forum | Edit Thread</title>
-<link rel="stylesheet" href="../../../../../css/style.css">
+ <link rel="stylesheet" href="../../../../../css/style.css">
 <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css"/>
 </head>
 <body>
@@ -68,7 +68,7 @@
 			
 					<h2 class="marign-bot">Edit post</h2>
 					
-					<form:form action="/admin/forums/update/thread/info/id/${threadModel.getId()}" method="POST" modelAttribute="threadUpdateForm">
+					<form:form action="/admin/forums/update/thread/info/id/${threadUpdateForm.getId()}" method="POST" modelAttribute="threadUpdateForm">
 						<input type="hidden" name="_method" value="put">
 						<ul>
 							<li>
@@ -97,7 +97,7 @@
 							</li>
 							<li>
 								<input class="btn-primary" type="submit" value="Update">
-								<a href="/forums/${ForumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/thread/${threadModel.getId()}">cancel</a>
+								<a href="/forums/${ForumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/thread/${threadUpdateForm.getId()}">cancel</a>
 							</li>
 						</ul>
 						

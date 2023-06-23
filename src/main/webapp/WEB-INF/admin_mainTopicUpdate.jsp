@@ -82,7 +82,7 @@
 	</form:form>
 	
 
-	<p><a href="/admin/view/main/topic"><< Back to Main Topic List</a></p>
+	<p><a href="/admin/view/main/topic"> << Back to Main Topic List</a></p>
 </div>
 </div>
 </main>

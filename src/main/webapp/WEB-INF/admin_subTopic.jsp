@@ -62,7 +62,7 @@
 		<h2 class="margin-bot">Create Sub-Topic for <c:out value="${MainTopicName.getTitle()}"/></h2>
 		
 
-		<form:form action="/admin/create/${MainTopicName.getTitle()}/new/sub/topic" method="GET" modelAttribute="subTopicForm">
+		<form:form action="/admin/create/${MainTopicName.getTitle()}/new/sub/topic" method="POST" modelAttribute="subTopicForm">
 			
 			<label style="color:green"><c:out value="${subTopicMessage}"></c:out></label>
 

@@ -192,6 +192,13 @@ public class MainController {
 		ThreadModel threadModel = this.threadService.findThreadById(id);
 		modelView.addAttribute("threadModel", threadModel);
 		
+		//if a user tries to access unexisted ID thread-> redirects back to SubTopics Thread 
+		//EXAMPLE: (/forums/Python/AI Development/thread/{unexistedRandomNumberId} -> redirect back to /forums/Python/AI Development
+		if(threadModel == null) 
+		{
+			String returnURL = String.format("forums/%s/%s/page/0", mainTopic , subTopic);
+			return "redirect:/" + returnURL;
+		}
 		
 		//view all replies to a thread / add replies origin(username)
 		List<CommentModel> threadReplies = this.commentService.findCommentsOnThread(threadModel);
@@ -214,16 +221,8 @@ public class MainController {
 //    	System.out.println("Date Format : " + dateFormat.format(userModel.getCreatedAt()));
 //    	System.out.println("Date Format with substring:" + dateFormat.format(userModel.getCreatedAt()).substring(3, 10)); //substring param (int start , int end) 
 //    	System.out.println("Date Format with time:" + DateFormat.getTimeInstance().format(userModel.getCreatedAt()));
-		
-		
-		//if a user tries to access unexisted ID thread-> redirects back to SubTopics Thread 
-		//EXAMPLE: (/forums/Python/AI Development/thread/{unexistedRandomNumberId} -> redirect back to /forums/Python/AI Development
-		if(threadModel == null) 
-		{
-			String returnURL = String.format("forums/%s/%s", mainTopic , subTopic);
-			return "redirect:/" + returnURL;
-		}
-		
+
+
 		//reply form
 		CommentModel commentModel = new CommentModel();
 		modelView.addAttribute("threadReplyForm" , commentModel);
@@ -348,8 +347,8 @@ public class MainController {
 	
 	//Thread content update page
 	@GetMapping("/admin/forums/update/thread/id/{id}")
-	public String updateThreadPage(Model modelView , @PathVariable Long id , ThreadModel threadModel, Principal principal) {
-		threadModel = this.threadService.findThreadById(id);
+	public String updateThreadPage(Model modelView , @PathVariable Long id , Principal principal) {
+		ThreadModel threadModel = this.threadService.findThreadById(id);
 		modelView.addAttribute("threadUpdateForm", threadModel);
 		
 		String username = principal.getName();
@@ -370,8 +369,9 @@ public class MainController {
 		@Valid @ModelAttribute("threadUpdateForm")ThreadModel threadModel , BindingResult result) {
 		
 		if(result.hasErrors()) {
-			threadModel = this.threadService.findThreadById(id);
-			modelView.addAttribute("threadUpdateForm", threadModel);
+//			threadModel = this.threadService.findThreadById(id);
+//			modelView.addAttribute("threadUpdateForm", threadModel);
+//			System.out.println("error thread title update");
 			return "user_dashboard_thread_update.jsp";
 		}else {
 			this.threadService.updateThread(threadModel);
@@ -523,53 +523,55 @@ public class MainController {
 	}
 	
 	@GetMapping("/admin/create/main/topic")
-	public String MainTopicPage(Principal principal, Model modelView , ForumMainTopic mainTopic) {
-		modelView.addAttribute("mainTopicForm", mainTopic );
+	public String MainTopicPage(Principal principal, Model modelView , ForumMainTopic forumMainTopic) {
+		modelView.addAttribute("mainTopicForm", forumMainTopic );
 		String username = principal.getName();
 		modelView.addAttribute("currentUser", userService.findByUsername(username));
 		return "admin_mainTopic.jsp";
 	}
 	
 		//add a main/sub topic using GET 
-	@GetMapping("/admin/create/new/main/topic")
+	@PostMapping("/admin/create/new/main/topic")
 	public String createMainTopic(RedirectAttributes redirectAttributes,
-			@Valid @ModelAttribute("mainTopicForm")ForumMainTopic forumMainTopic , BindingResult result, Model modelView, Principal principal, ForumMainTopic mainTopic) {
+			@Valid @ModelAttribute("mainTopicForm")ForumMainTopic forumMainTopic , BindingResult result, Model modelView, Principal principal) {
 		
 		if(result.hasErrors()) {
-			modelView.addAttribute("mainTopicForm", mainTopic );
+			modelView.addAttribute("mainTopicForm", forumMainTopic );
 			String username = principal.getName();
 			modelView.addAttribute("currentUser", userService.findByUsername(username));
 			return "admin_mainTopic.jsp";
 		}else {
+			this.mainTopicService.createTopic(forumMainTopic);	
 			redirectAttributes.addFlashAttribute("mainTopicMessage", "New Main Topic Added!");
-			this.mainTopicService.createTopic(forumMainTopic);
 			return "redirect:/admin/create/main/topic";
 		}
 	}
 	
 	@GetMapping("/admin/update/main/topic/id/{id}")
-	public String editMainTopicPage(@PathVariable Long id, Model modelView , ForumMainTopic forumMainTopic, Principal principal, ForumMainTopic mainTopic) {
+	public String editMainTopicPage(@PathVariable Long id, Model modelView , ForumMainTopic forumMainTopic, Principal principal) {
 		
-		modelView.addAttribute("mainTopicForm", mainTopic );
 		String username = principal.getName();
 		modelView.addAttribute("currentUser", userService.findByUsername(username));
 		
-	 forumMainTopic = this.mainTopicService.findTopicById(id);
+		forumMainTopic = this.mainTopicService.findTopicById(id);
 		modelView.addAttribute("updateMainTopicForm", forumMainTopic);
 		return "admin_mainTopicUpdate.jsp";
 	}
 	
 	@PutMapping("/admin/update/info/main/topic/id/{id}")
-	public String updateMainTopic(@PathVariable Long id , 
+	public String updateMainTopic(Principal principal ,Model modelView ,@PathVariable Long id , 
 			@Valid @ModelAttribute("updateMainTopicForm")ForumMainTopic forumMainTopic , 
 			BindingResult result , RedirectAttributes redirectAttributes) {
 			
 		if(result.hasErrors()) {
+			String username = principal.getName();
+			modelView.addAttribute("currentUser", userService.findByUsername(username));
+			
 			return "admin_mainTopicUpdate.jsp";
 		}else {
 			redirectAttributes.addFlashAttribute("updateTopic" , "Topic has been successfully updated!");
 			this.mainTopicService.updateTopic(forumMainTopic);
-			return "redirect:/admin/update/main/topic/id/" + forumMainTopic.getId();
+			return "redirect:/admin/update/main/topic/id/" + forumMainTopic.getId();	
 		}
 	}
 	
@@ -614,7 +616,7 @@ public class MainController {
 		return "admin_subTopic.jsp";
 	}
 	
-	@GetMapping("/admin/create/{mainTopic}/new/sub/topic")
+	@PostMapping("/admin/create/{mainTopic}/new/sub/topic")
 	public String createSubTopic(@PathVariable String mainTopic ,Model modelView , RedirectAttributes redirectAttributes ,
 			@Valid @ModelAttribute("subTopicForm")ForumSubTopic forumSubTopic , BindingResult result) {
 		
