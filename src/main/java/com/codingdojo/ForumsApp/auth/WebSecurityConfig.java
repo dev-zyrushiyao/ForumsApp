@@ -44,7 +44,7 @@ public class WebSecurityConfig  {
 			// PLATFORM:  .requestMatchers("/css/**", "/js/**", "/registration").permitAll()
 			// .requestMatchers used on Spring 3.0 Above use .antMatchers instead
 			http.authorizeHttpRequests()
-	               .antMatchers("/css/**", "/js/**", "/registration/**" , "/registration_admin").permitAll() //URL w/o Authentication
+	               .antMatchers("/css/**", "/js/**", "/img/**", "/registration/**" , "/registration_admin").permitAll() //URL w/o Authentication
 	               .antMatchers("/admin/**").hasRole("ADMIN") // PLATFORM: .antMatchers("/admin/**").access("hasRole('ADMIN')") has ERROR [The method access(AuthorizationManager<RequestAuthorizationContext>) in the type AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizedUrl is not applicable for the arguments (String)]
 	               .antMatchers("/forum/**").hasAnyRole("ADMIN" , "USER") //URL That both ROLES has access 
 	               .anyRequest().authenticated()
