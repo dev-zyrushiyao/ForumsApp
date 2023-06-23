@@ -148,7 +148,7 @@
 									 <li>
 										 <p id="profile-topic-threadTitle">${userModel.getUserName()} commented on: <a href="/forums/${mainTopic_origin}/${subTopic_origin}/thread/${thread_origin_id}"> <c:out value="${thread_origin_title}"/></a></p>
 									 </li>
-									 <li class="margin-bot"><p id="profile-topic-threadComment"><i><c:out value="${userComments.getComment()}"/></i></p> </li>
+									 <li class="margin-bot word-break"><p id="profile-topic-threadComment"><i><c:out value="${userComments.getComment()}"/></i></p> </li>
 									 <hr>
 								</ul>
 							</c:forEach>
