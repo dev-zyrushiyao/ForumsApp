@@ -71,7 +71,7 @@
 
 			<div class="flex-row spc-bet">
 
-			<div class="main-header-title-cont">
+			<div class="word-break">
 				<h1><c:out value="${threadModel.getTitle()}"/></h1>
 			</div>
 		 	
@@ -116,7 +116,7 @@
 					<c:out value="${userRole.getName()}"/>
 				</c:forEach>
 			<p>
-			<p class="thread-content-post"> <c:out value="${threadModel.getContent()}"/> </p> 
+			<p class="thread-content-post word-break"> <c:out value="${threadModel.getContent()}"/> </p> 
 		
 		<!-- Thread replies -->
 		
@@ -131,10 +131,10 @@
 								<a href="/user/profile/${threadReplies.getUserAccount().getUserName()}"><c:out value="${threadReplies.getUserAccount().getUserName()}"/></a> - added a comment 
 								
 								<span class="cmt-createdTime">
-									( ${threadReplies.getCreatedAtFormatted()} )
+									&#183; ${threadReplies.getCreatedAtFormatted()} 
 								</span>
 							</li>
-							<li><p class="thread-comment-content"><c:out value="${threadReplies.getComment()}"/></p></li>
+							<li><p class="thread-comment-content word-break"><c:out value="${threadReplies.getComment()}"/></p></li>
 						</ul>
 					</div>
 

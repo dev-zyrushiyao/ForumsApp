@@ -94,7 +94,7 @@ main.main-content-logged > div {
     background-color: #49494923;
 }
 
-.main-header-title-cont {
+.word-break {
     word-break: break-all;
 }
 
@@ -306,7 +306,7 @@ ul.user-info li:nth-child(3) {
 }
 
 .thread-content-post {
-    background-color: #9999992a;
+    background-color: #645be62a;
     margin-bottom: 42px;
     padding: 12px;
     font-size: 1.25rem;

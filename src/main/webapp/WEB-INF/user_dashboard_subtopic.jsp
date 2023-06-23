@@ -72,8 +72,8 @@
 
 					<div class="margin-bot-smlr margin-rt-lgr">
 					
-						<h1 class="margin-bot-smlr">This is the ${forumMainTopic.getTitle()} Topic</h1>
-						<p>${forumMainTopic.getDescription()}</p>
+						<h1 class="margin-bot-smlr word-break">This is the ${forumMainTopic.getTitle()} Topic</h1>
+						<p class="word-break">${forumMainTopic.getDescription()}</p>
 						
 					</div>
 
@@ -101,8 +101,8 @@
 						
 					<a href="/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/page/0">
 						<div class="topic-cont sub-topic-cont">
-							<p class="cont-sub-title-text"><c:out value="${forumSubTopic.getTitle()}"/></p>
-							<p class="cont-sub-desc-text"><c:out value="${forumSubTopic.getDescription()}"/></p>
+							<p class="cont-sub-title-text word-break"><c:out value="${forumSubTopic.getTitle()}"/></p>
+							<p class="cont-sub-desc-text word-break"><c:out value="${forumSubTopic.getDescription()}"/></p>
 						</div>
 					</a>
 						

@@ -13,7 +13,7 @@
 <meta charset="ISO-8859-1">
 <title>View All Main Topics</title>
 <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css"/>
-<link rel ="stylesheet" type="text/css" href="../../../css/style.css">
+<link rel ="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body id="bootstrap-overlap">
 
@@ -24,7 +24,7 @@
 	</div>
 	<!-- Profile Header Section -->
 	<div class="flex-row flex-centered dropdown">
-		<img id="profile-pic" src="../../../img/default-img.png" alt="Default profile picture">
+		<img id="profile-pic" src="/img/default-img.png" alt="Default profile picture">
 		<p class="header-profile-name font-color-primary"><c:out value="${currentUser.getUserName()}"/>&nbsp;&nbsp;<span class="caret-down">&#9660;</span></p>
 		
 		<!-- Dropdown Content Section -->
@@ -110,6 +110,6 @@
 
 
 <!-- Link JavaScript File -->
-<script src="../../../js/app.js"></script>
+<script src="/js/app.js"></script>
 </body>
 </html>
