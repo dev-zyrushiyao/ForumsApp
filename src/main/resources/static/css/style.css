@@ -94,6 +94,10 @@ main.main-content-logged > div {
     background-color: #49494923;
 }
 
+.main-header-title-cont {
+    word-break: break-all;
+}
+
 .intro-text {
     font-size: 2.4rem;
     align-self: flex-start;

@@ -12,15 +12,13 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Dashboard</title>
- <!-- <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css"/> -->
- <link rel ="stylesheet" type="text/css" href="/css/dashboard-style.css">
 
 <!-- GOOGLE API FONT -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="../../../css/style.css">
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
@@ -81,7 +79,7 @@
 	</main>
 
 	<!-- Link JavaScript File -->
-	<script src="../../../js/app.js"></script>
+	<script src="/js/app.js"></script>
 
 </body>
 </html>

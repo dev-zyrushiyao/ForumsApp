@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<link rel="stylesheet" href="../../../css/style.css">
+<link rel="stylesheet" href="/css/style.css">
 <title>Create Main Topic</title>
 </head>
 <body>
@@ -22,7 +22,7 @@
 		</div>
 		<!-- Profile Header Section -->
 		<div class="flex-row flex-centered dropdown">
-			<img id="profile-pic" src="../../../img/default-img.png" alt="Default profile picture">
+			<img id="profile-pic" src="/img/default-img.png" alt="Default profile picture">
 			<p class="header-profile-name font-color-primary"><c:out value="${currentUser.getUserName()}"/>&nbsp;&nbsp;<span class="caret-down">&#9660;</span></p>
 			
 			
@@ -96,7 +96,7 @@
 </main>
 
 <!-- Link JavaScript File -->
-<script src="../../../js/app.js"></script>
+<script src="/js/app.js"></script>
 
 </body>
 </html>
