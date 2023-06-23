@@ -543,7 +543,7 @@ public class MainController {
 		}else {
 			ForumMainTopic mainTopicDataChecker = this.mainTopicService.findTitle(forumMainTopic.getTitle());
 			if(mainTopicDataChecker != null) {
-				redirectAttributes.addFlashAttribute("mainTopicError", "ERROR: MainTopic already exist");
+				redirectAttributes.addFlashAttribute("mainTopicErrorMessage", "ERROR: MainTopic already exist");
 //				System.out.println("ERROR: MainTopic already exist");
 				return "redirect:/admin/create/main/topic";
 			}else {
