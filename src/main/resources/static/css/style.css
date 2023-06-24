@@ -89,6 +89,10 @@ main.main-content-logged > div {
     font-family: 'Noto Serif JP', serif;
 }
 
+#bootstrap-overlap p {
+    margin-bottom: 0;
+}
+
 .main-header-title:hover {
     cursor: pointer;
     background-color: #49494923;

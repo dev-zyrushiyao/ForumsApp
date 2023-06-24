@@ -70,13 +70,13 @@
 
 						<div>
 						<!-- BREADCRUMB -->
-						<h5><a href="/">Dashboard</a> > <a href="/forums/${mainTopic.getTitle()}">${mainTopic.getTitle()}</a> > ${subTopic.getTitle()}</h5>
+						<h5 class="margin-bot"><a href="/">Dashboard</a> > <a href="/forums/${mainTopic.getTitle()}">${mainTopic.getTitle()}</a> > ${subTopic.getTitle()}</h5>
 
 						<div class="flex-row spc-bet">
 							
 							<div>
 								<nav>
-									<h2>This is the ${subTopic.getTitle()} thread!</h2>
+									<h1 class="margin-bot-smlr word-break">This is the ${subTopic.getTitle()} thread!</h1>
 									<p>${subTopic.getDescription()}</p>
 								</nav>
 
