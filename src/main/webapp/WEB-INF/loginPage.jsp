@@ -39,7 +39,7 @@
 					</div>
 					
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-						<input class="btn-secondary margin-y" type="submit" value="Login"/>
+						<input id="log-btn" class="btn-secondary margin-y" type="submit" value="Login"/>
 				</form>
 
 				<div>
@@ -51,7 +51,7 @@
 
 				<div class="login-cont-message margin-y">
 					<span>Don't have an account?</span>
-					<a class="btn-primary blk-border" href="/registration">Join as user</a>
+					<a id="reg-btn" class="btn-primary blk-border" href="/registration">Join as user</a>
 				</div>
 
 				
