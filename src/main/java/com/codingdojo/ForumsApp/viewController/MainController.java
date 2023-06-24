@@ -150,11 +150,14 @@ public class MainController {
         modelView.addAttribute("mainTopic", mTopic);
         modelView.addAttribute("subTopic", sTopic);
         
+        System.out.println(sTopic.getThreadTopics().size());
+        // sTopic.getThreadTopics().size();
+        
         //Thread List
         List<ThreadModel> threadFinder = this.threadService.findByForumSubTopic(sTopic);
         Collections.reverse(threadFinder);
         modelView.addAttribute("threadFinder", threadFinder);
-		
+		       
 		// default data size per page PAGINATION
 		int pageSize = 10; 
 		PageRequest pageRequest = PageRequest.of(pageTarget, pageSize);

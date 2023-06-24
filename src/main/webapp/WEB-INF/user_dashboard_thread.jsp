@@ -113,13 +113,15 @@
 								<nav aria-label="Page navigation">
 									<ul class="pagination">
 										<li class="page-item">
-											<a class="page-link"
-												href="/forums/${mainTopic.getTitle()}/${subTopic.getTitle()}/page/0"
-												aria-label="Previous">
+
+											
+											<a class="page-link" href="/forums/${mainTopic.getTitle()}/${subTopic.getTitle()}/page/0" aria-label="Previous">
 												<!-- <span aria-hidden="true">�</span> -->
-												<span aria-hidden="true">
-													<<</span>
+												<span aria-hidden="true">&lt;&lt;</span>
 											</a>
+										
+										
+										
 										</li>
 
 										<!------------------------------------------------------------------->
@@ -140,12 +142,23 @@
 										</c:forEach>
 
 										<li class="page-item">
-											<a class="page-link"
-												href="/forums/${mainTopic.getTitle()}/${subTopic.getTitle()}/page/${totalPages-1}"
-												aria-label="Next">
-												<!-- <span aria-hidden="true">�</span> -->
-												<span aria-hidden="true">>></span>
-											</a>
+
+											<c:if test="${subTopic.getThreadTopics().size()==0}">
+												<a class="page-link" href="/forums/${mainTopic.getTitle()}/${subTopic.getTitle()}/page/0" aria-label="Next">
+													<!-- <span aria-hidden="true">�</span> -->
+													<span aria-hidden="true">&gt;&gt;</span>
+												</a>
+											</c:if>
+
+											<c:if test="${subTopic.getThreadTopics().size()>0}">
+
+												<a class="page-link" href="/forums/${mainTopic.getTitle()}/${subTopic.getTitle()}/page/${totalPages-1}" aria-label="Next">
+													<!-- <span aria-hidden="true">�</span> -->
+													<span aria-hidden="true">>></span>
+												</a>
+
+											</c:if>
+
 										</li>
 									</ul>
 								</nav>
