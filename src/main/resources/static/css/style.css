@@ -460,6 +460,10 @@ p.profile-topic-path {
     font-size: 1.2rem;
 }
 
+.cat-404 {
+    width: 65vw;
+}
+
 #globe-img {
     width: 18vw;
     
@@ -509,4 +513,12 @@ p.profile-topic-path {
 #auth-quote {
     font-size: 1.3rem;
     font-family: 'Satisfy', cursive;
+}
+
+#reload-page-404 {
+    background-color: #9e9d9d85;
+    font-size: 1.4rem;
+    padding: 5px 14px;
+    border: 1px solid #000;
+    border-radius: 10px;
 }
