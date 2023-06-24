@@ -138,6 +138,10 @@ main.main-content-logged > div {
     margin-right: 50px;
 }
 
+.margin-top {
+    margin-top: 20px;
+}
+
 .padding-bot {
     padding-bottom: 15px;
 }

@@ -165,6 +165,14 @@
 									<p>Page ${threadPages.getNumber()+1} of ${threadPages.getTotalPages()}</p>
 								</nav>
 							</c:if>
+
+							<!-- IF THERE IS NO THREAD YET -->
+							<c:if test="${subTopic.getThreadTopics().size()==0}">
+								<div class="flex-row flex-centered-2 margin-top">
+									<h5>No discussions for this Topic yet</h5>
+								</div>
+							</c:if>
+
 							</div>
 
 						
