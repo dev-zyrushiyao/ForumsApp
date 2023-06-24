@@ -29,15 +29,15 @@
             <form:form method="POST" action="/registration_admin" modelAttribute="user">
                 <p>
                     <!-- <form:label path="userName">Admin Username:</form:label> -->
-                    <form:input class="text-input input-text-pri blk-border margin-y-sm" path="userName" type="text" placeholder="Admin Username"/>
+                    <form:input class="text-input input-text-pri blk-border margin-y-sm" path="userName" type="text" placeholder="Admin Username" minlength="4" maxlength="40" required="required"/>
                 </p>
                 <p>
                     <!-- <form:label path="password">Password:</form:label> -->
-                    <form:input class="text-input input-text-pri blk-border margin-y-sm" type="password" path="password" placeholder="Password"/>
+                    <form:input class="text-input input-text-pri blk-border margin-y-sm" type="password" path="password" placeholder="Password" minlength="4" required="required"/>
                 </p>
                 <p>
                     <!-- <form:label path="passwordConfirmation">Password Confirmation:</form:label> -->
-                    <form:input class="text-input input-text-pri blk-border margin-y-sm" type="password" path="passwordConfirmation" placeholder="Confirm Password"/>
+                    <form:input class="text-input input-text-pri blk-border margin-y-sm" type="password" path="passwordConfirmation" placeholder="Confirm Password" minlength="4" required="required"/>
                 </p>
                 <input class="btn-primary" type="submit" value="Register!"/>
             </form:form> 

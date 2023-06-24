@@ -70,23 +70,23 @@
 				<ul>
 					<li>
 						<label>First Name: </label>
-						<p><form:input class="text-input input-text-pri blk-border margin-y-sm" path="firstName" type="text"/></p>
+						<p><form:input class="text-input input-text-pri blk-border margin-y-sm" path="firstName" type="text" minlength="3" maxlength="20" required="required"/></p>
 						<form:errors path="firstName" class="text-danger" style="color:red"/>
 						
 					</li>
 					<li>
 						<label>Last Name: </label>
-						<p><form:input class="text-input input-text-pri blk-border margin-y-sm" path="lastName" type="text"/></p>
+						<p><form:input class="text-input input-text-pri blk-border margin-y-sm" path="lastName" type="text" minlength="3" maxlength="20" required="required"/></p>
 						<form:errors path="lastName" class="text-danger" style="color:red"/> 
 					</li>
 					<li>
 						<label>Location: </label>
-						<p><form:input class="text-input input-text-pri blk-border margin-y-sm" path="location" type="text"/></p>
+						<p><form:input class="text-input input-text-pri blk-border margin-y-sm" path="location" type="text" minlength="3" maxlength="20" required="required"/></p>
 						<form:errors path="location" class="text-danger" style="color:red"/>
 					</li>
 					<li class="margin-bot">
 						<label>Preferred Language:</label>
-						<form:input class="text-input input-text-pri blk-border margin-y-sm" path="programmingLanguage" type="text"/>
+						<form:input class="text-input input-text-pri blk-border margin-y-sm" path="programmingLanguage" type="text" minlength="3" maxlength="50" required="required"/>
 						<form:errors path="programmingLanguage" class="text-danger" style="color:red"/>
 					</li>
 					<!-- <li> -->

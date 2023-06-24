@@ -177,7 +177,7 @@
 		 <form:form action="/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/thread/new/reply" method="POST" modelAttribute="threadReplyForm">
 			
 		 	<!-- COMMENT TEXTAREA -->
-		 	<form:textarea class="padding-sm" path="comment" rows="8" cols="75" placeholder="Write a comment..."></form:textarea>
+		 	<form:textarea class="padding-sm" path="comment" rows="8" cols="75" placeholder="Write a comment..." minlength="1" maxlength="1000" required="required"></form:textarea>
 			<form:errors path="comment" class="text-danger" style="color:red"/>
 			<ul>
 				<!-- To be hidden -->

@@ -84,7 +84,7 @@
 
 								<h5>Comment:</h5>
 								<p>
-									<form:textarea class="padding-sm blk-border" type="text" path="comment" rows="5" cols="75" />
+									<form:textarea class="padding-sm blk-border" type="text" path="comment" rows="5" cols="75" minlength="1" maxlength="1000" required="required"/>
 								</p>
 								<br>
 								<form:errors path="comment" class="text-danger" style="color:red" />

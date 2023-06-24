@@ -76,12 +76,12 @@
 			<ul>
 				<li>
 					<label>Topic Title: </label>
-					<p><form:input class="text-input input-text-pri blk-border margin-y-sm input-field-res" path="title" type="text" /></p>
+					<p><form:input class="text-input input-text-pri blk-border margin-y-sm input-field-res" path="title" type="text" minlength="5" maxlength="100" required="required"/></p>
 					<form:errors path="title" class="text-danger" style="color:red" />
 				</li>
 				<li>
 					<label>Post content: </label>
-					<p><form:textarea class="padding-sm blk-border" path="content" type="text" rows="8" cols="75"/></p>
+					<p><form:textarea class="padding-sm blk-border" path="content" type="text" rows="8" cols="75" minlength="1" maxlength="200" required="required"/></p>
 					<form:errors path="content" class="text-danger" style="color:red" />
 				</li>
 

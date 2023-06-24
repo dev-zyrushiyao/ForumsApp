@@ -33,19 +33,19 @@
 				
 					
 						<!-- <label>First Name: </label> -->
-						<form:input class="text-input input-text-pri blk-border margin-y-sm" path="firstName" type="text" placeholder="First Name"/>
+						<form:input class="text-input input-text-pri blk-border margin-y-sm" path="firstName" type="text" placeholder="First Name" minlength="3" maxlength="20" required="required"/>
 						<form:errors path="firstName" class="text-danger" style="color:red" />
 						
 						<!-- <label>Last Name: </label> -->
-						<form:input class="text-input input-text-pri blk-border margin-y-sm" path="lastName" type="text" placeholder="Last Name"/>
+						<form:input class="text-input input-text-pri blk-border margin-y-sm" path="lastName" type="text" placeholder="Last Name" minlength="3" maxlength="20" required="required"/>
 						<form:errors path="lastName" class="text-danger" style="color:red"/> 
 					
 						<!-- <label>Location: </label> -->
-						<form:input class="text-input input-text-pri blk-border margin-y-sm" path="location" type="text" placeholder="Your Location"/>
+						<form:input class="text-input input-text-pri blk-border margin-y-sm" path="location" type="text" placeholder="Your Location" minlength="3" maxlength="20" required="required"/>
 						<form:errors path="location" class="text-danger" style="color:red"/>
 					
 						<!-- <label>Favorite Prog. Language</label> -->
-						<form:input class="text-input input-text-pri blk-border margin-y-sm" path="programmingLanguage" type="text" placeholder="Your Programming Language"/>
+						<form:input class="text-input input-text-pri blk-border margin-y-sm" path="programmingLanguage" type="text" placeholder="Your Programming Language" minlength="3" maxlength="50" required="required"/>
 						<form:errors path="programmingLanguage" class="text-danger" style="color:red"/>
 					
 	

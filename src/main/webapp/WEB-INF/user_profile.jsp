@@ -93,7 +93,7 @@
 			</div>
 
 			<div>
-				<a href="/"><< back to Dashboard</a>
+				<a href="/">&lt;&lt; back to Dashboard</a>
 			</div>
 
 		</div>
