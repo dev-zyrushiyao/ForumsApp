@@ -117,7 +117,6 @@
 									<ul class="pagination">
 
 										<!-- BACK BUTTON -->
-
 										<c:choose>
 
 											<c:when test="${threadPages.getNumber() == 0}">
@@ -129,44 +128,38 @@
 											</c:otherwise>
 
 										</c:choose>
-											
 										<a class="page-link" href="/forums/${mainTopic.getTitle()}/${subTopic.getTitle()}/page/${threadPages.getNumber()-1}" aria-label="Previous">
 												<span aria-hidden="true">&lt;&lt;</span>
 											</a>
 										</li>
-										
-										
-
-										<!-- Pages Content -->
+										<!-- Page Count -->
 										<c:forEach begin="1" end="${totalPages}" step="1" varStatus="loop">
 											<!-- loop how many pages -->
 											<c:set var="pageCount" value="${loop.count-1}"></c:set>
+
 											<!-- loop for pageTarget Route -->
+											
 											<li class="page-item"><a class="page-link"
 													href="/forums/${mainTopic.getTitle()}/${subTopic.getTitle()}/page/${pageCount}">${pageCount+1}</a>
 											</li>
+
 										</c:forEach>
-
 										<!-- NEXT BUTTON -->
-
 										<c:choose>
 											<c:when test="${threadPages.getNumber()+1 == threadPages.getTotalPages()}">
 												<li class="page-item disabled">
 											</c:when>
-											
 											<c:otherwise>
 												<li class="page-item">
-													
 											</c:otherwise>
 										</c:choose>
-
 											<a class="page-link" href="/forums/${mainTopic.getTitle()}/${subTopic.getTitle()}/page/${threadPages.getNumber()+1}" aria-label="Next">
 												<span aria-hidden="true">&gt;&gt;</span>
 											</a>
 										</li>
 
 									</ul>
-									
+
 									<p>Page <span id="thread-current-page">${threadPages.getNumber()+1}</span> of ${threadPages.getTotalPages()}</p>
 								</nav>
 							</c:if>

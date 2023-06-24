@@ -58,6 +58,8 @@ fetch("https://type.fit/api/quotes")
   });
 
 
-
-var currentPageNumSubT = Number(currentPageThread.getInnerHTML());
-console.log(currentPageNumSubT);
+// Highlight current page count in pagination
+if(document.getElementsByClassName("page-item") != null){
+  var currentPageNumSubT = Number(currentPageThread.getInnerHTML());
+  document.getElementsByClassName("page-item")[currentPageNumSubT].classList.add("active");
+}
