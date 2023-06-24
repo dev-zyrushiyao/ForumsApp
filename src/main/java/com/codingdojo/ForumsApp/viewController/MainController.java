@@ -150,7 +150,7 @@ public class MainController {
         modelView.addAttribute("mainTopic", mTopic);
         modelView.addAttribute("subTopic", sTopic);
         
-        System.out.println(sTopic.getThreadTopics().size());
+        // System.out.println(sTopic.getThreadTopics().size());
         // sTopic.getThreadTopics().size();
         
         //Thread List

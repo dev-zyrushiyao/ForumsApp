@@ -90,7 +90,7 @@
 									<div class="main-topic-div">
 										<div class="main-header">
 											<div class="main-title">
-												<h4>Threads (${listOfThread.size()}):</h4>
+												<h4>Threads (${subTopic.getThreadTopics().size()}):</h4>
 												<c:forEach var="listOfThread" items="${listOfThread}">
 													<ul>
 														<li><a
