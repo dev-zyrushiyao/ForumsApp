@@ -185,9 +185,9 @@ public class MainController {
 		modelView.addAttribute("totalPages", threadPages.getTotalPages());
 		
 		//To check the content will be shown as Pagination
-		for(ThreadModel threads : threadPages) {
-			System.out.println("page " + pageTarget + ": " + threads.getTitle());
-		}
+//		for(ThreadModel threads : threadPages) {
+//			System.out.println("page " + pageTarget + ": " + threads.getTitle());
+//		}
         
 		return "user_dashboard_thread.jsp";
 	}

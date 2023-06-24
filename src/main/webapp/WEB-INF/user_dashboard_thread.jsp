@@ -90,7 +90,8 @@
 									<div class="main-topic-div">
 										<div class="main-header">
 											<div class="main-title">
-												<h4>Threads (${subTopic.getThreadTopics().size()}):</h4>
+												<!-- <h4>Threads (${subTopic.getThreadTopics().size()}):</h4> -->
+												<h4>Threads (${threadPages.getTotalElements()}):</h4>
 												<c:forEach var="listOfThread" items="${listOfThread}">
 													<ul>
 														<li><a
@@ -109,7 +110,7 @@
 										</div>
 									</div>
 								</div>
-
+								<c:if test="${subTopic.getThreadTopics().size()>0}">
 								<nav aria-label="Page navigation">
 									<ul class="pagination">
 										<li class="page-item">
@@ -137,32 +138,33 @@
 											<c:set var="pageCount" value="${loop.count-1}"></c:set>
 											<!-- loop for pageTarget Route -->
 											<li class="page-item"><a class="page-link"
-													href="/forums/${mainTopic.getTitle()}/${subTopic.getTitle()}/page/${pageCount}">${pageCount}</a>
+													href="/forums/${mainTopic.getTitle()}/${subTopic.getTitle()}/page/${pageCount}">${pageCount+1}</a>
 											</li>
 										</c:forEach>
 
 										<li class="page-item">
 
-											<c:if test="${subTopic.getThreadTopics().size()==0}">
+											<!-- <c:if test="${subTopic.getThreadTopics().size()==0}">
 												<a class="page-link" href="/forums/${mainTopic.getTitle()}/${subTopic.getTitle()}/page/0" aria-label="Next">
-													<!-- <span aria-hidden="true">�</span> -->
 													<span aria-hidden="true">&gt;&gt;</span>
+													
 												</a>
-											</c:if>
+											</c:if> -->
 
-											<c:if test="${subTopic.getThreadTopics().size()>0}">
+											
 
 												<a class="page-link" href="/forums/${mainTopic.getTitle()}/${subTopic.getTitle()}/page/${totalPages-1}" aria-label="Next">
 													<!-- <span aria-hidden="true">�</span> -->
-													<span aria-hidden="true">>></span>
+													<span aria-hidden="true">&gt;&gt;</span>
 												</a>
 
-											</c:if>
+											
 
 										</li>
 									</ul>
+									<p>Page ${threadPages.getNumber()+1} of ${threadPages.getTotalPages()}</p>
 								</nav>
-
+							</c:if>
 							</div>
 
 						
