@@ -7,6 +7,7 @@ var adminDashboardBtn = document.getElementById("adminForm");
 var quoteCont = document.getElementById("rand-quote-display");
 var quoteText = document.getElementById("text-quote");
 var quoteAuth = document.getElementById("auth-quote");
+var currentPageThread = document.getElementById("thread-current-page");
 
 
 var homePage = "http://localhost:8080/"
@@ -47,11 +48,16 @@ fetch("https://type.fit/api/quotes")
   .then(function(data) {
     var quoteArr = data
     generatedQuote = data[Math.round(randInt) + 1]
-    console.log(generatedQuote.text);
-    console.log(generatedQuote.author);
+    // console.log(generatedQuote.text);
+    // console.log(generatedQuote.author);
+    if(quoteText != null || quoteAuth != null){
+      quoteText.innerText = generatedQuote.text;
+      quoteAuth.innerText = generatedQuote.author;
 
-    quoteText.innerText = generatedQuote.text;
-    quoteAuth.innerText = generatedQuote.author;
+    }
   });
 
 
+
+var currentPageNumSubT = Number(currentPageThread.getInnerHTML());
+console.log(currentPageNumSubT);

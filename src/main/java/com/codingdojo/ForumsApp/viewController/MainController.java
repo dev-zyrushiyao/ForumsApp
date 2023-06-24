@@ -175,6 +175,12 @@ public class MainController {
 		Page<ThreadModel> threadPages = new PageImpl<ThreadModel>(threadFinder.subList(start, end), pageRequest, threadFinder.size());
 		modelView.addAttribute("threadPages", threadPages);
 		
+		System.out.println((threadPages.getNumber() +1) + " " + threadPages.getTotalPages());
+		
+		System.out.println(threadPages.getNumber()+1 == threadPages.getTotalPages());
+		System.out.println((threadPages.getNumber()+1) != threadPages.getTotalPages());
+//		System.out.println()
+		
 //		System.out.println("Total Elements: " + threadPages.getTotalElements());
 //		System.out.println("Current Page: " + threadPages.getNumber());
 //		System.out.println("Last Page: " + threadPages.getTotalPages());

@@ -92,6 +92,7 @@
 											<div class="main-title">
 												<!-- <h4>Threads (${subTopic.getThreadTopics().size()}):</h4> -->
 												<h4>Threads (${threadPages.getTotalElements()}):</h4>
+												<p>Page <span id="thread-current-page">${threadPages.getNumber()+1}</span> of ${threadPages.getTotalPages()}</p>
 												<c:forEach var="listOfThread" items="${listOfThread}">
 													<ul>
 														<li><a
@@ -112,25 +113,29 @@
 								</div>
 								<c:if test="${subTopic.getThreadTopics().size()>0}">
 								<nav aria-label="Page navigation">
+									
 									<ul class="pagination">
-										<li class="page-item">
 
+										<!-- BACK BUTTON -->
+
+										<c:choose>
+
+											<c:when test="${threadPages.getNumber() == 0}">
+												<li class="page-item disabled">	
+											</c:when>
+
+											<c:otherwise>
+												<li class="page-item">	
+											</c:otherwise>
+
+										</c:choose>
 											
-											<a class="page-link" href="/forums/${mainTopic.getTitle()}/${subTopic.getTitle()}/page/0" aria-label="Previous">
-												<!-- <span aria-hidden="true">�</span> -->
+										<a class="page-link" href="/forums/${mainTopic.getTitle()}/${subTopic.getTitle()}/page/${threadPages.getNumber()-1}" aria-label="Previous">
 												<span aria-hidden="true">&lt;&lt;</span>
 											</a>
-										
-										
-										
 										</li>
-
-										<!------------------------------------------------------------------->
-										<!--Example: Total Pages (2) - Loops start from 1 ~ 2 -->
-										<!--Example: PageCount - start from 0 -->
-										<!--Last Page: 2-1 = 1; -->
-										<!--First Page: 1-1 = 0; -->
-										<!------------------------------------------------------------------->
+										
+										
 
 										<!-- Pages Content -->
 										<c:forEach begin="1" end="${totalPages}" step="1" varStatus="loop">
@@ -142,29 +147,33 @@
 											</li>
 										</c:forEach>
 
-										<li class="page-item">
+										<!-- NEXT BUTTON -->
 
-											<!-- <c:if test="${subTopic.getThreadTopics().size()==0}">
-												<a class="page-link" href="/forums/${mainTopic.getTitle()}/${subTopic.getTitle()}/page/0" aria-label="Next">
-													<span aria-hidden="true">&gt;&gt;</span>
+										<c:choose>
+											<c:when test="${threadPages.getNumber()+1 == threadPages.getTotalPages()}">
+												<li class="page-item disabled">
+											</c:when>
+											
+											<c:otherwise>
+												<li class="page-item">
 													
-												</a>
-											</c:if> -->
+											</c:otherwise>
+										</c:choose>
 
-											
-
-												<a class="page-link" href="/forums/${mainTopic.getTitle()}/${subTopic.getTitle()}/page/${totalPages-1}" aria-label="Next">
-													<!-- <span aria-hidden="true">�</span> -->
-													<span aria-hidden="true">&gt;&gt;</span>
-												</a>
-
-											
-
+											<a class="page-link" href="/forums/${mainTopic.getTitle()}/${subTopic.getTitle()}/page/${threadPages.getNumber()+1}" aria-label="Next">
+												<span aria-hidden="true">&gt;&gt;</span>
+											</a>
 										</li>
+
 									</ul>
-									<p>Page ${threadPages.getNumber()+1} of ${threadPages.getTotalPages()}</p>
+									
+									<p>Page <span id="thread-current-page">${threadPages.getNumber()+1}</span> of ${threadPages.getTotalPages()}</p>
 								</nav>
 							</c:if>
+
+
+
+
 
 							<!-- IF THERE IS NO THREAD YET -->
 							<c:if test="${subTopic.getThreadTopics().size()==0}">
