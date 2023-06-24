@@ -61,7 +61,7 @@
 		<div class="flex-row spc-bet">
 			<div>
 		<h2 class="margin-bot">Create Sub-Topic for <c:out value="${MainTopicName.getTitle()}"/></h2>
-		
+		<p class="margin-bot" style="color:red"><c:out value="${subTopicErrorMessage}"></c:out></p>	
 
 		<form:form action="/admin/create/${MainTopicName.getTitle()}/new/sub/topic" method="POST" modelAttribute="subTopicForm">
 			

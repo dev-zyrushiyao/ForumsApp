@@ -62,7 +62,7 @@
 
 		<div>
 		<h2 class="margin-bot">Create Main Topic</h2>
-
+		<p class="margin-bot" style="color:red"><c:out value="${mainTopicErrorMessage}"></c:out></p>	
 		<form:form action="/admin/create/new/main/topic" method="POST" modelAttribute="mainTopicForm">
 			
 			<label style="color:green"><c:out value="${mainTopicMessage}"></c:out></label>
@@ -75,7 +75,7 @@
 					<form:errors path="title" class="text-danger" style="color:red"/>
 					
 				</li>
-				<li>
+				<li class="margin-bot">
 					<label>Description: </label>
 					<p><form:input class="text-input input-text-pri blk-border margin-y-sm input-field-res" path="description" type="text"/></p>
 					
