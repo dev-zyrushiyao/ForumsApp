@@ -11,17 +11,13 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Dojo Dev Forum | <c:out value="${threadModel.getTitle()}"/></title>
+<title><c:out value="${threadModel.getTitle()}"/> | Dojo Dev Forum</title>
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
  <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css"/>
  <link rel ="stylesheet" type="text/css" href="/css/dashboard-style.css">
+ <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
 
-<!-- GOOGLE API FONT -->
-<!-- <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet"> -->
-
-<link rel="stylesheet" href="../../../../../css/style.css">
+<link rel="stylesheet" href="/css/style.css">
 
 </head>
 <body>
@@ -29,11 +25,11 @@
 	<!-- Header when logged in -->
 	<header class="main-header flex-row spc-bet">
 		<div>
-			<h1 class="main-header-title font-color-primary">Dojo Dev Forums</h1>
+			<h1 class="main-header-title font-color-primary">&lt; Dojo Dev Forum &gt;</h1>
 		</div>
 		<!-- Profile Header Section -->
 		<div class="flex-row flex-centered dropdown">
-			<img id="profile-pic" src="../../../../../img/default-img.png" alt="Default profile picture">
+			<img id="profile-pic" src="/img/default-img.png" alt="Default profile picture">
 			<p class="header-profile-name font-color-primary"><c:out value="${currentUser.getUserName()}"/>&nbsp;&nbsp;<span class="caret-down">&#9660;</span></p>
 			
 			
@@ -75,7 +71,7 @@
 
 			<div class="flex-row spc-bet">
 
-			<div>
+			<div class="word-break">
 				<h1><c:out value="${threadModel.getTitle()}"/></h1>
 			</div>
 		 	
@@ -114,13 +110,13 @@
 			<p class="thread-content-info">
 				posted by: <a href="/user/profile/${threadModel.getUserThread().getUserName()}"><c:out value="${threadModel.getUserThread().getUserName()}"/></a>
 				<br>
-				<c:out value="${threadModel.getCreatedAt()}"/>
+				<c:out value="${datePosted}"/>
 				<br>
 				<c:forEach var="userRole" items="${userRole}">
 					<c:out value="${userRole.getName()}"/>
 				</c:forEach>
 			<p>
-			<p class="thread-content-post"> <c:out value="${threadModel.getContent()}"/> </p> 
+			<p class="thread-content-post word-break"> <c:out value="${threadModel.getContent()}"/> </p> 
 		
 		<!-- Thread replies -->
 		
@@ -131,13 +127,19 @@
 
 					<div>
 						<ul class="thread-comments">
-							<li><a href="/user/profile/${threadReplies.getUserAccount().getUserName()}"><c:out value="${threadReplies.getUserAccount().getUserName()}"/></a> - added a comment <span class="cmt-createdTime">(${threadReplies.getCreatedAt()})</span></li>
-							<li><p class="thread-comment-content"><c:out value="${threadReplies.getComment()}"/></p></li>
+							<li>
+								<a href="/user/profile/${threadReplies.getUserAccount().getUserName()}"><c:out value="${threadReplies.getUserAccount().getUserName()}"/></a> - added a comment 
+								
+								<span class="cmt-createdTime">
+									&#183; ${threadReplies.getCreatedAtFormatted()} 
+								</span>
+							</li>
+							<li><p class="thread-comment-content word-break"><c:out value="${threadReplies.getComment()}"/></p></li>
 						</ul>
 					</div>
 
 
-					<!-- Edit Delete Comments (Admin) -->
+					<!-- Edit Delete Comments Button (Admin) -->
 					<div class="comment-admin-btns">
 
 						
@@ -163,10 +165,6 @@
 					</div>
 
 				</div>
-				
-
-				
-
 				<hr>
 			</c:forEach> 
 		
@@ -177,7 +175,9 @@
 		<!-- thread reply form -->
 		<div>
 		 <form:form action="/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/thread/new/reply" method="POST" modelAttribute="threadReplyForm">
-			<form:textarea class="padding-sm" path="comment" rows="8" cols="75" ></form:textarea>
+			
+		 	<!-- COMMENT TEXTAREA -->
+		 	<form:textarea class="padding-sm" path="comment" rows="8" cols="75" placeholder="Write a comment..."></form:textarea>
 			<form:errors path="comment" class="text-danger" style="color:red"/>
 			<ul>
 				<!-- To be hidden -->

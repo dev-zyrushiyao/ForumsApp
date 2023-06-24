@@ -11,18 +11,19 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<link rel="stylesheet" href="../../../css/style.css">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="icon" type="image/x-icon" href="/img/favicon.ico">
 <title>Create Main Topic</title>
 </head>
 <body>
 	<!-- Header when logged in -->
 	<header class="main-header flex-row spc-bet">
 		<div>
-			<h1 class="main-header-title font-color-primary">Dojo Dev Forums</h1>
+			<h1 class="main-header-title font-color-primary">&lt; Dojo Dev Forum &gt;</h1>
 		</div>
 		<!-- Profile Header Section -->
 		<div class="flex-row flex-centered dropdown">
-			<img id="profile-pic" src="../../../img/default-img.png" alt="Default profile picture">
+			<img id="profile-pic" src="/img/default-img.png" alt="Default profile picture">
 			<p class="header-profile-name font-color-primary"><c:out value="${currentUser.getUserName()}"/>&nbsp;&nbsp;<span class="caret-down">&#9660;</span></p>
 			
 			
@@ -62,26 +63,26 @@
 		<div>
 		<h2 class="margin-bot">Create Main Topic</h2>
 
-		<form:form action="/admin/create/new/main/topic" method="GET" modelAttribute="mainTopicForm">
+		<form:form action="/admin/create/new/main/topic" method="POST" modelAttribute="mainTopicForm">
 			
 			<label style="color:green"><c:out value="${mainTopicMessage}"></c:out></label>
 
 		<ul>
 				<li>
 					<label>Title: </label>
-					<p><form:input class="text-input input-text-pri blk-border margin-y-sm" path="title" type="text"/></p>
+					<p><form:input class="text-input input-text-pri blk-border margin-y-sm input-field-res" path="title" type="text"/></p>
 					
 					<form:errors path="title" class="text-danger" style="color:red"/>
 					
 				</li>
 				<li>
 					<label>Description: </label>
-					<p><form:input class="text-input input-text-pri blk-border margin-y-sm" path="description" type="text"/></p>
+					<p><form:input class="text-input input-text-pri blk-border margin-y-sm input-field-res" path="description" type="text"/></p>
 					
 					<form:errors path="description" class="text-danger" style="color:red"/> 
 				</li>
 				<li>
-					<input class="btn-primary margin-bot" type="submit" value="CREATE TOPIC">
+					<input class="btn-primary margin-bot" type="submit" value="Add">
 					<!-- <input type="reset" value="Clear"> -->
 				</li>
 			</ul>
@@ -96,7 +97,7 @@
 </main>
 
 <!-- Link JavaScript File -->
-<script src="../../../js/app.js"></script>
+<script src="/js/app.js"></script>
 
 </body>
 </html>

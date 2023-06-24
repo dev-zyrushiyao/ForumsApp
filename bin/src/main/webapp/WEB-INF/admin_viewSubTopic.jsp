@@ -13,7 +13,8 @@
 <meta charset="ISO-8859-1">
 <title>Java Sub Topics</title>
 <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css"/>
-<link rel="stylesheet" href="../../../../css/style.css">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="icon" type="image/x-icon" href="/img/favicon.ico">
 </head>
 <body>
 
@@ -21,11 +22,11 @@
 <!-- Header when logged in -->
 <header class="main-header flex-row spc-bet">
 	<div>
-		<h1 class="main-header-title font-color-primary">Dojo Dev Forums</h1>
+		<h1 class="main-header-title font-color-primary">&lt; Dojo Dev Forum &gt;</h1>
 	</div>
 	<!-- Profile Header Section -->
 	<div class="flex-row flex-centered dropdown">
-		<img id="profile-pic" src="../../../../img/default-img.png" alt="Default profile picture">
+		<img id="profile-pic" src="/img/default-img.png" alt="Default profile picture">
 		<p class="header-profile-name font-color-primary"><c:out value="${currentUser.getUserName()}"/>&nbsp;&nbsp;<span class="caret-down">&#9660;</span></p>
 		
 		
@@ -60,45 +61,51 @@
 
 <main class="main-content-logged">
 
-<a href="/admin/view/main/topic"> GO BACK</a>
-<a  href="/admin/create/${forumMainTopic.getTitle()}/sub/topic"> Add Sub Topic </a>
-	<h1>Sub topic of <c:out value="${forumMainTopic.getTitle()}"/></h1>
-	
-		<table class="table table-hover">
-		  <thead>
-		    <tr>
-		      <th scope="ID">#</th>
-		      <th scope="col">Title</th>
-		      <th scope="col">Description</th>
-		      <th scope="col">Action</th>
-		    </tr>
-		  </thead>
-		  <tbody>
-  	
-  <!-- Crud for sub topic implemented create only for now, the rest of crud is to follow -->
- <c:forEach var="topicList" items="${listOfSubTopics}">
-	<tr>
-	      <th scope="row"><c:out value="${topicList.getId()}"/></th>
-	      <td><c:out value="${topicList.getTitle()}"/></td>
-	      <td> <c:out value="${topicList.getDescription()}"/> </td>
-		      <td> 
-		      	<div>
-			      	<form action="/admin/update/sub/topic/id/${topicList.getId()}" method="GET">
-			      		<input type="submit" class="btn btn-primary" value="EDIT">
-			      	</form>
-			      				
-					<form:form action="/admin/delete/sub/topic/id/${topicList.getId()}" method="POST">
-						 <input type="hidden" name="_method" value="DELETE"> 
-						 <input type="submit" class="btn btn-danger" value="DELETE" onClick="return confirm('Are you sure you want to delete [ID:' + ${topicList.getId()} + ']')">
-					</form:form>
-			      	
-		      	</div>
-		      </td>
-	</tr>
-	</c:forEach> 	
-	  </tbody>
-</table>
+	<div>
+		<a href="/admin/view/main/topic">&lt;&lt; back</a>
 
+			<h1><c:out value="${forumMainTopic.getTitle()}"/> Sub topics</h1>
+			
+				<table class="table table-hover">
+				<thead>
+					<tr>
+					<th scope="ID">#</th>
+					<th scope="col">Title</th>
+					<th scope="col">Description</th>
+					<th scope="col">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+			
+		<!-- Crud for sub topic implemented create only for now, the rest of crud is to follow -->
+		<c:forEach var="topicList" items="${listOfSubTopics}">
+			<tr>
+				<th scope="row"><c:out value="${topicList.getId()}"/></th>
+				<td><c:out value="${topicList.getTitle()}"/></td>
+				<td> <c:out value="${topicList.getDescription()}"/> </td>
+					<td> 
+						<div>
+							<form action="/admin/update/sub/topic/id/${topicList.getId()}" method="GET">
+								<input type="submit" class="btn btn-primary edit-btn-bs" value="Edit">
+							</form>
+										
+							<form:form action="/admin/delete/sub/topic/id/${topicList.getId()}" method="POST">
+								<input type="hidden" name="_method" value="DELETE"> 
+								<input type="submit" class="btn btn-danger" value="Delete" onClick="return confirm('Are you sure you want to delete [ID:' + ${topicList.getId()} + ']')">
+							</form:form>
+							
+						</div>
+					</td>
+			</tr>
+			</c:forEach> 	
+			</tbody>
+		</table>
+
+
+		<form method="GET" action="/admin/create/${forumMainTopic.getTitle()}/sub/topic">
+			<input class="btn btn-primary" type="submit" value="Add a Sub Topic" />
+		</form>
+</div>
 </main>
 
 
@@ -107,6 +114,6 @@
 
 
 <!-- Link JavaScript File -->
-<script src="../../../../js/app.js"></script>
+<script src="/js/app.js"></script>
 </body>
 </html>

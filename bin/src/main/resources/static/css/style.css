@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Satisfy:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merienda:wght@300;400;500;600;700;800;900&display=swap');
 
 * {
     font-family: 'Poppins', sans-serif;
@@ -83,7 +85,8 @@ main.main-content-logged > div {
     font-size: 36px;
     width: fit-content;
     margin-bottom: 0rem;
-    font-weight: bold;
+    font-weight: 900;
+    font-family: 'Noto Serif JP', serif;
 }
 
 .main-header-title:hover {
@@ -91,11 +94,16 @@ main.main-content-logged > div {
     background-color: #49494923;
 }
 
+.word-break {
+    word-break: break-word;
+}
+
 .intro-text {
-    font-size: 29px;
+    font-size: 2.4rem;
     align-self: flex-start;
     margin-bottom: 45px;
-    font-weight: normal;
+    font-weight: 600;
+    font-family: 'Noto Serif JP', serif;
 }
 
 .margin-y-sm {
@@ -110,13 +118,24 @@ main.main-content-logged > div {
     padding: 6px;
 }
 
+.margin-bot-smlr {
+    margin-bottom: 6px;
+}
 
 .margin-bot {
     margin-bottom: 20px;
 }
 
 .margin-bot-lgr {
-    margin-bottom: 90px;
+    margin-bottom: 70px;
+}
+
+.margin-rt-lgr {
+    margin-right: 50px;
+}
+
+.padding-bot {
+    padding-bottom: 15px;
 }
 
 .font-color-primary {
@@ -182,6 +201,10 @@ input::placeholder {
     font-weight: 600;
 }
 
+.btn-add-subtopic {
+    background: #c1b3e9;
+    color: #231220;
+}
 
 .btn-secondary {
     width: 100%;
@@ -283,7 +306,7 @@ ul.user-info li:nth-child(3) {
 }
 
 .thread-content-post {
-    background-color: #9999992a;
+    background-color: #645be62a;
     margin-bottom: 42px;
     padding: 12px;
     font-size: 1.25rem;
@@ -355,22 +378,37 @@ ul li:nth-child(1){
 .topic-wrapper {
     margin-top: 18px;
     margin-left: 22px;
+    width: fit-content;
 }
 
-.topic-wrapper a {
+.topic-wrapper a, .admin-func-cont {
     text-decoration: none;
+    margin-bottom: 12px;
 }
 
-.topic-cont {
+.topic-cont, .admin-func-cont, .admin-func-soon-cont {
     padding: 12px 32px;
-    margin-bottom: 12px;
+    /* margin-bottom: 12px; */
     border: 1px solid #4d4d4d;
     border-radius: 10px;
     width: 32em; 
 }
 
+.admin-func-cont {
+    background: linear-gradient(90deg,#272727,#1e2d40ab);
+    color: rgb(255, 251, 251);
+    text-decoration: none;
+}
+
+.admin-func-soon-cont {
+    background: linear-gradient(90deg,#27272731,rgba(30, 45, 64, 0.144));
+    color: rgb(26, 26, 26);
+    text-decoration: none;
+    cursor: default;
+}
+
 .main-topic-cont {
-    background: linear-gradient(90deg,#1e2d40,#1e2d40ab);
+    background: linear-gradient(90deg,#034499,#1e2d40ab);
 }
 
 .sub-topic-cont {
@@ -399,6 +437,19 @@ ul li:nth-child(1){
     color: #231220;
     font-size: 1.1rem;
     font-weight: 300;
+}
+
+p input.input-field-res {
+    width: 20vw;
+}
+
+div input.edit-btn-bs {
+    font-weight: 400;
+    border-radius: 6px;
+}
+
+p.profile-topic-path {
+    font-size: 1.2rem;
 }
 
 #globe-img {
@@ -430,6 +481,11 @@ ul li:nth-child(1){
 }
 
 #text-quote {
-    font-size: 2rem;
+    font-size: 1.7rem;
+    font-family: 'Merienda', cursive;
+}
+
+#auth-quote {
+    font-size: 1.3rem;
     font-family: 'Satisfy', cursive;
 }
