@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Login Page</title>
+	<title>Dojo Dev Forum - Login or Sign Up</title>
 	<link rel="icon" type="image/x-icon" href="/img/favicon.ico">
 	<link rel="stylesheet" href="/css/style.css">
 </head>
