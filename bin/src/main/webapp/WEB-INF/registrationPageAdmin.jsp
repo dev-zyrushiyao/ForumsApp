@@ -7,13 +7,13 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Admin Registration Page</title>
-<link rel="stylesheet" href="css/style.css">
+<title>Admin Registration | Dojo Dev Forum</title>
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 	
     <header class="main-header">
-		<h1 class="main-header-title font-color-primary">Dojo Dev Forums</h1>
+		<h1 class="main-header-title font-color-primary">&lt; Dojo Dev Forum &gt;</h1>
 	</header>
 
 

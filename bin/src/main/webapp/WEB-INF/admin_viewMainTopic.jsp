@@ -13,18 +13,19 @@
 <meta charset="ISO-8859-1">
 <title>View All Main Topics</title>
 <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css"/>
-<link rel ="stylesheet" type="text/css" href="../../../css/style.css">
+<link rel ="stylesheet" type="text/css" href="/css/style.css">
+<link rel="icon" type="image/x-icon" href="/img/favicon.ico">
 </head>
 <body id="bootstrap-overlap">
 
 <!-- Header when logged in -->
 <header class="main-header flex-row spc-bet">
 	<div>
-		<h1 class="main-header-title font-color-primary">Dojo Dev Forums</h1>
+		<h1 class="main-header-title font-color-primary">&lt; Dojo Dev Forum &gt;</h1>
 	</div>
 	<!-- Profile Header Section -->
 	<div class="flex-row flex-centered dropdown">
-		<img id="profile-pic" src="../../../img/default-img.png" alt="Default profile picture">
+		<img id="profile-pic" src="/img/default-img.png" alt="Default profile picture">
 		<p class="header-profile-name font-color-primary"><c:out value="${currentUser.getUserName()}"/>&nbsp;&nbsp;<span class="caret-down">&#9660;</span></p>
 		
 		<!-- Dropdown Content Section -->
@@ -57,10 +58,10 @@
 </header>
 
 <main class="main-content-logged">
+	<div>
+	<a href="/admin">&lt;&lt; back</a>
 	
-	<a href="/admin"> GO BACK</a>
-	<a  href="/admin/create/main/topic"> Add Main Topic </a>
-	<h1>All main topics</h1>
+	<h1>Main topics</h1>
 		
 		
 	<table class="table table-hover">
@@ -82,15 +83,17 @@
 				  <td> 
 					  <div>
 						  <form action="/admin/update/main/topic/id/${topicList.getId()}" method="GET">
-							  <input type="submit" class="btn btn-primary" value="EDIT">
+							  <input type="submit" class="btn btn-primary edit-btn-bs" value="Edit">
 						  </form>
 									  
 						<form:form action="/admin/delete/main/topic/id/${topicList.getId()}" method="POST">
 							 <input type="hidden" name="_method" value="DELETE"> 
-							 <input type="submit" class="btn btn-danger" value="DELETE" onClick="return confirm('Are you sure you want to delete [ID:' + ${topicList.getId()} + ']')">
+							 <input type="submit" class="btn btn-danger" value="Delete" onClick="return confirm('Are you sure you want to delete [ID:' + ${topicList.getId()} + ']')">
 						</form:form>
 						  
 					  </div>
+					  
+					  
 				  </td>
 		</tr>
 		</c:forEach> 	
@@ -98,11 +101,16 @@
 	  </tbody>
 	</table>
 
+	
+	<form method="GET" action="/admin/create/main/topic">
+			<input class="btn btn-primary" type="submit" value="Add a Main Topic" />
+	</form>
+</div>
 </main>
 
 
 
 <!-- Link JavaScript File -->
-<script src="../../../js/app.js"></script>
+<script src="/js/app.js"></script>
 </body>
 </html>

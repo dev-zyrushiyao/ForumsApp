@@ -173,7 +173,14 @@ public class MainController {
 		int start = (int) pageRequest.getOffset();
 		int end = Math.min((start + pageRequest.getPageSize()), threadFinder.size());
 		Page<ThreadModel> threadPages = new PageImpl<ThreadModel>(threadFinder.subList(start, end), pageRequest, threadFinder.size());
+		modelView.addAttribute("threadPages", threadPages);
 		
+//		System.out.println("Total Elements: " + threadPages.getTotalElements());
+//		System.out.println("Current Page: " + threadPages.getNumber());
+//		System.out.println("Last Page: " + threadPages.getTotalPages());
+//		System.out.println("Elements Per Page: " + threadPages.getNumberOfElements());
+		
+		//pagination button
 		modelView.addAttribute("listOfThread" , threadPages.getContent()); //.getContent returns the data as List of Iteration of JSP ; w/o it spring boot will throw an error JspTagException:[Don't know how to iterate over supplied "items" in &lt;forEach&gt;]
 		modelView.addAttribute("totalPages", threadPages.getTotalPages());
 		

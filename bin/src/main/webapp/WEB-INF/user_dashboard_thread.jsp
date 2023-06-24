@@ -11,12 +11,12 @@
 
 				<head>
 					<meta charset="ISO-8859-1">
-					<title>
-						<c:out value="${subTopic.getTitle()}" /> | Dojo Dev Forums
-					</title>
+					<title><c:out value="${subTopic.getTitle()}" /> | Dojo Dev Forum</title>
 					<!-- Bootstrap CSS -->
 					<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
-					<link rel="stylesheet" href="../../../../css/style.css">
+
+					<link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+					<link rel="stylesheet" href="/css/style.css">
 				</head>
 
 				<body>
@@ -24,11 +24,11 @@
 					<!-- Header when logged in -->
 					<header class="main-header flex-row spc-bet">
 						<div>
-							<h1 class="main-header-title font-color-primary">Dojo Dev Forums</h1>
+							<h1 class="main-header-title font-color-primary">&lt; Dojo Dev Forum &gt;</h1>
 						</div>
 						<!-- Profile Header Section -->
 						<div class="flex-row flex-centered dropdown">
-							<img id="profile-pic" src="../../../../img/default-img.png" alt="Default profile picture">
+							<img id="profile-pic" src="/img/default-img.png" alt="Default profile picture">
 							<p class="header-profile-name font-color-primary">
 								<c:out value="${currentUser.getUserName()}" />&nbsp;&nbsp;<span
 									class="caret-down">&#9660;</span>
@@ -90,7 +90,7 @@
 									<div class="main-topic-div">
 										<div class="main-header">
 											<div class="main-title">
-												<h4>Threads (${listOfThread.size()}):</h4>
+												<h4>Threads (${subTopic.getThreadTopics().size()}):</h4>
 												<c:forEach var="listOfThread" items="${listOfThread}">
 													<ul>
 														<li><a
@@ -113,13 +113,15 @@
 								<nav aria-label="Page navigation">
 									<ul class="pagination">
 										<li class="page-item">
-											<a class="page-link"
-												href="/forums/${mainTopic.getTitle()}/${subTopic.getTitle()}/page/0"
-												aria-label="Previous">
+
+											
+											<a class="page-link" href="/forums/${mainTopic.getTitle()}/${subTopic.getTitle()}/page/0" aria-label="Previous">
 												<!-- <span aria-hidden="true">�</span> -->
-												<span aria-hidden="true">
-													<<</span>
+												<span aria-hidden="true">&lt;&lt;</span>
 											</a>
+										
+										
+										
 										</li>
 
 										<!------------------------------------------------------------------->
@@ -140,12 +142,23 @@
 										</c:forEach>
 
 										<li class="page-item">
-											<a class="page-link"
-												href="/forums/${mainTopic.getTitle()}/${subTopic.getTitle()}/page/${totalPages-1}"
-												aria-label="Next">
-												<!-- <span aria-hidden="true">�</span> -->
-												<span aria-hidden="true">>></span>
-											</a>
+
+											<c:if test="${subTopic.getThreadTopics().size()==0}">
+												<a class="page-link" href="/forums/${mainTopic.getTitle()}/${subTopic.getTitle()}/page/0" aria-label="Next">
+													<!-- <span aria-hidden="true">�</span> -->
+													<span aria-hidden="true">&gt;&gt;</span>
+												</a>
+											</c:if>
+
+											<c:if test="${subTopic.getThreadTopics().size()>0}">
+
+												<a class="page-link" href="/forums/${mainTopic.getTitle()}/${subTopic.getTitle()}/page/${totalPages-1}" aria-label="Next">
+													<!-- <span aria-hidden="true">�</span> -->
+													<span aria-hidden="true">>></span>
+												</a>
+
+											</c:if>
+
 										</li>
 									</ul>
 								</nav>

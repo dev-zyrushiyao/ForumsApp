@@ -12,18 +12,19 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Create Sub Topic</title>
-<link rel="stylesheet" href="../../../../css/style.css">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="icon" type="image/x-icon" href="/img/favicon.ico">
 </head>
 <body>
 
 	<!-- Header when logged in -->
 	<header class="main-header flex-row spc-bet">
 		<div>
-			<h1 class="main-header-title font-color-primary">Dojo Dev Forums</h1>
+			<h1 class="main-header-title font-color-primary">&lt; Dojo Dev Forum &gt;</h1>
 		</div>
 		<!-- Profile Header Section -->
 		<div class="flex-row flex-centered dropdown">
-			<img id="profile-pic" src="../../../../img/default-img.png" alt="Default profile picture">
+			<img id="profile-pic" src="/img/default-img.png" alt="Default profile picture">
 			<p class="header-profile-name font-color-primary"><c:out value="${currentUser.getUserName()}"/>&nbsp;&nbsp;<span class="caret-down">&#9660;</span></p>
 			
 			<!-- Dropdown Content Section -->
@@ -62,21 +63,21 @@
 		<h2 class="margin-bot">Create Sub-Topic for <c:out value="${MainTopicName.getTitle()}"/></h2>
 		
 
-		<form:form action="/admin/create/${MainTopicName.getTitle()}/new/sub/topic" method="GET" modelAttribute="subTopicForm">
+		<form:form action="/admin/create/${MainTopicName.getTitle()}/new/sub/topic" method="POST" modelAttribute="subTopicForm">
 			
 			<label style="color:green"><c:out value="${subTopicMessage}"></c:out></label>
 
 		<ul>
 				<li>
-					<form:label path="title">Topic Title: </form:label>
-					<p><form:input class="text-input input-text-pri blk-border margin-y-sm" path="title" type="text"/></p>
+					<form:label path="title">Sub-Topic Name:</form:label>
+					<p><form:input class="text-input input-text-pri blk-border margin-y-sm input-field-res" path="title" type="text"/></p>
 					
 					<form:errors path="title" class="text-danger" style="color:red"/>
 					
 				</li>
 				<li>
 					<form:label path="description">Description: </form:label>
-					<p><form:input class="text-input input-text-pri blk-border margin-y-sm" path="description" type="text"/></p>
+					<p><form:input class="text-input input-text-pri blk-border margin-y-sm input-field-res" path="description" type="text"/></p>
 					
 					<form:errors path="description" class="text-danger" style="color:red"/> 
 				</li>
@@ -100,6 +101,6 @@
 </main>
 
 <!-- Link JavaScript File -->
-<script src="../../../../js/app.js"></script>
+<script src="/js/app.js"></script>
 </body>
 </html>

@@ -10,13 +10,14 @@
 <html>
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Complete your profile</title>
-	<link rel="stylesheet" href="../../../css/style.css">
+	<title>Complete your profile | Dojo Dev Forum</title>
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="icon" type="image/x-icon" href="/img/favicon.ico">
 </head>
 <body>
 
 	<header class="main-header">
-		<h1 class="main-header-title font-color-primary">Dojo Dev Forums</h1>
+		<h1 class="main-header-title font-color-primary">&lt; Dojo Dev Forum &gt;</h1>
 	</header>
 	
 	

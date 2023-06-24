@@ -11,19 +11,20 @@
 <html>
 <head>
 	<meta charset="ISO-8859-1">
-	<link rel="stylesheet" href="css/style.css">
-	<title>Dashboard | Dojo Dev Forums</title>
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+	<title>Dashboard | Dojo Dev Forum</title>
 </head>
 <body>
 
 	<!-- Header when logged in -->
 	<header class="main-header flex-row spc-bet">
 		<div>
-			<h1 class="main-header-title font-color-primary">Dojo Dev Forums</h1>
+			<h1 class="main-header-title font-color-primary">&lt; Dojo Dev Forum &gt;</h1>
 		</div>
 		<!-- Profile Header Section -->
 		<div class="flex-row flex-centered dropdown">
-			<img id="profile-pic" src="img/default-img.png" alt="Default profile picture">
+			<img id="profile-pic" src="/img/default-img.png" alt="Default profile picture">
 			<p class="header-profile-name font-color-primary"><c:out value="${currentUser.getUserName()}"/>&nbsp;&nbsp;<span class="caret-down">&#9660;</span></p>
 			
 			
@@ -59,10 +60,27 @@
 	<main class="main-content-logged">
 
 		<div>
-			<div>
-				<h1 class="margin-bot">Dashboard</h1>
-				<p>Choose your topic:</p>
+
+			<div class="flex-row flex-centered">
+				<div class="margin-rt-lgr">
+					<h1 class="margin-bot-smlr">Dashboard</h1>
+					<p>Choose your topic:</p>
+				</div>
+				<div>
+					<!-- ADMIN ACCESS ONLY -->
+					<c:forEach var="currentUserRole" items="${currentUser.getRoles()}">
+						<c:if test="${currentUserRole.getName().equals('ROLE_ADMIN')}">
+							<form id="adminForm" method="GET" action="/admin/create/main/topic">
+								<a class="dropdown-menu-loc logout">
+									<input class="btn-primary" type="submit" value="New Main Topic" />
+								</a>
+							</form>
+						</c:if>
+					</c:forEach>
 			</div>
+
+			</div>
+			
 			
 			
 			<div class="flex-column topic-wrapper">
@@ -72,23 +90,14 @@
 					<a href="/forums/${forumMainTopic.getTitle()}">
 						<div class="topic-cont main-topic-cont">
 							
-							<p class="cont-main-title-text"><c:out value="${forumMainTopic.getTitle()}"/></p>
-							<p class="cont-main-desc-text"><c:out value="${forumMainTopic.getDescription()}"/></p>
+							<p class="cont-main-title-text word-break"><c:out value="${forumMainTopic.getTitle()}"/></p>
+							<p class="cont-main-desc-text word-break"><c:out value="${forumMainTopic.getDescription()}"/></p>
 							
 						</div>
 					</a>
 				</c:forEach>
 					
-				<!-- ADMIN ACCESS ONLY -->
-				<c:forEach var="currentUserRole" items="${currentUser.getRoles()}">
-					<c:if test="${currentUserRole.getName().equals('ROLE_ADMIN')}">
-						<form id="adminForm" method="GET" action="/admin/create/main/topic">
-							<a class="dropdown-menu-loc logout">
-								<input id="adminDash-btn" type="submit" value="New Main Topic" />
-							</a>
-						</form>
-					</c:if>
-				</c:forEach>
+				
 
 
 
@@ -100,7 +109,7 @@
 
 	
 	<!-- Link JavaScript File -->
-	<script src="js/app.js"></script>
+	<script src="/js/app.js"></script>
 
 
 </body>

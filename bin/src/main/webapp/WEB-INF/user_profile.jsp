@@ -10,19 +10,20 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title> <c:out value="${userModel.getUserName()}"/> | Profile </title>
-<link rel="stylesheet" href="../../../css/style.css">
+<title> <c:out value="${userModel.getUserName()}"/> | Dojo Dev Forum </title>
+<link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
 	<!-- Header when logged in -->
 	<header class="main-header flex-row spc-bet">
 		<div>
-			<h1 class="main-header-title font-color-primary">Dojo Dev Forums</h1>
+			<h1 class="main-header-title font-color-primary">&lt; Dojo Dev Forum &gt;</h1>
 		</div>
 		<!-- Profile Header Section -->
 		<div class="flex-row flex-centered dropdown">
-			<img id="profile-pic" src="../../../img/default-img.png" alt="Default profile picture">
+			<img id="profile-pic" src="/img/default-img.png" alt="Default profile picture">
 			<p class="header-profile-name font-color-primary"><c:out value="${currentUser.getUserName()}"/>&nbsp;&nbsp;<span class="caret-down">&#9660;</span></p>
 			
 			<!-- Dropdown Content Section -->
@@ -60,21 +61,22 @@
 	<main class="main-content-logged">
 		
 		<!-- User Information -->
-		<div class="flex-row spc-bet">
+		<div class="flex-row spc-bet margin-bot-lgr">
 			<div>
 				<c:choose>
 					<c:when test="${userModel.getUserData() == null}">
+						<h2 class="margin-bot">Complete your profile <a href="/update/user/profile/id/${currentUser.getId()}">here</a></h2>
 						<ul>
 							<li>Username: <c:out value="${userModel.getUserName()}"/></li>
-							<li>Joined at: <c:out value="${userModel.getCreatedAt()}"/></li>
+							<li>Join Date: <c:out value="${dateJoined}"/></li>
 						</ul>
 					</c:when>
 					
 					<c:otherwise>
 						<ul class="user-info">
-							<li><img src="../../../img/default-img.png" alt="Default profile picture"></li>
+							<li><img src="/img/default-img.png" alt="Default profile picture"></li>
 							<li><p class="profile-page-username"><c:out value="${userModel.getUserName()}"/></p></li>
-							<li><i class="profile-page-joindate">joined at: <c:out value="${userModel.getCreatedAt()}"/></i></li>
+							<li><i class="profile-page-joindate">Join Date: <c:out value="${dateJoined}"/></i></li>
 							<li><c:out value="${userModel.getUserData().getFirstName()} ${userModel.getUserData().getLastName()}"/></li>
 							<li><c:out value="${userModel.getUserData().getLocation()}"/></li>
 							<li>Technology/Language of Expertise:&nbsp;<c:out value="${userModel.getUserData().getProgrammingLanguage()}"/></li>
@@ -96,15 +98,16 @@
 
 		</div>
 
+		<!-- Thread List -->
 		<div>
 			<c:if test="${currentUser.getUserName().equals(userModel.getUserName())}">	
-				<h3> My thread </h3>
+				<h2 class="margin-bot">My thread (${userModel.getThread().size()}):</h2>
 			</c:if>
 			
 			<c:if test="${!currentUser.getUserName().equals(userModel.getUserName())}">	
-				<h3> <c:out value="${userModel.getUserName()}"/>'s thread </h3>
+				<h2 class="margin-bot"> <c:out value="${userModel.getUserName()}"/>'s threads (${userModel.getThread().size()}):</h2>
 			</c:if>
-				<ul>
+				
 					<!-- unlooped object for conditional displays .isEmpty() method available to invoke -->
 					<c:choose>
 						<c:when test="${!userThread.isEmpty()}">
@@ -112,11 +115,13 @@
 								<!-- URL VARIABLE -->
 								<c:set var="mainTopic_origin" value="${userThread.getForumSubTopic().getForumMainTopics().getTitle()}"/> 
 								<c:set var="subTopic_origin" value="${userThread.getForumSubTopic().getTitle()}"/>
-								
-									 <li> <c:out value="[${mainTopic_origin} / ${subTopic_origin}]"/> </li>
-									 <li> 
-										 <a href="/forums/${mainTopic_origin}/${subTopic_origin}/thread/${userThread.getId()}"> <c:out value="${userThread.getTitle()}"/> </a> 
-									 </li>	 
+								<ul class="margin-bot">
+									 <li> <p class="profile-topic-path">[ ${mainTopic_origin} &gt; ${subTopic_origin} ]</p> </li>
+									 <li class="margin-bot"> 
+										${userModel.getUserName()} posted a thread in ${subTopic_origin}: <p><a href="/forums/${mainTopic_origin}/${subTopic_origin}/thread/${userThread.getId()}">"${userThread.getTitle()}"</a></p> 
+									 </li>
+									 <hr>
+								</ul>	 
 							</c:forEach>
 						</c:when>
 						
@@ -124,12 +129,12 @@
 							<li>No data found</li>
 						</c:otherwise>
 					</c:choose>
-				</ul>
+				
 		</div>	 
 		
 		<div>	
-			<h3> Activity Log </h3>
-				<ul>
+			<h2 class="margin-bot">Activity Log (${userModel.getTopicComment().size()}):</h2>
+				
 				<!-- unlooped object for conditional displays .isEmpty() method available to invoke -->
 					<c:choose>
 						<c:when test="${!userComments.isEmpty()}">
@@ -139,14 +144,14 @@
 								<c:set var="subTopic_origin" value="${userComments.getThreadTopic().getForumSubTopic().getTitle()}"/>
 								<c:set var="thread_origin_id" value="${userComments.getThreadTopic().getId()}"/>
 								<c:set var="thread_origin_title" value="${userComments.getThreadTopic().getTitle()}"/>  
-									 
-									 <li> <c:out value="[${mainTopic_origin} / ${subTopic_origin}]"/> </li>
+								<ul class="margin-bot">
+									 <li><p class="profile-topic-path">[ ${mainTopic_origin} &gt; ${subTopic_origin} ]</p> </li>
 									 <li>
-										 <a href="/forums/${mainTopic_origin}/${subTopic_origin}/thread/${thread_origin_id}"> <c:out value="${thread_origin_title}"/> </a> 
+										 <p id="profile-topic-threadTitle">${userModel.getUserName()} commented on: <a href="/forums/${mainTopic_origin}/${subTopic_origin}/thread/${thread_origin_id}"> <c:out value="${thread_origin_title}"/></a></p>
 									 </li>
-									 
-									 <li> <c:out value="${userComments.getComment()}"/> </li>
+									 <li class="margin-bot word-break"><p id="profile-topic-threadComment"><i><c:out value="${userComments.getComment()}"/></i></p> </li>
 									 <hr>
+								</ul>
 							</c:forEach>
 						</c:when>
 						
@@ -154,7 +159,7 @@
 							<li>No data found</li>
 						</c:otherwise>
 					</c:choose>
-				</ul>
+				
 		</div>
 		
 		
@@ -166,7 +171,7 @@
 
 
 	<!-- Link JavaScript File -->
-	<script src="../../../js/app.js"></script>
+	<script src="/js/app.js"></script>
 
 </body>
 </html>
