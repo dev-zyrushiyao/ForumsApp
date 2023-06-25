@@ -74,7 +74,7 @@
 			</li>
 			<li>
 				<label>Description: </label>
-				<p><form:input class="text-input input-text-pri blk-border margin-y-sm input-field-res" path="description" type="text" minlength="2" maxlength="100" required="true"/></p>
+				<p><form:input class="text-input input-text-pri blk-border margin-y-sm input-field-res" path="description" type="text" minlength="4" maxlength="100" required="true"/></p>
 				<form:errors path="description" class="text-danger" style="color:red"/> 
 			</li>
 		</ul>
