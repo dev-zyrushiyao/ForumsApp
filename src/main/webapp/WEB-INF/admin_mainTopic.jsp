@@ -70,14 +70,14 @@
 		<ul>
 				<li>
 					<label>Title: </label>
-					<p><form:input class="text-input input-text-pri blk-border margin-y-sm input-field-res" path="title" type="text" minlength="4" maxlength="30" required="true"/></p>
+					<p><form:input class="text-input input-text-pri blk-border margin-y-sm input-field-res" path="title" type="text" minlength="2" maxlength="30" required="true"/></p>
 					
 					<form:errors path="title" class="text-danger" style="color:red"/>
 					
 				</li>
 				<li class="margin-bot">
 					<label>Description: </label>
-					<p><form:input class="text-input input-text-pri blk-border margin-y-sm input-field-res" path="description" type="text" minlength="4" maxlength="100" required="true"/></p>
+					<p><form:input class="text-input input-text-pri blk-border margin-y-sm input-field-res" path="description" type="text" minlength="2" maxlength="100" required="true"/></p>
 					
 					<form:errors path="description" class="text-danger" style="color:red"/> 
 				</li>
