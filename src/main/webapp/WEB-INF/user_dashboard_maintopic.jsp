@@ -84,7 +84,7 @@
 			
 			
 			
-			<div class="flex-column topic-wrapper">
+			<div class="grid-cont topic-wrapper">
 				
 				<c:forEach var="forumMainTopic" items="${forumMainTopic}">
 					<!-- TOPIC CONTAINER -->
@@ -92,7 +92,7 @@
 						<div class="topic-cont main-topic-cont">
 							
 							<p class="cont-main-title-text word-break"><c:out value="${forumMainTopic.getTitle()}"/></p>
-							<p class="cont-main-desc-text word-break"><c:out value="${forumMainTopic.getDescription()}"/></p>
+							<p class="cont-main-desc-text ellipsis-oflow"><c:out value="${forumMainTopic.getDescription()}"/></p>
 							
 						</div>
 					</a>

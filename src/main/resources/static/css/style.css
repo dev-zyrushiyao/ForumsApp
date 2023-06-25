@@ -403,7 +403,8 @@ ul li:nth-child(1){
     /* margin-bottom: 12px; */
     border: 1px solid #4d4d4d;
     border-radius: 10px;
-    width: 32em; 
+    width: 32em;
+    margin-right: 32px;
 }
 
 .admin-func-cont {
@@ -512,6 +513,16 @@ hr.thread-divider {
 .ellipsis-oflow-link {
     color: #0d6efd;
 }
+
+
+.grid-cont {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+
+
+
 
 #globe-img {
     width: 18vw;

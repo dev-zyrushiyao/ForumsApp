@@ -97,7 +97,7 @@
 
 				
 				
-				<div class="flex-column topic-wrapper">
+				<div class="topic-wrapper grid-cont">
 					
 					<c:forEach var="forumSubTopic" items="${forumSubTopic}">
 						

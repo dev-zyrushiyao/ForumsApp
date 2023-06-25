@@ -577,7 +577,7 @@ public class MainController {
 			}else {
 				this.mainTopicService.createTopic(forumMainTopic);	
 				redirectAttributes.addFlashAttribute("mainTopicMessage", "New Main Topic Added!");
-				return "redirect:/admin/create/main/topic";
+				return "redirect:/";
 			}
 			
 		}
