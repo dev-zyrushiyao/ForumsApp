@@ -116,9 +116,9 @@
 								<c:set var="mainTopic_origin" value="${userThread.getForumSubTopic().getForumMainTopics().getTitle()}"/> 
 								<c:set var="subTopic_origin" value="${userThread.getForumSubTopic().getTitle()}"/>
 								<ul class="margin-bot">
-									 <li> <p class="profile-topic-path">[ ${mainTopic_origin} &gt; ${subTopic_origin} ]</p> </li>
+									 <li> <p class="profile-topic-path"> <a href="/forums/${mainTopic_origin}">${mainTopic_origin}</a> &gt; <a href="/forums/${mainTopic_origin}/${subTopic_origin}/page/0">${subTopic_origin}</a> </p> </li>
 									 <li class="margin-bot"> 
-										${userModel.getUserName()} posted a thread in ${subTopic_origin}: <p><a href="/forums/${mainTopic_origin}/${subTopic_origin}/thread/${userThread.getId()}">"${userThread.getTitle()}"</a></p> 
+										${userModel.getUserName()} posted a thread: <p><a href="/forums/${mainTopic_origin}/${subTopic_origin}/thread/${userThread.getId()}">"${userThread.getTitle()}"</a></p> 
 									 </li>
 									 <hr>
 								</ul>	 
@@ -145,7 +145,7 @@
 								<c:set var="thread_origin_id" value="${userComments.getThreadTopic().getId()}"/>
 								<c:set var="thread_origin_title" value="${userComments.getThreadTopic().getTitle()}"/>  
 								<ul class="margin-bot">
-									 <li><p class="profile-topic-path">[ ${mainTopic_origin} &gt; ${subTopic_origin} ]</p> </li>
+									 <li><p class="profile-topic-path"><a href="/forums/${mainTopic_origin}">${mainTopic_origin}</a> &gt; <a href="/forums/${mainTopic_origin}/${subTopic_origin}/page/0">${subTopic_origin}</a></p> </li>
 									 <li>
 										 <p id="profile-topic-threadTitle">${userModel.getUserName()} commented on: <a href="/forums/${mainTopic_origin}/${subTopic_origin}/thread/${thread_origin_id}"> <c:out value="${thread_origin_title}"/></a></p>
 									 </li>
