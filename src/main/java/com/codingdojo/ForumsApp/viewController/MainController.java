@@ -693,12 +693,14 @@ public class MainController {
 	public String updateSubTopic(@PathVariable Long id , Model modelView ,RedirectAttributes redirectAttributes,
 			@Valid @ModelAttribute("updateSubTopicForm") ForumSubTopic forumSubTopic, BindingResult result) {
 		
+		System.out.println(forumSubTopic.getForumMainTopics().getTitle());
+		
 		if(result.hasErrors()) {
 			return "admin_subTopicUpdate.jsp";
 		}else {
 			redirectAttributes.addFlashAttribute("updateTopicMessage", "SubTopic has been successfully updated!");
 			this.subTopicService.updateTopic(forumSubTopic);
-			return "redirect:/admin/update/sub/topic/id/" + forumSubTopic.getId();
+			return "redirect:/admin/view/" + forumSubTopic.getForumMainTopics().getTitle() + "/subtopic";
 		}
 	}
 	
