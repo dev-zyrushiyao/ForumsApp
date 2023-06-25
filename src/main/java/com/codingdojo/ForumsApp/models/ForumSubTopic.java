@@ -31,7 +31,7 @@ public class ForumSubTopic {
 	private Long id;
 	
 	@NotBlank(message = "This field should not be blank")
-	@Size(min = 4 , max = 40 , message = "This parameter accept 4 ~ 40 characters" )
+	@Size(min = 2 , max = 40 , message = "This parameter accept 2 ~ 40 characters" )
 	private String title;
 	
 	
