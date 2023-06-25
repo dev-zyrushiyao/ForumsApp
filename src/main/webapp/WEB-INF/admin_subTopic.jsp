@@ -75,7 +75,7 @@
 					<form:errors path="title" class="text-danger" style="color:red"/>
 					
 				</li>
-				<li>
+				<li class="margin-bot">
 					<form:label path="description">Description: </form:label>
 					<p><form:input class="text-input input-text-pri blk-border margin-y-sm input-field-res" path="description" type="text" minlength="4" maxlength="100" required="true"/></p>
 					
@@ -87,14 +87,14 @@
 					<form:input path="forumMainTopics" type="text" value="${MainTopicName.getId()}" hidden="true"/>
 					
 				<li>
-					<input class="btn-primary margin-bot" type="submit" value="CREATE SUBTOPIC">
+					<input class="btn-primary margin-bot" type="submit" value="Create">
 					<!-- <input type="reset" value="Clear"> -->
 				</li>
 			</ul>
 
 </form:form>
 
-<a href="javascript:window.history.back()">&lt;&lt; Back to Previous Page</a>
+<a href="javascript:window.history.back()">&Lt; Back to Previous Page</a>
 
 </div>
 </div>

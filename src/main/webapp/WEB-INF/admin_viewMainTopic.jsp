@@ -59,7 +59,7 @@
 
 <main class="main-content-logged">
 	<div>
-	<a href="/admin">&lt;&lt; back</a>
+	<a href="/admin">&Lt; back</a>
 	
 	<h1>Main topics</h1>
 		
@@ -88,7 +88,7 @@
 									  
 						<form:form action="/admin/delete/main/topic/id/${topicList.getId()}" method="POST">
 							 <input type="hidden" name="_method" value="DELETE"> 
-							 <input type="submit" class="btn btn-danger" value="Delete" onClick="return confirm('Are you sure you want to delete [ID:' + ${topicList.getId()} + ']')">
+							 <input type="submit" class="btn btn-danger" value="Delete" onClick="return confirm('Are you sure you want to delete this topic?')">
 						</form:form>
 						  
 					  </div>

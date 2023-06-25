@@ -66,24 +66,24 @@
 	<form:form action="/admin/update/info/main/topic/id/${updateMainTopicForm.getId()}" method="POST" modelAttribute="updateMainTopicForm">
 		<input type="hidden" name="_method" value="put">
 		<label style="color:green"><c:out value="${updateTopic}"/></label>
-		<ul>
+		<ul class="margin-bot">
 			<li>
 				<label>Main Topic Title: </label>
-				<p><form:input class="text-input input-text-pri blk-border margin-y-sm" path="title" type="text" minlength="4" maxlength="30" required="true"/></p>
+				<p><form:input class="text-input input-text-pri blk-border margin-y-sm input-field-res" path="title" type="text" minlength="4" maxlength="30" required="true"/></p>
 				<form:errors path="title" class="text-danger" style="color:red"/> 
 			</li>
 			<li>
 				<label>Description: </label>
-				<p><form:input class="text-input input-text-pri blk-border margin-y-sm" path="description" type="text" minlength="4" maxlength="100" required="true"/></p>
+				<p><form:input class="text-input input-text-pri blk-border margin-y-sm input-field-res" path="description" type="text" minlength="4" maxlength="100" required="true"/></p>
 				<form:errors path="description" class="text-danger" style="color:red"/> 
 			</li>
 		</ul>
-		<input class="btn-primary margin-bot" type="submit" value="UPDATE">
+		<input class="btn-primary margin-bot" type="submit" value="Update">
 		
 	</form:form>
 	
 
-	<p><a href="javascript:window.history.back()">&lt;&lt; Back to Previous Page</a></p>
+	<p><a href="javascript:window.history.back()">&Lt; Back to Previous Page</a></p>
 </div>
 </div>
 </main>

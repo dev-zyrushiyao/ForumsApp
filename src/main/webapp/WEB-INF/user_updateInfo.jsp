@@ -61,7 +61,7 @@
 		<div class="flex-row spc-bet">
 			<div>
 
-				<!-- ADMIN UPDATE PROFILE FORM -->
+				<!-- USER WITH PROFILE DATA FORM -->
 				<c:if test="${currentUser.getUserData() != null}">
 			<form:form action="/update/user/info/${currentUser.getUserData().getId()}" method="POST" modelAttribute="userDataUpdateForm">
 				<input type="hidden" name="_method" value="put">
@@ -103,7 +103,7 @@
 			</c:if>
 			
 
-			<!-- USER UPDATE PROFILE FORM -->
+			<!-- USER WITHOUT PROFILE FORM -->
 			<c:if test="${currentUser.getUserData() == null}">
 
 		 		<form:form action="/update/user/add/info/${currentUser.getId()}" method="POST" modelAttribute="userDataForm">
@@ -149,7 +149,7 @@
 			</div>
 
 			<div>
-				<a href="/user/profile/${currentUser.getUserName()}"><< back to Profile Page</a>
+				<a href="/user/profile/${currentUser.getUserName()}">&Lt; back to Profile Page</a>
 			</div>
 
 		</div>

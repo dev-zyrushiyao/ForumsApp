@@ -93,10 +93,8 @@
 								<form:input type="text" path="threadTopic" hidden="true" />
 								<form:input type="text" path="userAccount" hidden="true" />
 
-								<input type="submit" value="Update Comment">
-								<a
-								href="/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/thread/${threadModel.getId()}">GO
-								BACK</a>
+								<input class="btn-primary margin-rt-smlr" type="submit" value="Update">
+								<a href="/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/thread/${threadModel.getId()}">cancel</a>
 							</form:form>
 						</div>
 					</main>

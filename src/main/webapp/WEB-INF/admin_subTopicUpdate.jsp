@@ -85,11 +85,11 @@
 								<form:input path="forumMainTopics" type="text" value="${MainTopicName.getId()}" hidden="true"/>
 						</li>
 					</ul>
-					<input class="btn-primary margin-bot" type="submit" value="UPDATE">
+					<input class="btn-primary margin-bot" type="submit" value="Update">
 					
 				</form:form>
 
-				<p><a href="javascript:window.history.back()">&lt;&lt; Back to Previous Page</a></p>
+				<p><a href="javascript:window.history.back()">&Lt; Back to Previous Page</a></p>
 		</div>
 	</div>
 </main>

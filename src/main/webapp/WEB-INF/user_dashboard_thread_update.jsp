@@ -97,7 +97,7 @@
 								<form:errors path="userThread" class="text-danger" style="color:red"/>
 							</li>
 							<li>
-								<input class="btn-primary" type="submit" value="Update">
+								<input class="btn-primary margin-rt-smlr" type="submit" value="Update">
 								<a href="/forums/${ForumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/thread/${threadUpdateForm.getId()}">cancel</a>
 							</li>
 						</ul>

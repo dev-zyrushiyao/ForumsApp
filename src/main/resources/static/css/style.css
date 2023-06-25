@@ -134,6 +134,10 @@ main.main-content-logged > div {
     margin-bottom: 70px;
 }
 
+.margin-rt-smlr {
+    margin-right: 12px;
+}
+
 .margin-rt-lgr {
     margin-right: 50px;
 }

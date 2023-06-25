@@ -129,7 +129,7 @@
 
 										</c:choose>
 										<a class="page-link" href="/forums/${mainTopic.getTitle()}/${subTopic.getTitle()}/page/${threadPages.getNumber()-1}" aria-label="Previous">
-												<span aria-hidden="true">&lt;&lt;</span>
+												<span aria-hidden="true">&Lt;</span>
 											</a>
 										</li>
 										<!-- Page Count -->
@@ -154,7 +154,7 @@
 											</c:otherwise>
 										</c:choose>
 											<a class="page-link" href="/forums/${mainTopic.getTitle()}/${subTopic.getTitle()}/page/${threadPages.getNumber()+1}" aria-label="Next">
-												<span aria-hidden="true">&gt;&gt;</span>
+												<span aria-hidden="true">&Gt;</span>
 											</a>
 										</li>
 

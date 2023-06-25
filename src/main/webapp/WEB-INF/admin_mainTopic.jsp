@@ -89,7 +89,7 @@
 
 </form:form>
 
-<a href="javascript:window.history.back()">&lt;&lt; Back to Previous Page</a>
+<a href="javascript:window.history.back()">&Lt; Back to Previous Page</a>
 
 
 </div>

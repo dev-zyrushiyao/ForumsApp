@@ -62,7 +62,7 @@
 <main class="main-content-logged">
 
 	<div>
-		<a href="/admin/view/main/topic">&lt;&lt; back</a>
+		<a href="/admin/view/main/topic">&Lt; back</a>
 
 			<h1><c:out value="${forumMainTopic.getTitle()}"/> Sub topics</h1>
 			
@@ -91,7 +91,7 @@
 										
 							<form:form action="/admin/delete/sub/topic/id/${topicList.getId()}" method="POST">
 								<input type="hidden" name="_method" value="DELETE"> 
-								<input type="submit" class="btn btn-danger" value="Delete" onClick="return confirm('Are you sure you want to delete [ID:' + ${topicList.getId()} + ']')">
+								<input type="submit" class="btn btn-danger" value="Delete" onClick="return confirm('Are you sure you want to delete this topic?')">
 							</form:form>
 							
 						</div>

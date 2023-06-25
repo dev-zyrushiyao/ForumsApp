@@ -67,7 +67,7 @@
 
 				<!-- BREADCRUMB -->
 				<div class="margin-bot">
-					<h5><a href="/">Dashboard</a> > ${forumMainTopic.getTitle()}</h5>
+					<h5><a href="/">Dashboard</a> &gt; ${forumMainTopic.getTitle()}</h5>
 				</div>
 
 				<div class="flex-row flex-centered">
