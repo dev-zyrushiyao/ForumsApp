@@ -101,6 +101,7 @@
 														</div>
 														<div>
 															<p>Posted by: <a href="/user/profile/${listOfThread.getUserThread().getUserName()}"><c:out value="${listOfThread.getUserThread().getUserName()}" /></a></p>
+															<p>${listOfThread.getCreatedAtFormatted()}</p>
 														</div>
 													</div>
 													<hr class="thread-divider">

@@ -194,6 +194,18 @@ public class MainController {
 //		for(ThreadModel threads : threadPages) {
 //			System.out.println("page " + pageTarget + ": " + threads.getTitle());
 //		}
+		
+		
+		// Date Formatting
+		
+		
+//		String datePatternThread = "dd/MMM/yyyy h:mm a";
+//		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePatternThread);
+//		
+//		String datePosted = simpleDateFormat.format(threadPages.getContent().getUserThrea);
+//		modelView.addAttribute("datePosted", datePosted);
+		
+		
         
 		return "user_dashboard_thread.jsp";
 	}

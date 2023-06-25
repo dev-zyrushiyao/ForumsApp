@@ -1,5 +1,6 @@
 package com.codingdojo.ForumsApp.models;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -111,6 +112,14 @@ public class ThreadModel {
 
 	public Date getCreatedAt() {
 		return createdAt;
+	}
+	
+	public String getCreatedAtFormatted() {
+		String pattern = "dd/MMM/yyyy · h:mm a";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+		String formattedDate = simpleDateFormat.format(createdAt);
+		
+		return formattedDate;
 	}
 
 	public void setCreatedAt(Date createdAt) {
