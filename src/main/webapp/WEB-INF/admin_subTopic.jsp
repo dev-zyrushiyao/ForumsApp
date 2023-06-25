@@ -94,7 +94,7 @@
 
 </form:form>
 
-<a href="/admin/view/${MainTopicName.getTitle()}/subtopic/"><< Back to Sub Topic List</a>
+<a href="javascript:window.history.back()">&lt;&lt; Back to Previous Page</a>
 
 </div>
 </div>

@@ -89,7 +89,7 @@
 					
 				</form:form>
 
-				<p><a href="/admin/view/${updateSubTopicForm.getForumMainTopics().getTitle()}/subtopic">GO BACK</a></p>
+				<p><a href="javascript:window.history.back()">&lt;&lt; Back to Previous Page</a></p>
 		</div>
 	</div>
 </main>

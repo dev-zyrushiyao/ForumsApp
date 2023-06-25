@@ -89,7 +89,7 @@
 
 </form:form>
 
-<a href="/admin/view/main/topic"><< Back to Main Topic List</a>
+<a href="javascript:window.history.back()">&lt;&lt; Back to Previous Page</a>
 
 
 </div>
