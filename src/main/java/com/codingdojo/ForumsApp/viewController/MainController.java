@@ -607,7 +607,7 @@ public class MainController {
 		}else {
 			redirectAttributes.addFlashAttribute("updateTopic" , "Topic has been successfully updated!");
 			this.mainTopicService.updateTopic(forumMainTopic);
-			return "redirect:/admin/update/main/topic/id/" + forumMainTopic.getId();	
+			return "redirect:/admin/view/main/topic/";	
 		}
 	}
 	
