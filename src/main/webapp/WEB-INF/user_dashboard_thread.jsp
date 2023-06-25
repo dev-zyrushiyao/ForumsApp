@@ -19,7 +19,7 @@
 					<link rel="stylesheet" href="/css/style.css">
 				</head>
 
-				<body>
+				<body id="bootstrap-overlap">
 
 					<!-- Header when logged in -->
 					<header class="main-header flex-row spc-bet">
@@ -75,37 +75,35 @@
 						<div class="flex-row spc-bet">
 							
 							<div>
-								<nav>
+								<nav class="margin-bot">
 									<h1 class="margin-bot-smlr word-break">This is the ${subTopic.getTitle()} thread!</h1>
 									<p>${subTopic.getDescription()}</p>
 								</nav>
 
 								<form action="/forums/${mainTopic.getTitle()}/${subTopic.getTitle()}/new/thread/"
 									method="GET">
-									<input class="margin-bot" type="submit" value="&#10010; New Thread">
+									<input class="btn-primary margin-bot" id="new-post-btn" type="submit" value="&#10010;&nbsp;&nbsp; New Thread">
 								</form>
 
 
-								<div id="main-forum-div">
+								<div class="margin-bot" id="main-forum-div">
 									<div class="main-topic-div">
 										<div class="main-header">
 											<div class="main-title">
 												<!-- <h4>Threads (${subTopic.getThreadTopics().size()}):</h4> -->
-												<h4>Threads (${threadPages.getTotalElements()}):</h4>
-												<p>Page <span id="thread-current-page">${threadPages.getNumber()+1}</span> of ${threadPages.getTotalPages()}</p>
+												<h3>Threads (${threadPages.getTotalElements()}):</h3>
+												<!-- <p>Page <span id="thread-current-page">${threadPages.getNumber()+1}</span> of ${threadPages.getTotalPages()}</p> -->
 												<c:forEach var="listOfThread" items="${listOfThread}">
-													<ul>
-														<li><a
-																href="/forums/${mainTopic.getTitle()}/${subTopic.getTitle()}/thread/${listOfThread.getId()}">
-																<c:out value="${listOfThread.getTitle()}" />
-															</a></li>
-														<li>Posted by: <a
-																href="/user/profile/${listOfThread.getUserThread().getUserName()}">
-																<c:out
-																	value="${listOfThread.getUserThread().getUserName()}" />
-															</a></li>
-													</ul>
-													<hr>
+													<div class="thread-container flex-row spc-bet">
+														<div>
+															<p class="threadpage-thread-title margin-bot-smlr ellipsis-oflow-link"><a href="/forums/${mainTopic.getTitle()}/${subTopic.getTitle()}/thread/${listOfThread.getId()}"><c:out value="${listOfThread.getTitle()}" /></a></p>
+															<p class="threadpage-thread-preview-content word-break ellipsis-oflow">${listOfThread.getContent()}</p>
+														</div>
+														<div>
+															<p>Posted by: <a href="/user/profile/${listOfThread.getUserThread().getUserName()}"><c:out value="${listOfThread.getUserThread().getUserName()}" /></a></p>
+														</div>
+													</div>
+													<hr class="thread-divider">
 												</c:forEach>
 											</div>
 										</div>
@@ -160,7 +158,7 @@
 
 									</ul>
 
-									<p>Page <span id="thread-current-page">${threadPages.getNumber()+1}</span> of ${threadPages.getTotalPages()}</p>
+									<p class="page-count-threadpage">Page <span id="thread-current-page">${threadPages.getNumber()+1}</span> of ${threadPages.getTotalPages()}</p>
 								</nav>
 							</c:if>
 
