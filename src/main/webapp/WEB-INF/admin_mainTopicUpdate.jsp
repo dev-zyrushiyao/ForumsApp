@@ -69,12 +69,12 @@
 		<ul>
 			<li>
 				<label>Main Topic Title: </label>
-				<p><form:input class="text-input input-text-pri blk-border margin-y-sm" path="title" type="text" minlength="4" maxlength="30"/></p>
+				<p><form:input class="text-input input-text-pri blk-border margin-y-sm" path="title" type="text" minlength="4" maxlength="30" required="true"/></p>
 				<form:errors path="title" class="text-danger" style="color:red"/> 
 			</li>
 			<li>
 				<label>Description: </label>
-				<p><form:input class="text-input input-text-pri blk-border margin-y-sm" path="description" type="text" minlength="4" maxlength="100"/></p>
+				<p><form:input class="text-input input-text-pri blk-border margin-y-sm" path="description" type="text" minlength="4" maxlength="100" required="true"/></p>
 				<form:errors path="description" class="text-danger" style="color:red"/> 
 			</li>
 		</ul>
