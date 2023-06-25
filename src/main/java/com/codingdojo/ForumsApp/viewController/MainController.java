@@ -671,7 +671,8 @@ public class MainController {
 			}else {
 				redirectAttributes.addFlashAttribute("subTopicMessage", "Subtopic Added!");
 				this.subTopicService.createTopic(forumSubTopic);
-				return "redirect:/admin/create/" + forumMainTopic.getTitle() + "/sub/topic";
+				//return "redirect:/admin/create/" + forumMainTopic.getTitle() + "/sub/topic";
+				return "redirect:/forums/"+forumMainTopic.getTitle();
 			}
 		}
 	}
