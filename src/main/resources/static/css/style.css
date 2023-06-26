@@ -396,6 +396,12 @@ ul.thread-comments li.flex-row {
 .topic-wrapper a, .admin-func-cont {
     text-decoration: none;
     margin-bottom: 12px;
+    margin-right: 32px;
+    transition: transform .2s;
+}
+
+.topic-wrapper a:hover {
+    transform: scale(1.1)
 }
 
 .topic-cont, .admin-func-cont, .admin-func-soon-cont {
@@ -404,7 +410,7 @@ ul.thread-comments li.flex-row {
     border: 1px solid #4d4d4d;
     border-radius: 10px;
     width: 32em;
-    margin-right: 32px;
+    
 }
 
 .admin-func-cont {
