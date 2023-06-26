@@ -63,3 +63,11 @@ if(document.getElementsByClassName("page-item") != null){
   var currentPageNumSubT = Number(currentPageThread.getInnerHTML());
   document.getElementsByClassName("page-item")[currentPageNumSubT].classList.add("active");
 }
+
+
+// for(let comments in document.getElementsByClassName("thread-comments")){
+
+//   comments.addEventListener("onclick", function(){
+//     console.log("hover");
+//   })
+// }

@@ -123,26 +123,46 @@
 		<h5>Comments (${threadReplies.size()}):</h5>
 			<c:forEach var="threadReplies" items="${threadReplies}">
 
-				<div class="flex-row spc-bet">
+				<div class="flex-row">
 
 					<div>
 						<ul class="thread-comments">
-							<li>
-								<a href="/user/profile/${threadReplies.getUserAccount().getUserName()}"><c:out value="${threadReplies.getUserAccount().getUserName()}"/></a> - added a comment 
-								
-								<span class="cmt-createdTime">
-									&#183; ${threadReplies.getCreatedAtFormatted()} 
-								</span>
+							<li class="flex-row spc-bet">
+								<div class="cmnt-detail">
+									<a href="/user/profile/${threadReplies.getUserAccount().getUserName()}"><c:out value="${threadReplies.getUserAccount().getUserName()}"/></a>&nbsp;- added a comment 
+									<span class="cmt-createdTime">&#183; ${threadReplies.getCreatedAtFormatted()}</span>
+								</div>
+								<!-- Edit Delete Comments Button (Admin) -->
+								<div class="comment-admin-btns">
+									<c:forEach var="currentUserRole" items="${currentUser.getRoles()}">
+										<c:if test="${currentUserRole.getName().equals('ROLE_ADMIN')}">
+											<div class="flex-row">
+												<div class="edit-btn-cont-sm">
+													<form:form method="GET" action="/admin/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/thread/${threadModel.getId()}/update/reply/${threadReplies.getId()}">
+														<button class="mini-btn-lc-sm mini-btn-edit" type="submit"><i class="fa fa-pencil" style="color:rgb(31, 31, 31); font-size: 16px;"></i></button>
+													</form:form> 
+												</div>
+												<div class="del-btn-cont">
+													<form:form method= "POST" action="/admin/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/thread/${threadModel.getId()}/delete/reply/${threadReplies.getId()}">
+														<input type="hidden" name="_method" value="DELETE">
+														<button class="mini-btn-lc-sm mini-btn-delete" type="submit" onClick="return confirm('Delete this comment?')"><i class="fa fa-trash-o" style="color:red; font-size: 16px;"></i></button>
+													</form:form>
+												</div>
+											</div>
+										</c:if>
+									</c:forEach>
+								</div>
+
 							</li>
 							<li><p class="thread-comment-content word-break"><c:out value="${threadReplies.getComment()}"/></p></li>
 						</ul>
+					
+
 					</div>
 
 
 					<!-- Edit Delete Comments Button (Admin) -->
-					<div class="comment-admin-btns">
-
-						
+					<!-- <div class="comment-admin-btns">
 						<c:forEach var="currentUserRole" items="${currentUser.getRoles()}">
 							<c:if test="${currentUserRole.getName().equals('ROLE_ADMIN')}">
 								<div class="flex-row">
@@ -151,7 +171,6 @@
 											<button class="mini-btn-lc-sm mini-btn-edit" type="submit"><i class="fa fa-pencil" style="color:rgb(31, 31, 31); font-size: 16px;"></i></button>
 										</form:form> 
 									</div>
-
 									<div class="del-btn-cont">
 										<form:form method= "POST" action="/admin/forums/${forumMainTopic.getTitle()}/${forumSubTopic.getTitle()}/thread/${threadModel.getId()}/delete/reply/${threadReplies.getId()}">
 											<input type="hidden" name="_method" value="DELETE">
@@ -161,13 +180,11 @@
 								</div>
 							</c:if>
 						</c:forEach>
-
-					</div>
+					</div> -->
 
 				</div>
 				<hr>
 			</c:forEach> 
-		
 		</div>
 	
 		

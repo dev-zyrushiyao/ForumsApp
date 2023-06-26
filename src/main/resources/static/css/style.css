@@ -332,11 +332,6 @@ ul.thread-comments{
     width: 84vw;
 }
 
-ul.thread-comments:hover {
-
-    background-color: #9999992a;
-}
-
 ul li:nth-child(1){
     margin-bottom: 4px;
 }
@@ -376,11 +371,16 @@ ul li:nth-child(1){
 
 .cmt-createdTime{
     font-size: 0.8rem;
+    margin: 2px 12px 0 6px;
     color: #353535ce;
 }
 
+ul.thread-comments li.flex-row {
+    width: 35vw;
+}
+
 /* .comment-admin-btns {
-    display: none;
+    margin-right: 10px;
 } */
 
 /* .comment-admin-btns:hover {
