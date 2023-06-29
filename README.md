@@ -21,7 +21,7 @@ The User model represents the User Login Information in the database. A User obj
 
 ## User Information
 
-The User Information model represents the User Profile Information in the database that has . A Genre object has the following field:
+The User Information model represents the User Profile Information in the database that has . A User Information object has the following fields:
 
 * `firstName`: a `CharField` minimum length of 3 and maximum length of 20, representing the first name of the User.
 * `lastName`: a `CharField` minimum length of 3 and maximum length of 20, representing the last name of the User.
